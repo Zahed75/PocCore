@@ -7,4 +7,5 @@ urlpatterns = [
     path('api/token/refresh/', tokenRefresh),
     path('api/token/verify/', tokenVerify),
     path('api/register/', userRegister),
+    path('api/student_profile/',StudentProfile),
 ]

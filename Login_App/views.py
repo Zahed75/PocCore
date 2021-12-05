@@ -1,9 +1,9 @@
+from builtins import Exception
 from django.contrib.auth import login
 from django.shortcuts import render
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
-from .serializers import LoginSerializer
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import check_password
 from rest_framework_simplejwt.tokens import RefreshToken, AccessToken, UntypedToken, Token
@@ -11,7 +11,10 @@ from rest_framework_simplejwt.authentication import JWTAuthentication, JWTTokenU
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from .serializers import *
 from rest_framework.views import APIView
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
 
+#create view here
 
 @api_view(['POST'])
 @authentication_classes([])
@@ -148,6 +151,7 @@ def userRegister(request):
             'message': str(e)
         })
 
+
 # class LogOutAPIView(APIView):
 #     def post(self, request, format=None):
 #         try:
@@ -157,3 +161,29 @@ def userRegister(request):
 #             return Response(status=status.HTTP_200_OK)
 #         except Exception as e:
 #             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def StudentProfile(request):
+    try:
+        payload = request.data
+        payload['user'] = request.user.id
+        # print(request.user)
+        data_serializer = StudentProfileSerializer(data=payload)
+
+        if data_serializer.is_valid():
+            data_serializer.save()
+            return Response({
+                'code': status.HTTP_200_OK,
+                'message': 'Student Profile created successfully!',
+                'data': data_serializer.data
+            })
+        else:
+            return Response(data_serializer.errors)
+
+    except Exception as e:
+        return Response({
+            'code': status.HTTP_400_BAD_REQUEST,
+            'message': str(e)
+        })

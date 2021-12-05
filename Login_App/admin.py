@@ -1,4 +1,13 @@
 from django.contrib import admin
-from.models import *
+from .models import *
+
+
 # Register your models here.
-admin.site.register(UserInfo)
+@admin.register(UserInfo)
+class UserInfoModelAdmin(admin.ModelAdmin):
+    list_display = ('id', 'phone_number')
+
+
+@admin.register(StudentProfile)
+class StudentProfileModelAdmin(admin.ModelAdmin):
+    list_display = ('id', 'email', 'level', 'batch', 'board', 'institution')
