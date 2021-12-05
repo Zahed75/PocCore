@@ -4,6 +4,6 @@ from Exam_Dashboard.views import *
 
 
 urlpatterns = [
-    path('api/create_exam/',ExamListView),
+    path('api/create_exam/',Create_Exam),
 
 ]
