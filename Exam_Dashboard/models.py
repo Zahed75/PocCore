@@ -7,14 +7,13 @@ from Login_App.models import *
 
 
 class ExamPack(models.Model):
-    name = models.CharField(max_length=1000, verbose_name='Exam Pack Name')
+    ExamPack_name = models.CharField(max_length=1000, verbose_name='Exam Pack Name')
     details = models.TextField()
     batch = models.CharField(max_length=100)
     level = models.CharField(max_length=100)
-    cover_photo = models.ImageField(upload_to='exam_pack_cover_photos', null=True, blank=True)
 
     def __str__(self):
-        return self.name
+        return self.ExamPack_name
 
 
 class ExamModel(models.Model):
@@ -66,7 +65,3 @@ class Quiz(models.Model):
 
     def __str__(self):
         return self.question_body
-
-
-
-

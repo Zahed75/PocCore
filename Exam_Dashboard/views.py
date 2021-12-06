@@ -2,6 +2,8 @@ from builtins import Exception
 from django.contrib.auth import login
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 from rest_framework import status
+from rest_framework.serializers import Serializer
+
 from .models import *
 
 from rest_framework.response import Response
@@ -28,32 +30,22 @@ from rest_framework.parsers import FileUploadParser
 # create view here
 
 
-# ======exam Pack Create api
+# add an exam
 @api_view(['POST'])
-@parser_classes([MultiPartParser])
-def Create_Exam(request, format=None):
+def add_exam_pack(request):
     try:
         payload = request.data
-        data_serializer = ExamPackSerializer(data=payload)
-        if data_serializer.is_valid():
-            data_serializer.save()
-            # exam_instance = ExamPack.objects.create(
-            #     image=data_serializer.data.get('cover_photo')
-            # )
-            # exam_instance.save()
-            # ExamPack, object.create(
-            #     exam=exam_instance,
-            #     image=data_serializer.data.get('cover_photo')
-            # )
+        data_seriazlier = ExamPackSerializer(data=payload)
+        if data_seriazlier.is_valid():
+            data_seriazlier.save()
             return Response({
                 'code': status.HTTP_200_OK,
                 'message': 'Exam Pack Created Successfully!',
-                'data': data_serializer.data
+                'data': data_seriazlier.data
             })
+
         else:
-            return Response(data_serializer.errors)
-
-
+            return Response(data_seriazlier.errors)
 
     except Exception as e:
         return Response({
@@ -62,47 +54,10 @@ def Create_Exam(request, format=None):
         })
 
 
-# class ExamListView(APIView):
-#     # parser_classes = (FormParser, MultiPartParser)
-#     # @permission_classes([IsAuthenticated])
-#
-#     def post(self, request, format=None):
-#         serializer = ExamPackSerializer(data=request.data)
-#         print(serializer)
-#         if serializer.is_valid():
-#             serializer.save(
-#                 photo=request.data.get('photo')
-#             )
-#             return Response(data=serializer.data, status=status.HTTP_201_CREATED)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-# @api_view(['POST'])
-# def CreateExam(request):
-#     try:
-#         payload = request.data
-#         data_serializer = ExamPackSerializer(data=payload)
-#         if data_serializer.is_valid():
-#             data_serializer.save()
-#             return Response({
-#                 'code': status.HTTP_200_OK,
-#                 'message': 'Student Profile created successfully!',
-#                 'data': data_serializer.data
-#             })
-# 
-#         else:
-#             return Response(data_serializer.errors)
-# 
-#     except Exception as e:
-#         return Response({
-#             'code': status.HTTP_400_BAD_REQUEST,
-#             'message': str(e)
-#         })
-
+# edit exam pack
 
 @api_view(['PUT'])
-@parser_classes([MultiPartParser])
-def UpdateExamPack(request, id):
+def Update_ExamPack(request, id):
     try:
         exam_obj = ExamPack.objects.get(id=id)
         Serializer = ExamPackSerializer(exam_obj, data=request.data, partial=True)
