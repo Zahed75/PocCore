@@ -8,7 +8,7 @@ from Login_App.models import *
 
 class ExamResult(models.Model):
     # student = models.ForeignKey(StudentModel, on_delete=models.CASCADE, related_name='student_result')
-    exam_name = models.ForeignKey(ExamModel, on_delete=models.CASCADE, related_name='exam_result')
+    exam_name = models.ForeignKey(CreateExam, on_delete=models.CASCADE, related_name='exam_result')
     score = models.DecimalField(max_digits=3, decimal_places=2)
     negative_marking = models.DecimalField(max_digits=3, decimal_places=2)
     timestamp = models.TimeField(auto_now_add=True)

@@ -16,8 +16,8 @@ class ExamPack(models.Model):
         return self.ExamPack_name
 
 
-class ExamModel(models.Model):
-    name = models.CharField(max_length=1000)
+class CreateExam(models.Model):
+    ExamPack_name = models.CharField(max_length=1000)
     details = models.TextField()
     time = models.TimeField()
     date = models.DateField()
@@ -52,7 +52,7 @@ class Quiz(models.Model):
         ('type 3', 'type 3'),
     ]
 
-    exam = models.ForeignKey(ExamModel, on_delete=models.CASCADE)
+    exam = models.ForeignKey(CreateExam, on_delete=models.CASCADE)
     question_body = models.TextField(max_length=1000)
     paragraph = models.TextField(blank=True, null=True)
     question_img = models.ImageField(upload_to='question_bank', blank=True, null=True)

@@ -12,7 +12,7 @@ class ExamPackModelAdmin(admin.ModelAdmin):
     list_display = ('id', 'ExamPack_name', 'details', 'batch',)
 
 
-@admin.register(ExamModel)
-class ExamModelModelAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'details', 'time',
+@admin.register(CreateExam)
+class CreateExamModelAdmin(admin.ModelAdmin):
+    list_display = ('id', 'ExamPack_name', 'details', 'time',
                     'date', 'batch', 'exam_pack', 'total_mark', 'pass_mark', 'amount_per_mistake')

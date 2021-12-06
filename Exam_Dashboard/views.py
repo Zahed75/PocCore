@@ -71,3 +71,37 @@ def Update_ExamPack(request, id):
     except Exception as e:
         print(e)
         return Response({'status': 403, 'message': 'invalid id'})
+
+
+# ///Delete ExamPack
+
+@api_view(['DELETE'])
+def delete_exampack(request, id):
+    try:
+        exm_obj = ExamPack.objects.get(id=id)
+        exm_obj.delete()
+        return Response({'status': 202, 'message': 'Exam Pack Has Been Deleted'})
+
+
+    except Exception as e:
+        print(e)
+        return Response({'status': 403, 'message': 'invalid'})
+
+
+# show all exam pack
+
+@api_view(['GET'])
+def exampack_list(request):
+    try:
+        exam_list = ExamPack.objects.all()
+        data_serializer = ExamPackSerializer(exam_list, many=True)
+        return Response({
+            'code': status.HTTP_200_OK,
+            'message': 'List Of All ExamPack!',
+            'data': data_serializer.data
+        })
+    except Exception as e:
+        return Response({
+            'code': status.HTTP_400_BAD_REQUEST,
+            'message': str(e)
+        })
