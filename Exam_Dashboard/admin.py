@@ -9,7 +9,7 @@ from .models import *
 
 @admin.register(ExamPack)
 class ExamPackModelAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'details', 'batch')
+    list_display = ('id', 'name', 'details', 'batch','cover_photo')
 
 
 @admin.register(ExamModel)

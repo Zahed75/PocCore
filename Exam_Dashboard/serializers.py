@@ -6,7 +6,6 @@ from .models import *
 
 
 class ExamPackSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
-    cover_photo=serializers.ImageField()
     class Meta:
         model = ExamPack
         fields = '__all__'
