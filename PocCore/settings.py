@@ -32,8 +32,9 @@ INSTALLED_APPS = [
     'Exam_Dashboard',
     'rest_framework',
     'rest_framework.authtoken',
-    'StudentExam_Panel',
     'versatileimagefield',
+    'Student_ExamDashboard',
+    'django_cleanup.apps.CleanupConfig',
 
 ]
 
@@ -74,7 +75,7 @@ WSGI_APPLICATION = 'PocCore.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'PocWebApp',
+        'NAME': 'PocApp',
         'USER': 'root',
         'PASSWORD': '',
         'HOST': '127.0.0.1',

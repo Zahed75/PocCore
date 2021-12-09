@@ -6,6 +6,6 @@ urlpatterns = [
     path('api/add_exampack/', add_exam_pack),
     path('api/edit-exampack/<id>', Update_ExamPack, name='change'),
     path('api/delete-exampack/<id>', delete_exampack, name='delete'),
-    path('api/list_examPack/',exampack_list,name='list-exampack'),
-
+    path('api/list_examPack/', exampack_list, name='list-exampack'),
+    path('api/create-exam/',Create_Exam)
 ]

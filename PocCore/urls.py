@@ -7,7 +7,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('Login_App.urls')),
     path('',include('Exam_Dashboard.urls')),
-    path('',include('StudentExam_Panel.urls')),
+
 
 ]
 

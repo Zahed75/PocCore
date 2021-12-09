@@ -8,4 +8,5 @@ urlpatterns = [
     path('api/token/verify/', tokenVerify),
     path('api/register/', userRegister),
     path('api/student_profile/',StudentProfile),
+
 ]

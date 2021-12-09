@@ -9,3 +9,9 @@ class ExamPackSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer
     class Meta:
         model = ExamPack
         fields = '__all__'
+
+
+class CreatExamSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
+    class Meta:
+        model = CreateExam
+        fields = '__all__'

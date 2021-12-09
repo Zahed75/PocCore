@@ -17,16 +17,16 @@ class ExamPack(models.Model):
 
 
 class CreateExam(models.Model):
-    ExamPack_name = models.CharField(max_length=1000)
+    exam_pack = models.ForeignKey(ExamPack, on_delete=models.CASCADE, related_name='exam_pack')
+    Exam_name = models.CharField(max_length=1000)
     details = models.TextField()
-    time = models.TimeField()
-    date = models.DateField()
+    time = models.TimeField(auto_now_add=True)
+    date = models.DateField(auto_now_add=True)
     cover_photo = models.ImageField(upload_to='exam_cover_photos', blank=True, null=True)
 
     # assign student
     level = models.CharField(max_length=100)
     batch = models.CharField(max_length=100)
-    exam_pack = models.ForeignKey(ExamPack, on_delete=models.CASCADE, related_name='exam_pack')
 
     # marking
     total_mark = models.IntegerField(default=0)
@@ -38,10 +38,10 @@ class CreateExam(models.Model):
 
     # for negative marking
     isNegativeMarking = models.BooleanField(default=False, verbose_name='Negative Marking')
-    amount_per_mistake = models.IntegerField(default=0, verbose_name='Amount per mistake')
+    amount_per_mistake = models.FloatField(default=0, verbose_name='Amount per mistake')
 
     def __str__(self):
-        return self.name
+        return self.Exam_name
 
 
 class Quiz(models.Model):

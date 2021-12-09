@@ -9,10 +9,15 @@ from .models import *
 
 @admin.register(ExamPack)
 class ExamPackModelAdmin(admin.ModelAdmin):
-    list_display = ('id', 'ExamPack_name', 'details', 'batch',)
+    list_display = ('id', 'ExamPack_name', 'details', 'batch','level')
 
 
 @admin.register(CreateExam)
 class CreateExamModelAdmin(admin.ModelAdmin):
-    list_display = ('id', 'ExamPack_name', 'details', 'time',
+    list_display = ('id', 'Exam_name', 'details', 'time',
                     'date', 'batch', 'exam_pack', 'total_mark', 'pass_mark', 'amount_per_mistake')
+
+
+@admin.register(Quiz)
+class QuizModelAdmin(admin.ModelAdmin):
+    list_display = ('id', 'exam','question_body')
