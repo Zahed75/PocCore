@@ -12,6 +12,8 @@ from rest_framework.utils import json
 from rest_framework_simplejwt.tokens import RefreshToken, AccessToken, UntypedToken, Token
 from rest_framework_simplejwt.authentication import JWTAuthentication, JWTTokenUserAuthentication
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from json import dumps, loads, JSONEncoder, JSONDecoder
+from .models import CreateExam
 from .serializers import *
 from rest_framework.parsers import JSONParser
 from rest_framework.views import APIView
@@ -79,7 +81,11 @@ def delete_exampack(request, id):
     try:
         exm_obj = ExamPack.objects.get(id=id)
         exm_obj.delete()
-        return Response({'status': 202, 'message': 'Exam Pack Has Been Deleted'})
+        return Response({
+            'code': status.HTTP_200_OK,
+            'message': 'Exam Pack Deleted Successfully!',
+            'data': Serializer.data
+        })
 
 
     except Exception as e:
@@ -145,7 +151,7 @@ def Create_Exam(request):
             data_serializer.save()
             return Response({
                 'code': status.HTTP_200_OK,
-                'message': 'Create Exam  successfully!',
+                'message': 'Exam Created Successfully!',
                 'data': data_serializer.data
             })
         else:
@@ -155,3 +161,56 @@ def Create_Exam(request):
             'code': status.HTTP_400_BAD_REQUEST,
             'message': str(e)
         })
+
+
+@api_view(['PUT'])
+def Update_CreateExam(request, id):
+    try:
+        Exam_obj = CreateExam.objects.get(id=id)
+        Serializer = CreatExamSerializer(Exam_obj, data=request.data, partial=True)
+        if not Serializer.is_valid():
+            return Response({
+                'status': 200, 'payload': Serializer.data, 'message': 'Something Went Wrong'
+            })
+        Serializer.save()
+        return Response({
+            'code': status.HTTP_200_OK,
+            'message': 'Created Exam Data Updated Successfully!',
+            'data': Serializer.data
+        })
+
+    except Exception as e:
+        return Response({
+            'code': status.HTTP_400_BAD_REQUEST,
+            'message': str(e)
+        })
+
+
+# @api_view(['DELETE'])
+# def delete_create_exam(request, id):
+#     try:
+#         Exam_obj =CreateExam.objects.get(id=id)
+#         Exam_obj.delete()
+#         return Response({
+#             'code': status.HTTP_200_OK,
+#             'message': 'Exam Pack Deleted Successfully!',
+#             'data': Serializer.data
+#         })
+#
+#     except Exception as e:
+#         return Response({
+#             'code': status.HTTP_400_BAD_REQUEST,
+#             'message': str(e)
+#         })
+
+
+@api_view(['DELETE'])
+def delete_create_exam(request, id):
+    try:
+        exam_obj = CreateExam.objects.get(id=id)
+        exam_obj.delete()
+        return Response({'status': 202, 'message': 'Your Create Exam has Been Deleted!'})
+
+    except Exception as e:
+        print(e)
+        return Response({'status': 403, 'message': 'invalid id'})

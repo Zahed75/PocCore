@@ -15,7 +15,7 @@ class ExamPackModelAdmin(admin.ModelAdmin):
 @admin.register(CreateExam)
 class CreateExamModelAdmin(admin.ModelAdmin):
     list_display = ('id', 'Exam_name', 'details', 'time',
-                    'date', 'batch', 'exam_pack', 'total_mark', 'pass_mark', 'amount_per_mistake')
+                    'date', 'batch', 'exam_pack', 'total_mark', 'pass_mark', 'amount_per_mistake','level')
 
 
 @admin.register(Quiz)
