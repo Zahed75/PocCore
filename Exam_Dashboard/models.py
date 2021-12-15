@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from Login_App.models import *
+import uuid
 
 
 # Create your models here.
@@ -44,24 +45,9 @@ class CreateExam(models.Model):
         return self.Exam_name
 
 
-class Quiz(models.Model):
-    # for quiz types
-    type_choices = [
-        ('type 1', 'type 1'),
-        ('type 2', 'type 2'),
-        ('type 3', 'type 3'),
-    ]
+# class BaseModel(models.Model):
+#     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4())
+#     created_at = models.DateField(auto_now_add=True)
+#     updated_at = models.DateField(auto_now=True)
 
-    exam = models.ForeignKey(CreateExam, on_delete=models.CASCADE)
-    question_body = models.TextField(max_length=1000)
-    paragraph = models.TextField(blank=True, null=True)
-    question_img = models.ImageField(upload_to='question_bank', blank=True, null=True)
-    exam_type = models.CharField(choices=type_choices, max_length=30)
-    op_1 = models.CharField(max_length=200, null=True)
-    op_2 = models.CharField(max_length=200, null=True)
-    op_3 = models.CharField(max_length=200, null=True)
-    op_4 = models.CharField(max_length=200, null=True)
-    answer = models.CharField(max_length=200, null=True)
 
-    def __str__(self):
-        return self.question_body

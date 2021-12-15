@@ -14,7 +14,8 @@ from rest_framework.views import APIView
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 
-#create view here
+
+# create view here
 
 @api_view(['POST'])
 @authentication_classes([])
@@ -181,6 +182,19 @@ def StudentProfile(request):
             })
         else:
             return Response(data_serializer.errors)
+
+    except Exception as e:
+        return Response({
+            'code': status.HTTP_400_BAD_REQUEST,
+            'message': str(e)
+        })
+
+
+@api_view(['POST'])
+def studnet(request):
+    try:
+        pass
+
 
     except Exception as e:
         return Response({
