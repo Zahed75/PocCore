@@ -75,9 +75,9 @@ WSGI_APPLICATION = 'PocCore.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'PocApp',
-        'USER': 'root',
-        'PASSWORD': '',
+        'NAME': 'pocapp',
+        'USER': 'pocapp',
+        'PASSWORD': 'nCLf33Y8sbmjrGh3',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
