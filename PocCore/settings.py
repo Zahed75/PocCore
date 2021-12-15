@@ -32,7 +32,6 @@ INSTALLED_APPS = [
     'Exam_Dashboard',
     'rest_framework',
     'rest_framework.authtoken',
-    'versatileimagefield',
     'Student_ExamDashboard',
     'django_cleanup.apps.CleanupConfig',
 
