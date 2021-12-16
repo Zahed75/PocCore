@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'Student_ExamDashboard',
     'django_cleanup.apps.CleanupConfig',
+    'corsheaders',
 
 ]
 
