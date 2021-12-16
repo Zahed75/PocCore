@@ -7,10 +7,13 @@ from .models import *
 
 @admin.register(ExamPack)
 class ExamPackModelAdmin(admin.ModelAdmin):
-    list_display = ('id', 'ExamPack_name', 'details', 'batch', 'level')
+    list_display = ('id', 'ExamPack_name',
+                    'details', 'batch', 'level')
 
 
 @admin.register(CreateExam)
 class CreateExamModelAdmin(admin.ModelAdmin):
     list_display = ('id', 'Exam_name', 'details', 'time',
                     'date', 'batch', 'exam_pack', 'total_mark', 'pass_mark', 'amount_per_mistake', 'level')
+
+

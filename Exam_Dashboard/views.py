@@ -214,3 +214,10 @@ def delete_create_exam(request, id):
     except Exception as e:
         print(e)
         return Response({'status': 403, 'message': 'invalid id'})
+
+
+
+@api_view()
+
+def home(request):
+   return Response({'status':200,'message':"WELCOME TO POCEXAM TOOLS API HE HA HA..."})

@@ -13,7 +13,6 @@ class ExamPack(models.Model):
     batch = models.CharField(max_length=100)
     level = models.CharField(max_length=100)
 
-
     def __str__(self):
         return self.ExamPack_name
 
@@ -44,15 +43,4 @@ class CreateExam(models.Model):
 
     def __str__(self):
         return self.Exam_name
-
-
-class BaseModel(models.Model):
-    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4())
-    created_at = models.DateField(auto_now_add=True)
-    updated_at = models.DateField(auto_now=True)
-
-
-
-class Question(BaseModel):
-    pass
 

@@ -16,7 +16,7 @@ SECRET_KEY = 'django-insecure-xrk!zofeiw22-n1&$519$j75z57v&3qrmy=02^95@57q2snwsq
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-PRODUCTION = True
+PRODUCTION = False
 ALLOWED_HOSTS = ['*']
 
 # Application definition
@@ -194,9 +194,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://www.examapp.poc.ac",
     "http://examapp.poc.ac",
     "https://examapp.poc.ac",
-    "http://localhost:8000",
-    "http://127.0.0.1:8000",
+    "http://localhost:8080",
+    "http://127.0.0.1:8080",
 
 ]
-
-

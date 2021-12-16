@@ -10,4 +10,5 @@ urlpatterns = [
     path('api/create-exam/',Create_Exam),
     path('api/update-create-exam/<id>',Update_CreateExam,name='update-create-exam'),
     path('api/delete-create-exam/<id>',delete_create_exam),
+    path('',home),
 ]
