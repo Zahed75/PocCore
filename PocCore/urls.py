@@ -9,6 +9,7 @@ urlpatterns = [
     path('',include('Exam_Dashboard.urls')),
 
 
+
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

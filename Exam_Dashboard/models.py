@@ -46,9 +46,13 @@ class CreateExam(models.Model):
         return self.Exam_name
 
 
-# class BaseModel(models.Model):
-#     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4())
-#     created_at = models.DateField(auto_now_add=True)
-#     updated_at = models.DateField(auto_now=True)
+class BaseModel(models.Model):
+    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4())
+    created_at = models.DateField(auto_now_add=True)
+    updated_at = models.DateField(auto_now=True)
 
+
+
+class Question(BaseModel):
+    pass
 
