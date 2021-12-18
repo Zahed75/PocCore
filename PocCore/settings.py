@@ -16,7 +16,7 @@ SECRET_KEY = 'django-insecure-xrk!zofeiw22-n1&$519$j75z57v&3qrmy=02^95@57q2snwsq
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-PRODUCTION = True
+PRODUCTION = False
 ALLOWED_HOSTS = ['*']
 
 # Application definition
@@ -104,7 +104,7 @@ else:
         # Local configuration
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'PocApp',
+            'NAME': 'pocapp',
             'USER': 'root',
             'PASSWORD': '',
             'HOST': '127.0.0.1',

@@ -44,3 +44,84 @@ class CreateExam(models.Model):
     def __str__(self):
         return self.Exam_name
 
+
+# =============Question Model=====================
+# class Q_TypeOne(BaseModel):
+#     question_name = models.CharField(max_length=4000)
+#     Q_img = models.ImageField(upload_to='question_img')
+#     mark = models.IntegerField(default=5)
+#
+#     def __str__(self):
+#         return self.question_name
+#
+#
+# class Q_TypeTwo(BaseModel):
+#     question_name = models.CharField(max_length=4000)
+#     Q_img = models.ImageField(upload_to='question_img')
+#     type_one = models.CharField(max_length=400)
+#     type_two = models.CharField(max_length=400)
+#     type_three = models.CharField(max_length=400)
+#     mark = models.IntegerField(default=5)
+#
+#     def __str__(self):
+#         return self.question_name
+#
+#
+# class Q_TypeThree(BaseModel):
+#     question_name = models.CharField(max_length=4000)
+#     Q_img = models.ImageField(upload_to='question_img')
+#     type_one = models.ForeignKey(Q_TypeOne, on_delete=models.CASCADE, blank=True, null=True)
+#     type_two = models.ForeignKey(Q_TypeTwo, on_delete=models.CASCADE, blank=True, null=True)
+#     mark = models.IntegerField(default=5)
+#
+#     def __str__(self):
+#         return self.question_name
+
+
+# ===================End=====================
+
+# (=======Answer Model Start==============)
+# class AnswerType_One(BaseModel):
+#     Question_type = models.ForeignKey(Q_TypeOne, on_delete=models.CASCADE)
+#     ans = models.CharField(max_length=500)
+#     is_correct = models.BooleanField(default=False)
+#
+#
+# class AnswerType_Two(BaseModel):
+#     Question_type = models.ForeignKey(Q_TypeTwo, on_delete=models.CASCADE)
+#     ans = models.CharField(max_length=500)
+#     is_correct = models.BooleanField(default=False)
+#
+#
+# class AnswerType_Three(BaseModel):
+#     Question_type = models.ForeignKey(Q_TypeThree, on_delete=models.CASCADE)
+#     ans = models.CharField(max_length=500)
+#     is_correct = models.BooleanField(default=False)
+
+# ==============End========================
+
+
+class BaseModel(models.Model):
+    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4(), editable=False)
+    created_at = models.DateField(auto_now_add=True)
+    updated_at = models.DateField(auto_now=True)
+
+    class Meta:
+        abstract: True
+
+
+class QuestionModel(BaseModel):
+    question_name = models.CharField(max_length=4000,blank=False)
+    marks = models.IntegerField(default=5)
+
+    def __str__(self):
+        return self.question_name
+
+
+class Answer(BaseModel):
+    Question = models.ForeignKey(QuestionModel, on_delete=models.CASCADE,related_name='Question')
+    Answer = models.CharField(max_length=3000)
+    is_correct = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.Answer
