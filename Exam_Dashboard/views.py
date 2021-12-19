@@ -31,6 +31,11 @@ from django.views.decorators.csrf import csrf_exempt
 # create view here
 
 
+@api_view()
+def home(request):
+    return Response({'status': 200, 'message': "WELCOME TO POCEXAM TOOLS API HE HA HA..."})
+
+
 # add an exam
 @api_view(['POST'])
 def add_exam_pack(request):
@@ -112,33 +117,33 @@ def exampack_list(request):
         })
 
 
-@api_view(['POST'])
-@csrf_exempt
-@parser_classes([MultiPartParser])
-def Create_Exam(request):
-    try:
-        payload = request.data
-        payload['ExamPack'] = request.ExamPack.id
-        data_serializer = CreatExamSerializer(data=payload)
-        if data_serializer.is_valid():
-            data_serializer.save()
-            return Response({
-                'code': status.HTTP_200_OK,
-                'message': 'Exam Has Been Created !',
-                'data': data_serializer.data
-            })
-
-        else:
-            return Response(data_serializer.errors)
-
-
-
-    except Exception as e:
-        return Response({
-            'code': status.HTTP_400_BAD_REQUEST,
-            'message': str(e)
-        })
-
+# @api_view(['POST'])
+# @csrf_exempt
+# @parser_classes([MultiPartParser])
+# def Create_Exam(request):
+#     try:
+#         payload = request.data
+#         payload['ExamPack'] = request.ExamPack.id
+#         data_serializer = CreatExamSerializer(data=payload)
+#         if data_serializer.is_valid():
+#             data_serializer.save()
+#             return Response({
+#                 'code': status.HTTP_200_OK,
+#                 'message': 'Exam Has Been Created !',
+#                 'data': data_serializer.data
+#             })
+#
+#         else:
+#             return Response(data_serializer.errors)
+#
+#
+#
+#     except Exception as e:
+#         return Response({
+#             'code': status.HTTP_400_BAD_REQUEST,
+#             'message': str(e)
+#         })
+#
 
 @api_view(['POST'])
 @parser_classes([MultiPartParser])
@@ -216,8 +221,53 @@ def delete_create_exam(request, id):
         return Response({'status': 403, 'message': 'invalid id'})
 
 
+@api_view(['POST'])
+@csrf_exempt
+@parser_classes([MultiPartParser])
+def q_type_one(request):
+    try:
+        payload = request.data
+        data_serializer = Question_OneSerializer(data=payload)
+        if data_serializer.is_valid():
+            data_serializer.save()
+            return Response({
+                'code': status.HTTP_200_OK,
+                'message': 'M.C.Q Question Create Successfully!',
+                'data': data_serializer.data
+            })
+        else:
+            return Response({
+                data_serializer.errors
+            })
+    except Exception as e:
+        return Response({
+            'code': status.HTTP_400_BAD_REQUEST,
+            'message': str(e)
+        })
 
-@api_view()
 
-def home(request):
-   return Response({'status':200,'message':"WELCOME TO POCEXAM TOOLS API HE HA HA..."})
+@api_view(['POST'])
+@parser_classes([MultiPartParser])
+def ans_q_type_one(request):
+    try:
+        payload = request.data
+        payload['QuestionModel_One'] = request.QuestionModel_One.id
+        data_serializer = Anstype_oneSerializer(data=payload)
+        if data_serializer.is_valid():
+            data_serializer.save()
+
+            return Response({
+                'code': status.HTTP_200_OK,
+                'message': 'Ans Set SuccessFully !',
+                'data': data_serializer.data
+            })
+        else:
+            return Response({
+                data_serializer.errors
+            })
+
+    except Exception as e:
+        return Response({
+            'code': status.HTTP_400_BAD_REQUEST,
+            'message': str(e)
+        })

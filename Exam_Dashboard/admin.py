@@ -17,34 +17,53 @@ class CreateExamModelAdmin(admin.ModelAdmin):
                     'date', 'batch', 'exam_pack', 'total_mark', 'pass_mark', 'amount_per_mistake', 'level')
 
 
-# admin.site.register(Q_TypeOne)
-# admin.site.register(Q_TypeTwo)
-# admin.site.register(Q_TypeThree)
-#
-#
-# class AnswerType_OneAdmin(admin.StackedInline):
-#     model = AnswerType_One
-#
-#
-# class Q_TypeOneAdmin(admin.ModelAdmin):
-#     inlines = [AnswerType_One]
-#
-#
-# admin.site.register(AnswerType_One)
-# admin.site.register(AnswerType_Two)
-# admin.site.register(AnswerType_Three)
-
-
+# ====question and ans model start=========
 class AnswerAdmin(admin.StackedInline):
-    model = Answer
+    model = AnswerMode_One
     fk_name = "Question"
-
 
 
 class QuestionAdmin(admin.ModelAdmin):
     inlines = [AnswerAdmin]
 
 
-admin.site.register(QuestionModel, QuestionAdmin)
+admin.site.register(QuestionModel_One, QuestionAdmin)
 
-admin.site.register(Answer)
+admin.site.register(AnswerMode_One)
+
+
+# ==========type 2nd===========start
+
+class AnswerAdmin(admin.StackedInline):
+    model = AnsModel_Two
+    fk_name = "Question"
+
+
+class QuestionAdmin(admin.ModelAdmin):
+    inlines = [AnswerAdmin]
+
+
+admin.site.register(QuestionModel_Two, QuestionAdmin)
+
+admin.site.register(AnsModel_Two)
+
+
+# ============end==========
+
+
+# ============3rd question and ans model start====
+
+class AnswerAdmin(admin.StackedInline):
+    model = AnsModel_Three
+    fk_name = "Question_name"
+
+
+class QuestionAdmin(admin.ModelAdmin):
+    inlines = [AnswerAdmin]
+
+
+admin.site.register(QuesionModel_Three, QuestionAdmin)
+
+admin.site.register(AnsModel_Three)
+
+# ============End

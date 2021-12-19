@@ -102,7 +102,7 @@ class CreateExam(models.Model):
 
 
 class BaseModel(models.Model):
-    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4(), editable=False)
+    UUID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
 
@@ -110,18 +110,58 @@ class BaseModel(models.Model):
         abstract: True
 
 
-class QuestionModel(BaseModel):
-    question_name = models.CharField(max_length=4000,blank=False)
+class QuestionModel_One(BaseModel):
+    question_name = models.TextField(max_length=4000, blank=False, unique=True)
+    q_image = models.ImageField(upload_to='Question_img', blank=True, null=True)
     marks = models.IntegerField(default=5)
 
     def __str__(self):
         return self.question_name
 
 
-class Answer(BaseModel):
-    Question = models.ForeignKey(QuestionModel, on_delete=models.CASCADE,related_name='Question')
+class AnswerMode_One(models.Model):
+    Question = models.ForeignKey(QuestionModel_One, on_delete=models.CASCADE, related_name='Question')
     Answer = models.CharField(max_length=3000)
     is_correct = models.BooleanField(default=False)
 
     def __str__(self):
         return self.Answer
+
+
+class QuestionModel_Two(BaseModel):
+    description = models.TextField(max_length=4000, blank=True, null=True)
+    Q_name = models.TextField(max_length=4000, blank=True, null=True)
+    Q_image = models.ImageField(upload_to='Question_img')
+    marks = models.IntegerField(default=5)
+
+    def __str__(self):
+        return self.Q_name
+
+
+class AnsModel_Two(BaseModel):
+    Question = models.ForeignKey(QuestionModel_Two, on_delete=models.CASCADE, related_name='question_two')
+    ans = models.CharField(max_length=400)
+    is_correct = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.ans
+
+
+class QuesionModel_Three(BaseModel):
+    Q_Description = models.TextField(max_length=5000, blank=True, null=True)
+    Q_one = models.TextField(max_length=5000, blank=True, null=True)
+    Q_image = models.ImageField(upload_to='Question_img', blank=True, null=True)
+    # =========part_two======
+    sample_one = models.CharField(max_length=400, blank=True, null=True)
+    sample_two = models.CharField(max_length=400, blank=True, null=True)
+    sample_three = models.CharField(max_length=400, blank=True, null=True)
+    marks = models.IntegerField(default=5)
+
+
+class AnsModel_Three(BaseModel):
+    Question_name = models.ForeignKey(QuesionModel_Three, on_delete=models.CASCADE, related_name='question_three')
+    ans = models.CharField(max_length=400)
+    is_correct = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.ans

@@ -15,3 +15,16 @@ class CreatExamSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerialize
     class Meta:
         model = CreateExam
         fields = '__all__'
+
+
+class Question_OneSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
+    class Meta:
+        model = QuestionModel_One
+        fields = '__all__'
+
+
+class Anstype_oneSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
+    class Meta:
+        model = AnswerMode_One
+
+        fields = '__all__'
