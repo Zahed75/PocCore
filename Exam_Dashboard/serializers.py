@@ -24,6 +24,8 @@ class Question_OneSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerial
 
 
 class Anstype_oneSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
+
+
     class Meta:
         model = AnswerMode_One
 

@@ -251,9 +251,10 @@ def q_type_one(request):
 def ans_q_type_one(request):
     try:
         payload = request.data
-        payload['QuestionModel_One'] = request.QuestionModel_One.id
+        # payload['QuestionModel_One'] =request.data
+        # data_serializer = Anstype_oneSerializer(data=payload)
         data_serializer = Anstype_oneSerializer(data=payload)
-        if data_serializer.is_valid():
+        if data_serializer.is_valid(raise_exception=True):
             data_serializer.save()
 
             return Response({

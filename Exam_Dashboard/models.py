@@ -100,17 +100,17 @@ class CreateExam(models.Model):
 
 # ==============End========================
 
+#
+# class BaseModel(models.Model):
+#     UUID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+#     created_at = models.DateField(auto_now_add=True)
+#     updated_at = models.DateField(auto_now=True)
+#
+#     class Meta:
+#         abstract: True
 
-class BaseModel(models.Model):
-    UUID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    created_at = models.DateField(auto_now_add=True)
-    updated_at = models.DateField(auto_now=True)
 
-    class Meta:
-        abstract: True
-
-
-class QuestionModel_One(BaseModel):
+class QuestionModel_One(models.Model):
     question_name = models.TextField(max_length=4000, blank=False, unique=True)
     q_image = models.ImageField(upload_to='Question_img', blank=True, null=True)
     marks = models.IntegerField(default=5)
@@ -128,7 +128,7 @@ class AnswerMode_One(models.Model):
         return self.Answer
 
 
-class QuestionModel_Two(BaseModel):
+class QuestionModel_Two(models.Model):
     description = models.TextField(max_length=4000, blank=True, null=True)
     Q_name = models.TextField(max_length=4000, blank=True, null=True)
     Q_image = models.ImageField(upload_to='Question_img')
@@ -138,7 +138,7 @@ class QuestionModel_Two(BaseModel):
         return self.Q_name
 
 
-class AnsModel_Two(BaseModel):
+class AnsModel_Two(models.Model):
     Question = models.ForeignKey(QuestionModel_Two, on_delete=models.CASCADE, related_name='question_two')
     ans = models.CharField(max_length=400)
     is_correct = models.BooleanField(default=False)
@@ -147,7 +147,7 @@ class AnsModel_Two(BaseModel):
         return self.ans
 
 
-class QuesionModel_Three(BaseModel):
+class QuesionModel_Three(models.Model):
     Q_Description = models.TextField(max_length=5000, blank=True, null=True)
     Q_one = models.TextField(max_length=5000, blank=True, null=True)
     Q_image = models.ImageField(upload_to='Question_img', blank=True, null=True)
@@ -158,7 +158,7 @@ class QuesionModel_Three(BaseModel):
     marks = models.IntegerField(default=5)
 
 
-class AnsModel_Three(BaseModel):
+class AnsModel_Three(models.Model):
     Question_name = models.ForeignKey(QuesionModel_Three, on_delete=models.CASCADE, related_name='question_three')
     ans = models.CharField(max_length=400)
     is_correct = models.BooleanField(default=False)
