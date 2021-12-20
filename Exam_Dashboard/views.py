@@ -272,3 +272,102 @@ def ans_q_type_one(request):
             'code': status.HTTP_400_BAD_REQUEST,
             'message': str(e)
         })
+
+
+@api_view(['POST'])
+@parser_classes([MultiPartParser])
+def CreateQustion_two(request):
+    try:
+        payload = request.data
+        data_serializer = CreateQuestionSerializerTwo(data=payload)
+        if data_serializer.is_valid():
+            data_serializer.save()
+            return Response({
+                'code': status.HTTP_200_OK,
+                'message': 'M.C.Q Question Type Two Create Successfully!',
+                'data': data_serializer.data
+            })
+        else:
+            return Response({
+                data_serializer.errors
+            })
+    except Exception as e:
+        return Response({
+            'code': status.HTTP_400_BAD_REQUEST,
+            'message': str(e)
+        })
+
+
+@api_view(['POST'])
+@parser_classes([MultiPartParser])
+def ans_type_two(request):
+    try:
+        payload = request.data
+        data_serializer = CreateAnsTypeTwoSerializer(data=payload)
+        if data_serializer.is_valid():
+            data_serializer.save()
+            return Response({
+                'code': status.HTTP_200_OK,
+                'message': 'Ans Set SuccessFully !',
+                'data': data_serializer.data
+            })
+        else:
+            return Response({
+                data_serializer.errors
+            })
+
+    except Exception as e:
+        return Response({
+            'code': status.HTTP_400_BAD_REQUEST,
+            'message': str(e)
+        })
+
+
+@api_view(['POST'])
+@parser_classes([MultiPartParser])
+def create_question_three(request):
+    try:
+        payload = request.data
+        data_seriazlier = CreateQuestionThreSerializer(data=payload)
+        if data_seriazlier.is_valid():
+            data_seriazlier.save()
+            return Response({
+                'code': status.HTTP_200_OK,
+                'message': 'M.C.Q Question Create Successfully!',
+                'data': data_seriazlier.data
+            })
+
+        else:
+            return Response({
+                data_seriazlier.errors
+            })
+
+    except Exception as e:
+        return Response({
+            'code': status.HTTP_400_BAD_REQUEST,
+            'message': str(e)
+        })
+
+
+@api_view(['POST'])
+@parser_classes([MultiPartParser])
+def ans_three(request):
+    try:
+        payload = request.data
+        data_seriazlier = CreateQuestionThreSerializer(data=payload)
+        if data_seriazlier.is_valid(raise_exception=True):
+            data_seriazlier.save()
+            return Response({
+                'code': status.HTTP_200_OK,
+                'message': 'Ans Has Been Set!!',
+                'data': data_seriazlier.data
+            })
+        else:
+            return Response(
+                data_seriazlier.errors
+            )
+    except Exception as e:
+        return Response({
+            'code': status.HTTP_400_BAD_REQUEST,
+            'message': str(e)
+        })

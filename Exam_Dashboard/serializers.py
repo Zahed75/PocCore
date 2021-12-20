@@ -24,9 +24,32 @@ class Question_OneSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerial
 
 
 class Anstype_oneSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
-
-
     class Meta:
         model = AnswerMode_One
 
+        fields = '__all__'
+
+
+class CreateQuestionSerializerTwo(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
+    class Meta:
+        model = QuestionModel_Two
+        fields = '__all__'
+
+
+class CreateAnsTypeTwoSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
+    class Meta:
+        model = AnsModel_Two
+
+        fields = '__all__'
+
+
+class CreateQuestionThreSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
+    class Meta:
+        model = QuesionModel_Three
+        fields = '__all__'
+
+
+class CreateAnsThreeSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
+    class Meta:
+        model = AnsModel_Three
         fields = '__all__'
