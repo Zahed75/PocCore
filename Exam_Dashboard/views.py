@@ -354,7 +354,7 @@ def create_question_three(request):
 def ans_three(request):
     try:
         payload = request.data
-        data_seriazlier = CreateQuestionThreSerializer(data=payload)
+        data_seriazlier = CreateAnsThreeSerializer(data=payload)
         if data_seriazlier.is_valid(raise_exception=True):
             data_seriazlier.save()
             return Response({

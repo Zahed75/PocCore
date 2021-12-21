@@ -149,13 +149,13 @@ class AnsModel_Two(models.Model):
 
 class QuesionModel_Three(models.Model):
     Q_Description = models.TextField(max_length=5000)
-    Q_one = models.TextField(max_length=5000)
-    Q_image = models.ImageField(upload_to='Question_img')
+    Q_one = models.TextField(max_length=5000,null=True,blank=True)
+    Q_image = models.ImageField(upload_to='Question_img',null=True,blank=True)
     # =========part_two======
-    sample_one = models.CharField(max_length=400)
-    sample_two = models.CharField(max_length=400)
-    sample_three = models.CharField(max_length=400)
-    marks = models.IntegerField(default=5)
+    sample_one = models.CharField(max_length=400,null=True,blank=True)
+    sample_two = models.CharField(max_length=400,null=True,blank=True)
+    sample_three = models.CharField(max_length=400,null=True,blank=True)
+    marks = models.IntegerField(default=5,null=True,blank=True)
 
     def __str__(self):
         return str(self.Q_one)
