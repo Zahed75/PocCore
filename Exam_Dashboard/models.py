@@ -9,6 +9,7 @@ import uuid
 
 class ExamPack(models.Model):
     ExamPack_name = models.CharField(max_length=1000, verbose_name='Exam Pack Name')
+    pack_image = models.ImageField(upload_to='pack_image', blank=True, null=True)
     details = models.TextField()
     batch = models.CharField(max_length=100)
     level = models.CharField(max_length=100)
@@ -19,10 +20,14 @@ class ExamPack(models.Model):
 
 class CreateExam(models.Model):
     exam_pack = models.ForeignKey(ExamPack, on_delete=models.CASCADE, related_name='exam_pack')
+    exam_id = models.CharField(max_length=40, blank=True)
     Exam_name = models.CharField(max_length=1000)
     details = models.TextField()
-    time = models.TimeField(auto_now_add=True)
-    date = models.DateField(auto_now_add=True)
+    Exam_start_time = models.TimeField()
+    Exam_start_date = models.DateField()
+    Exam_end_time = models.TimeField()
+    Exam_end_date = models.DateField()
+
     cover_photo = models.ImageField(upload_to='exam_cover_photos', blank=True, null=True)
 
     # assign student
@@ -111,6 +116,8 @@ class CreateExam(models.Model):
 
 
 class QuestionModel_One(models.Model):
+    exam_pack = models.ForeignKey(ExamPack, on_delete=models.CASCADE)
+    exam_name = models.ForeignKey(CreateExam, on_delete=models.CASCADE, related_name='name_of_exam')
     question_name = models.TextField(max_length=4000, blank=False, unique=True)
     q_image = models.ImageField(upload_to='Question_img', blank=True, null=True)
     marks = models.IntegerField(default=5)
@@ -129,6 +136,8 @@ class AnswerMode_One(models.Model):
 
 
 class QuestionModel_Two(models.Model):
+    exam_pack = models.ForeignKey(ExamPack, on_delete=models.CASCADE)
+    exam_name = models.ForeignKey(CreateExam, on_delete=models.CASCADE, related_name='name_of_examTwo')
     description = models.TextField(max_length=4000, blank=True, null=True)
     Q_name = models.TextField(max_length=4000, blank=True, null=True)
     Q_image = models.ImageField(upload_to='Question_img')
@@ -148,14 +157,16 @@ class AnsModel_Two(models.Model):
 
 
 class QuesionModel_Three(models.Model):
+    exam_pack = models.ForeignKey(ExamPack, on_delete=models.CASCADE)
+    exam_name = models.ForeignKey(CreateExam, on_delete=models.CASCADE, related_name='name_of_examThree')
     Q_Description = models.TextField(max_length=5000)
-    Q_one = models.TextField(max_length=5000,null=True,blank=True)
-    Q_image = models.ImageField(upload_to='Question_img',null=True,blank=True)
+    Q_one = models.TextField(max_length=5000, null=True, blank=True)
+    Q_image = models.ImageField(upload_to='Question_img', null=True, blank=True)
     # =========part_two======
-    sample_one = models.CharField(max_length=400,null=True,blank=True)
-    sample_two = models.CharField(max_length=400,null=True,blank=True)
-    sample_three = models.CharField(max_length=400,null=True,blank=True)
-    marks = models.IntegerField(default=5,null=True,blank=True)
+    sample_one = models.CharField(max_length=400, null=True, blank=True)
+    sample_two = models.CharField(max_length=400, null=True, blank=True)
+    sample_three = models.CharField(max_length=400, null=True, blank=True)
+    marks = models.IntegerField(default=5, null=True, blank=True)
 
     def __str__(self):
         return str(self.Q_one)

@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'Student_ExamDashboard',
     'django_cleanup.apps.CleanupConfig',
     'corsheaders',
+    'django_filters',
 
 ]
 
@@ -143,6 +144,10 @@ REST_FRAMEWORK = {
     'DEFAULT_PARSER_CLASSES': [
         'rest_framework.parsers.JSONParser'
     ],
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',
+
+    ),
 }
 
 SIMPLE_JWT = {

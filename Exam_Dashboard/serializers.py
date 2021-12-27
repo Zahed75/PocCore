@@ -1,8 +1,10 @@
+import random
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 from rest_framework_friendly_errors.mixins import FriendlyErrorMessagesMixin
 from django.contrib.auth.hashers import make_password
 from .models import *
+from Login_App.models import *
 
 
 class ExamPackSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
@@ -12,6 +14,8 @@ class ExamPackSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer
 
 
 class CreatExamSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
+    # exam_id = serializers.CharField(max_length=40)
+
     class Meta:
         model = CreateExam
         fields = '__all__'
@@ -52,4 +56,10 @@ class CreateQuestionThreSerializer(FriendlyErrorMessagesMixin, serializers.Model
 class CreateAnsThreeSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
     class Meta:
         model = AnsModel_Three
+        fields = '__all__'
+
+
+class StudenProfieSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
+    class Meta:
+        model = StudentProfile
         fields = '__all__'

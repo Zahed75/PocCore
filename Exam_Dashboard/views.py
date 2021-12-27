@@ -4,6 +4,7 @@ from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 from rest_framework import status
 from rest_framework.serializers import Serializer
 from .models import *
+from Login_App.models import *
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from django.contrib.auth.models import User
@@ -26,9 +27,29 @@ from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from rest_framework.decorators import parser_classes
 from rest_framework.parsers import FileUploadParser
 from django.views.decorators.csrf import csrf_exempt
+import random
+import string
+from django_filters import rest_framework as filters
+import django_filters.rest_framework
+from datetime import datetime, date, timedelta
 
 
 # create view here
+
+# create Exma id
+def generate_exam_id():
+    s = 6
+    global exam_id
+    exam_id = ''.join(random.choices(string.ascii_uppercase + string.digits, k=s))
+    exam_id = "#POC" + str(exam_id)
+    # print(exam_id)
+    return exam_id
+
+
+generate_exam_id()
+
+
+# print(generate_exam_id(), "zahed")
 
 
 @api_view()
@@ -38,20 +59,21 @@ def home(request):
 
 # add an exam
 @api_view(['POST'])
+@parser_classes([MultiPartParser])
 def add_exam_pack(request):
     try:
         payload = request.data
-        data_seriazlier = ExamPackSerializer(data=payload)
-        if data_seriazlier.is_valid():
-            data_seriazlier.save()
+        data_serializer = ExamPackSerializer(data=payload)
+        if data_serializer.is_valid():
+            data_serializer.save()
             return Response({
                 'code': status.HTTP_200_OK,
                 'message': 'Exam Pack Created Successfully!',
-                'data': data_seriazlier.data
+                'data': data_serializer.data
             })
 
         else:
-            return Response(data_seriazlier.errors)
+            return Response(data_serializer.errors)
 
     except Exception as e:
         return Response({
@@ -117,43 +139,18 @@ def exampack_list(request):
         })
 
 
-# @api_view(['POST'])
-# @csrf_exempt
-# @parser_classes([MultiPartParser])
-# def Create_Exam(request):
-#     try:
-#         payload = request.data
-#         payload['ExamPack'] = request.ExamPack.id
-#         data_serializer = CreatExamSerializer(data=payload)
-#         if data_serializer.is_valid():
-#             data_serializer.save()
-#             return Response({
-#                 'code': status.HTTP_200_OK,
-#                 'message': 'Exam Has Been Created !',
-#                 'data': data_serializer.data
-#             })
-#
-#         else:
-#             return Response(data_serializer.errors)
-#
-#
-#
-#     except Exception as e:
-#         return Response({
-#             'code': status.HTTP_400_BAD_REQUEST,
-#             'message': str(e)
-#         })
-#
-
 @api_view(['POST'])
 @parser_classes([MultiPartParser])
 def Create_Exam(request):
     try:
+        # payload = request.data
+        id_exam = generate_exam_id()
+        request.data['exam_id'] = id_exam
         payload = request.data
         data_serializer = CreatExamSerializer(data=payload)
-        print("test", data_serializer)
         if data_serializer.is_valid():
             data_serializer.save()
+            # print(payload)
             return Response({
                 'code': status.HTTP_200_OK,
                 'message': 'Exam Created Successfully!',
@@ -166,6 +163,34 @@ def Create_Exam(request):
             'code': status.HTTP_400_BAD_REQUEST,
             'message': str(e)
         })
+
+
+# Randomization and sorting algo try
+
+# @api_view(['POST'])
+# @parser_classes([MultiPartParser])
+# def Create_Exam(request):
+#     try:
+#         payload = request.data
+#         data_serializer = CreatExamSerializer(data=payload)
+#         print("test", data_serializer)
+#         if data_serializer.is_valid():
+#
+#             data_serializer.save()
+#             return Response({
+#                 'code': status.HTTP_200_OK,
+#                 'message': 'M.C.Q Question Create Successfully!',
+#                 'data': data_serializer.data,
+#             })
+#
+#         else:
+#             return Response(data_serializer.errors)
+#
+#     except Exception as e:
+#         return Response({
+#             'code': status.HTTP_400_BAD_REQUEST,
+#             'message': str(e)
+#         })
 
 
 @api_view(['PUT'])
@@ -366,6 +391,25 @@ def ans_three(request):
             return Response(
                 data_seriazlier.errors
             )
+    except Exception as e:
+        return Response({
+            'code': status.HTTP_400_BAD_REQUEST,
+            'message': str(e)
+        })
+
+
+@api_view(['GET'])
+def student_info(request):
+    try:
+        stu_info = StudentProfile.objects.all()
+        data_serializer = StudenProfieSerializer(stu_info, many=True)
+        return Response({
+
+            'code': status.HTTP_200_OK,
+            'message': 'List of all the Student!',
+            'data': data_serializer.data
+        })
+
     except Exception as e:
         return Response({
             'code': status.HTTP_400_BAD_REQUEST,

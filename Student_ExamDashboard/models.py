@@ -1,12 +1,9 @@
 from django.db import models
-
 from django.contrib.auth.models import User
-
 from Exam_Dashboard.models import *
 from Login_App.models import *
 
 # Create your models here.
-
 
 class ExamResult(models.Model):
     student = models.ForeignKey(StudentProfile, on_delete=models.CASCADE, related_name='student_result')

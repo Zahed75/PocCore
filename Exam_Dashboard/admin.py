@@ -13,11 +13,16 @@ class ExamPackModelAdmin(admin.ModelAdmin):
 
 @admin.register(CreateExam)
 class CreateExamModelAdmin(admin.ModelAdmin):
-    list_display = ('id', 'Exam_name', 'details', 'time',
-                    'date', 'batch', 'exam_pack', 'total_mark', 'pass_mark', 'amount_per_mistake', 'level')
+    list_display = ('id','exam_id', 'Exam_name', 'details',
+                    'batch', 'exam_pack',
+                    'Exam_start_time', 'total_mark',
+                    'pass_mark', 'amount_per_mistake',
+                    'level', 'Exam_start_date', 'Exam_end_time', 'Exam_end_date')
 
 
 # ====question and ans model start=========
+
+
 class AnswerAdmin(admin.StackedInline):
     model = AnswerMode_One
     fk_name = "Question"

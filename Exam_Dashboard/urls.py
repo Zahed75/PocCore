@@ -17,5 +17,6 @@ urlpatterns = [
     path('api/ans_type_two/', ans_type_two),
     path('api/quizz_type_three/',create_question_three),
     path('api/ans_three/',ans_three),
+    path('api/student_info/',student_info)
 
 ]
