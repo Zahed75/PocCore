@@ -69,9 +69,38 @@ def get_exam_pack(request):
 @parser_classes([MultiPartParser])
 @permission_classes([IsAuthenticated])
 def ExamList(request):
+    user = request.user
+    student = StudentProfile.objects.get(user=user)
 
     try:
+        exam_list = ExamPack.objects.filter(level=student.level)
+        queryset = CreateExam.objects.filter(exam_pack__in=exam_list)
+        data_serializer = CreatExamSerializer(queryset, many=True)
+
+        return Response({
+            'code': status.HTTP_200_OK,
+            'message': 'List of all ExamPack of level Wise',
+            'data': data_serializer.data
+
+        })
+
+
+
+    except Exception as e:
+        return Response({
+            'code': status.HTTP_400_BAD_REQUEST,
+            'message': str(e)
+        })
+
+
+@api_view(['GET'])
+@parser_classes([MultiPartParser])
+@permission_classes([IsAuthenticated])
+def question_set(request):
+    try:
         pass
+
+
 
 
     except Exception as e:

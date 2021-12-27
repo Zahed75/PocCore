@@ -4,4 +4,5 @@ from Student_ExamDashboard.views import *
 
 urlpatterns = [
     path('api/get_exam_pack/',get_exam_pack),
+    path('api/exam_list/',ExamList),
 ]

@@ -12,3 +12,11 @@ class ExamPackSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer
     class Meta:
         model = ExamPack
         fields = '__all__'
+
+
+class CreatExamSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
+    # exam_id = serializers.CharField(max_length=40)
+
+    class Meta:
+        model = CreateExam
+        fields = '__all__'
