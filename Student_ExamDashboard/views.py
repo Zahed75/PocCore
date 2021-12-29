@@ -94,4 +94,40 @@ def ExamList(request):
         })
 
 
+@api_view(['GET'])
+@parser_classes([MultiPartParser])
+@permission_classes([IsAuthenticated])
+def get_question(request, exam_id):
+    try:
+        from django.core import serializers
 
+        question_type_one = serializers.serialize("json", Question_model_one.objects.filter(exam_name=exam_id))
+        question_type_two = serializers.serialize("json", Question_model_two.objects.filter(exam_name=exam_id))
+        question_type_three = serializers.serialize("json", Question_model_three.objects.filter(exam_name=exam_id))
+        print(question_type_one)
+
+        data_dict = {
+            "data_one": question_type_one,
+            "data_two": question_type_two,
+            "data_three": question_type_three,
+        }
+
+        return Response({
+            'code': status.HTTP_200_OK,
+            'message': 'List of all ExamPack of level Wise',
+            'question_data': data_dict,
+
+        })
+
+
+
+
+
+
+
+
+    except Exception as e:
+        return Response({
+            'code': status.HTTP_400_BAD_REQUEST,
+            'message': str(e)
+        })

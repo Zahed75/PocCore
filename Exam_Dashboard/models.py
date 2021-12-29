@@ -53,6 +53,8 @@ class CreateExam(models.Model):
 
 
 class Question_model_one(models.Model):
+    exam_pack = models.ForeignKey(ExamPack, on_delete=models.CASCADE)
+    exam_name = models.ForeignKey(CreateExam, on_delete=models.CASCADE)
     question = models.TextField(null=True, blank=True)
     image = models.ImageField(upload_to='Question_img', null=True, blank=True)
 
@@ -73,6 +75,8 @@ class Question_model_one(models.Model):
 
 
 class Question_model_two(models.Model):
+    exam_pack = models.ForeignKey(ExamPack, on_delete=models.CASCADE)
+    exam_name = models.ForeignKey(CreateExam, on_delete=models.CASCADE)
     question = models.TextField(null=True, blank=True)
     image = models.ImageField(upload_to='Question_img', null=True, blank=True)
 
@@ -97,6 +101,8 @@ class Question_model_two(models.Model):
 
 
 class Question_model_three(models.Model):
+    exam_pack = models.ForeignKey(ExamPack, on_delete=models.CASCADE)
+    exam_name = models.ForeignKey(CreateExam, on_delete=models.CASCADE)
     paragraph = models.CharField(max_length=1000, null=True, blank=True)
     image = models.ImageField(upload_to='Question_img', null=True, blank=True)
 

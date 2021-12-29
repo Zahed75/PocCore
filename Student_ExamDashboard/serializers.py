@@ -20,3 +20,5 @@ class CreatExamSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerialize
     class Meta:
         model = CreateExam
         fields = '__all__'
+
+

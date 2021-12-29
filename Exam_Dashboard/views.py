@@ -71,6 +71,7 @@ def add_exam_pack(request):
                 'data': data_serializer.data
             })
 
+
         else:
             return Response(data_serializer.errors)
 
@@ -356,8 +357,9 @@ def delete_create_exam(request, id):
 def create_q_one(request):
     try:
         payload = request.data
-        data_serializer = CreateQuestionModelOneSerializer(data=payload, many=True)
+        data_serializer = CreateQuestionModelOneSerializer(data=payload)
         if data_serializer.is_valid():
+            print(data_serializer)
             data_serializer.save()
             return Response({
                 'code': status.HTTP_200_OK,
@@ -379,7 +381,7 @@ def create_q_one(request):
 def create_q_two(request):
     try:
         payload = request.data
-        data_serializer = CreateQuestionModelTwoSerializer(data=payload, many=True)
+        data_serializer = CreateQuestionModelTwoSerializer(data=payload)
         if data_serializer.is_valid():
             data_serializer.save()
             return Response({
@@ -403,7 +405,7 @@ def create_q_two(request):
 def create_q_three(request):
     try:
         payload = request.data
-        data_serializer = CreateQuestionModelThreeSerializer(data=payload, many=True)
+        data_serializer = CreateQuestionModelThreeSerializer(data=payload)
         if data_serializer.is_valid():
             data_serializer.save()
             return Response({
@@ -438,3 +440,6 @@ def student_info(request):
             'code': status.HTTP_400_BAD_REQUEST,
             'message': str(e)
         })
+
+
+
