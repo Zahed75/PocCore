@@ -1,4 +1,5 @@
 from django.shortcuts import render
+
 from django.contrib.auth import login
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 from rest_framework import status
@@ -34,7 +35,6 @@ from rest_framework.permissions import IsAuthenticated
 
 
 # Create your views here.
-
 
 
 @api_view(['GET'])
@@ -92,55 +92,6 @@ def ExamList(request):
             'code': status.HTTP_400_BAD_REQUEST,
             'message': str(e)
         })
-
-
-@api_view(['GET'])
-@parser_classes([MultiPartParser])
-@permission_classes([IsAuthenticated])
-def question_set(request, exam_id):
-    try:
-
-        # question_type_one = QuestionModel_One.objects.filter(exam_name=exam_id)
-        # question_type_two = QuestionModel_Two.objects.filter(exam_name=exam_id)
-        # question_type_three = QuesionModel_Three.objects.filter(exam_name=exam_id)
-
-        # ans_one = AnswerMode_One.objects.filter(Question__in=question_type_one)
-        # ans_two = AnsModel_Two.objects.filter(Question__in=question_type_two)
-        # ans_three = AnsModel_Three.objects.filter(Question_name__in=question_type_three)
-
-        from django.core import serializers
-
-        question_type_one = serializers.serialize("json", QuestionModel_One.objects.filter(exam_name=exam_id))
-        question_type_two = serializers.serialize("json", QuestionModel_Two.objects.filter(exam_name=exam_id))
-        question_type_three = serializers.serialize("json", QuesionModel_Three.objects.filter(exam_name=exam_id))
-
-        # ans_one = serializers.serialize("json", AnswerMode_One.objects.filter(Question__question_name="what is the value of accelration"))
-        # # ans_two = serializers.serialize("json", AnsModel_Two.objects.filter(Question__in=question_type_two))
-        # # ans_three = serializers.serialize("json", AnsModel_Three.objects.filter(Question_name__in=question_type_three))
-
-        # answer_one = serializers.serialize("json", AnswerMode_One.objects.filter(=1))
-        # print(f" answer one ---- {ans_one}")
-
-        data_dict = {
-            "data_one": question_type_one,
-            "data_two": question_type_two,
-            "data_three": question_type_three,
-        }
-
-        return Response({
-            'code': status.HTTP_200_OK,
-            'message': 'List of all ExamPack of level Wise',
-            'question_data': data_dict,
-
-
-        })
-
-    except Exception as e:
-        return Response({
-            'code': status.HTTP_400_BAD_REQUEST,
-            'message': str(e)
-        })
-
 
 
 

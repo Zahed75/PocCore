@@ -11,12 +11,9 @@ urlpatterns = [
     path('api/create-exam/', Create_Exam),
     path('api/update-create-exam/<id>', Update_CreateExam, name='update-create-exam'),
     path('api/delete-create-exam/<id>', delete_create_exam),
-    path('api/quiz_type_one/', q_type_one),
-    path('api/ans_type_one/', ans_q_type_one),
-    path('api/quize_type_two/', CreateQustion_two),
-    path('api/ans_type_two/', ans_type_two),
-    path('api/quizz_type_three/',create_question_three),
-    path('api/ans_three/',ans_three),
-    path('api/student_info/',student_info)
+    path('api/create_q_one/', create_q_one),
+    path('api/create_q_two/', create_q_two),
+    path('api/create_q_three/', create_q_three),
+    path('api/student_info/', student_info)
 
 ]

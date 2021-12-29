@@ -21,45 +21,25 @@ class CreatExamSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerialize
         fields = '__all__'
 
 
-class Question_OneSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
-    class Meta:
-        model = QuestionModel_One
-        fields = '__all__'
-
-
-class Anstype_oneSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
-    class Meta:
-        model = AnswerMode_One
-
-        fields = '__all__'
-
-
-class CreateQuestionSerializerTwo(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
-    class Meta:
-        model = QuestionModel_Two
-        fields = '__all__'
-
-
-class CreateAnsTypeTwoSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
-    class Meta:
-        model = AnsModel_Two
-
-        fields = '__all__'
-
-
-class CreateQuestionThreSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
-    class Meta:
-        model = QuesionModel_Three
-        fields = '__all__'
-
-
-class CreateAnsThreeSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
-    class Meta:
-        model = AnsModel_Three
-        fields = '__all__'
-
-
-class StudenProfieSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
+class StudentProfileSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
     class Meta:
         model = StudentProfile
+        fields = '__all__'
+
+
+class CreateQuestionModelOneSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
+    class Meta:
+        model = Question_model_one
+        fields = '__all__'
+
+
+class CreateQuestionModelTwoSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
+    class Meta:
+        model = Question_model_two
+        fields = '__all__'
+
+
+class CreateQuestionModelThreeSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
+    class Meta:
+        model = Question_model_three
         fields = '__all__'
