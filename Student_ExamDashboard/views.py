@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from django.http import JsonResponse
 from django.contrib.auth import login
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 from rest_framework import status
@@ -101,15 +101,18 @@ def get_question(request, exam_id):
     try:
         from django.core import serializers
 
-        question_type_one = serializers.serialize("json", Question_model_one.objects.filter(exam_name=exam_id))
-        question_type_two = serializers.serialize("json", Question_model_two.objects.filter(exam_name=exam_id))
-        question_type_three = serializers.serialize("json", Question_model_three.objects.filter(exam_name=exam_id))
+        question_type_one = CreateQuestionModelOneSerializer(QuestionModel_One.objects.filter(exam_name=exam_id),
+                                                             many=True)
         print(question_type_one)
+        question_type_two = CreateQuestionModelTwoSerializer(QuestionModel_Two.objects.filter(exam_name=exam_id),
+                                                             many=True)
+        question_type_three = CreateQuestionModelThreeSerializer(QuestionModel_Three.objects.filter(exam_name=exam_id),
+                                                                 many=True)
 
         data_dict = {
-            "data_one": question_type_one,
-            "data_two": question_type_two,
-            "data_three": question_type_three,
+            "data_one": question_type_one.data,
+            "data_two": question_type_two.data,
+            "data_three": question_type_three.data
         }
 
         return Response({
@@ -119,11 +122,120 @@ def get_question(request, exam_id):
 
         })
 
+    except Exception as e:
+        return Response({
+            'code': status.HTTP_400_BAD_REQUEST,
+            'message': str(e)
+        })
 
 
+@api_view(['POST', 'GET'])
+@parser_classes([MultiPartParser])
+def ans_validation(request):
+    question_name = request.data['question']
+    answer_by_user = request.data['ans']
+    # print(answer_by_user)
+
+    try:
+
+        question_one = QuestionModel_One.objects.filter(question_name=question_name)
+        question_two = QuestionModel_Two.objects.filter(question_name=question_name)
+        question_three = QuestionModel_Three.objects.filter(question_name=question_name)
+
+        # print(question_one)
+        # print(question_two)
+        # print(question_three)
+
+        question = None
+        question_id = None
+
+        question_model_array = [question_one, question_two, question_three]
+
+        for questions in question_model_array:
+            if len(questions) == 1:
+                question = questions
+            else:
+                pass
+
+        # for item in question:
+        #     question_id = item.id
+
+        # print(question)
+        # print(question_id)
+
+        ans_one = AnswerModel_One.objects.filter(Question__question_name=question_name)
+        print(ans_one)
+        ans_two = AnsModel_Two.objects.filter(Question__question_name=question_name)
+        print(ans_two)
+        ans_three = AnsModel_Three.objects.filter(Question__question_name=question_name)
+        print(ans_three)
+
+        # print(ans_one)
+        # print(ans_two)
+        # print(ans_three)
+
+        ans_model_array = [ans_one, ans_two, ans_three]
+
+        answer = None
+
+        for item in ans_model_array:
+            if len(item) > 0:
+                answer = item
+            else:
+                pass
+
+        ans_is_right = False
+
+        for item in answer:
+            if answer_by_user == item.ans and item.is_correct:
+                ans_is_right = True
+                print("Right")
+                break
+            else:
+                print("Wrong")
+                ans_is_right = False
+
+        if ans_is_right == True:
+            print("Right ans")
+            return Response({
+                'code': status.HTTP_200_OK,
+                'message': 'Answer is right'
+            })
+
+        else:
+            return Response({
+                'code': status.HTTP_200_OK,
+                'message': 'Answer is wrong'
+            })
+
+        # return Response({
+        #     'code': status.HTTP_200_OK,
+        #     'message': 'Ans Validate!',
+        #     # 'data': data_serializer.data
+        # })
+
+    except Exception as e:
+        return Response({
+            'code': status.HTTP_400_BAD_REQUEST,
+            'message': str(e)
+        })
 
 
-
+@api_view(['GET'])
+@parser_classes([MultiPartParser])
+def get_report(request):
+    # user = request.user
+    # student = CreateExam.objects.filter()
+    # print(student)
+    try:
+        report_info = ExamResult.objects.filter(student=request.user)
+        data_serializer = ExamResultSerializer(report_info, many=True)
+        print(data_serializer)
+        return Response({
+            'code': status.HTTP_200_OK,
+            'message': 'All Student Report!',
+            'data': data_serializer.data
+        })
 
 
     except Exception as e:
@@ -131,3 +243,64 @@ def get_question(request, exam_id):
             'code': status.HTTP_400_BAD_REQUEST,
             'message': str(e)
         })
+
+
+@api_view(['GET', 'POST'])
+@parser_classes([MultiPartParser])
+def all_student_result(request, exam_name):
+    if request.method == 'GET':
+        try:
+            report = AllStudentResult.objects.filter(exam_name__Exam_name=exam_name)
+            data_serializer = AllStudentResultSerializer(report, many=True)
+            return Response({
+                'code': status.HTTP_200_OK,
+                'message': 'All Student Subject Wise Report!',
+                'data': data_serializer.data
+            })
+
+        except Exception as e:
+            return Response({
+                'code': status.HTTP_400_BAD_REQUEST,
+                'message': str(e)
+            })
+
+    if request.method == 'POST':
+        try:
+            # exam_name = request.data['exam_name']
+            # rank = request.data['rank']
+            # name = request.data['name']
+            # board = request.data['board']
+            # timestamp = request.data['timestamp']
+            # score = request.data['score']
+            # negative_marking = request.data['negative_marking']
+
+            # report_ins = AllStudentResult(
+            #     exam_name=exam_name,
+            #     rank=rank,
+            #     name=name,
+            #     board=board,
+            #     timestamp=timestamp,
+            #     score=score,
+            #     negative_marking=negative_marking
+            # )
+
+            payload = request.data
+            data_serializer = AllStudentResultSerializer(data=payload)
+            if data_serializer.is_valid():
+                data_serializer.save()
+                return Response({
+                    'code': status.HTTP_200_OK,
+                    'message': 'Data Saved!!!!!!!!',
+                    'data': data_serializer.data
+
+                })
+            return Response({
+                'code': status.HTTP_200_OK,
+                'message': 'All Student Subject Wise Report!',
+            })
+
+        except Exception as e:
+            return Response({
+                'code': status.HTTP_400_BAD_REQUEST,
+                'message': str(e)
+            })

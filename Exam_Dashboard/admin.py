@@ -23,46 +23,55 @@ class CreateExamModelAdmin(admin.ModelAdmin):
 # ====question and ans model start=========
 
 
-# @admin.register(AnswerMode_One)
-# class AnswerMode_OneModelAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'Answer', 'is_correct')
-#
-#
-# @admin.register(QuestionModel_One)
-# class QuestionModel_OneModelAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'exam_pack', 'exam_name',
-#                     'question_name', 'q_image', 'marks', 'answer')
-#
-#
-# @admin.register(AnsModel_Two)
-# class AnsModel_TwoModelAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'ans', 'is_correct')
-#
-#
-# @admin.register(QuestionModel_Two)
-# class QuestionModel_TwoModelAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'exam_pack', 'exam_name','Q_name','Q_image', 'marks', 'answer')
-#
-#
-# @admin.register(AnsModel_Three)
-# class AnsModel_ThreeModelAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'ans', 'is_correct')
-#
-#
-# @admin.register(QuesionModel_Three)
-# class QuesionModel_ThreeModelAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'exam_pack', 'exam_name',
-#                     'Q_one', 'Q_image', 'marks', 'answer')
 
 
-@admin.register(Question_model_one)
-class Question_model_one_Admin(admin.ModelAdmin):
-    list_display = ['id', 'question']
 
-@admin.register(Question_model_two)
-class Question_model_two_Admin(admin.ModelAdmin):
-    list_display = ['id', 'question']
+class AnswerAdmin(admin.StackedInline):
+    model = AnswerModel_One
+    fk_name = "Question"
 
-@admin.register(Question_model_three)
-class Question_model_three_Admin(admin.ModelAdmin):
-    list_display = ['id', 'paragraph']
+
+class QuestionAdmin(admin.ModelAdmin):
+    inlines = [AnswerAdmin]
+
+
+admin.site.register(QuestionModel_One, QuestionAdmin)
+
+admin.site.register(AnswerModel_One)
+
+
+# ==========type 2nd===========start
+
+class AnswerAdmin(admin.StackedInline):
+    model = AnsModel_Two
+    # fk_name = "Question"
+
+
+class QuestionAdmin(admin.ModelAdmin):
+    inlines = [AnswerAdmin]
+
+
+admin.site.register(QuestionModel_Two, QuestionAdmin)
+
+admin.site.register(AnsModel_Two)
+
+
+# ============end==========
+
+
+# ============3rd question and ans model start====
+
+class AnswerAdmin(admin.StackedInline):
+    model = AnsModel_Three
+    # fk_name = "Question_name"
+
+
+class QuestionAdmin(admin.ModelAdmin):
+    inlines = [AnswerAdmin]
+
+
+admin.site.register(QuestionModel_Three, QuestionAdmin)
+
+admin.site.register(AnsModel_Three)
+
+# ============End

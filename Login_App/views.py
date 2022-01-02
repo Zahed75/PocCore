@@ -13,6 +13,10 @@ from .serializers import *
 from rest_framework.views import APIView
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
+from rest_framework.decorators import parser_classes
+from rest_framework.parsers import FileUploadParser
+from django.views.decorators.csrf import csrf_exempt
 
 
 # create view here
@@ -165,39 +169,27 @@ def userRegister(request):
 
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
+@parser_classes([MultiPartParser])
 def StudentProfile(request):
     try:
         payload = request.data
         payload['user'] = request.user.id
-        # print(request.user)
+        print(payload)
         data_serializer = StudentProfileSerializer(data=payload)
-
         if data_serializer.is_valid():
             data_serializer.save()
+
             return Response({
                 'code': status.HTTP_200_OK,
-                'message': 'Student Profile created successfully!',
+                'message': 'StudentProfile created successfully!',
                 'data': data_serializer.data
             })
         else:
             return Response(data_serializer.errors)
+
 
     except Exception as e:
         return Response({
             'code': status.HTTP_400_BAD_REQUEST,
             'message': str(e)
         })
-
-
-# @api_view(['POST'])
-# def studnet(request):
-#     try:
-#         pass
-#
-#
-#     except Exception as e:
-#         return Response({
-#             'code': status.HTTP_400_BAD_REQUEST,
-#             'message': str(e)
-#         })

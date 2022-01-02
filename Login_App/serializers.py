@@ -25,6 +25,9 @@ class RegistrationDataSerializer(FriendlyErrorMessagesMixin, serializers.ModelSe
         fields = ['phone_number', 'password']
 
 
+# payload = request.data
+#         payload['user'] = request.user.id
+
 class StudentProfileSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
     class Meta:
         model = StudentProfile

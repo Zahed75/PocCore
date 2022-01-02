@@ -10,4 +10,4 @@ class UserInfoModelAdmin(admin.ModelAdmin):
 
 @admin.register(StudentProfile)
 class StudentProfileModelAdmin(admin.ModelAdmin):
-    list_display = ('id', 'email', 'level', 'batch', 'board', 'institution')
+    list_display = ('id', 'user', 'email', 'level', 'batch', 'board', 'institution')
