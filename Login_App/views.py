@@ -193,3 +193,16 @@ def StudentProfile(request):
             'code': status.HTTP_400_BAD_REQUEST,
             'message': str(e)
         })
+
+
+@api_view(['PUT'])
+@parser_classes([MultiPartParser])
+
+def Update_Student_Profile(request,id):
+    try:
+        pass
+
+    except Exception as e:
+        return Response({
+
+        })

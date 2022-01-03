@@ -5,6 +5,7 @@ from rest_framework_friendly_errors.mixins import FriendlyErrorMessagesMixin
 from django.contrib.auth.hashers import make_password
 from .models import *
 from Login_App.models import *
+from Student_ExamDashboard.models import *
 
 
 class ExamPackSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
@@ -62,4 +63,16 @@ class CreateAnsTypeTwoSerializer(FriendlyErrorMessagesMixin, serializers.ModelSe
 class CreateAnsThreeSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
     class Meta:
         model = AnsModel_Three
+        fields = '__all__'
+
+
+class ExamResultSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
+    class Meta:
+        model = ExamResult
+        fields = '__all__'
+
+
+class AllStudentResultSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
+    class Meta:
+        model = AllStudentResult
         fields = '__all__'

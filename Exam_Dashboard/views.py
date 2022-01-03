@@ -29,7 +29,7 @@ from rest_framework.parsers import FileUploadParser
 from django.views.decorators.csrf import csrf_exempt
 import random
 import string
-
+from Student_ExamDashboard.models import *
 from datetime import datetime, date, timedelta
 
 
@@ -373,4 +373,40 @@ def ans_type_three(request):
         })
 
 
+@api_view(['GET'])
+@parser_classes([MultiPartParser])
+def GetStudentReport(request):
+    try:
+        report_info = ExamResult.objects.all()
+        data_serializer = ExamResultSerializer(report_info, many=True)
+        return Response({
+            'code': status.HTTP_200_OK,
+            'message': 'All Student Report!',
+            'data': data_serializer.data
+        })
 
+    except Exception as e:
+        return Response({
+            'code': status.HTTP_400_BAD_REQUEST,
+            'message': str(e)
+        })
+
+
+@api_view(['GET'])
+@parser_classes([MultiPartParser])
+def all_student_exam_report(request, exam_name):
+    try:
+        report = AllStudentResult.objects.filter(exam_name__Exam_name=exam_name)
+        data_serializer = AllStudentResultSerializer(report, many=True)
+        return Response({
+            'code': status.HTTP_200_OK,
+            'message': 'All Student Subject Wise Report!',
+            'data': data_serializer.data
+        })
+
+
+    except Exception as e:
+        return Response({
+            'code': status.HTTP_400_BAD_REQUEST,
+            'message': str(e)
+        })

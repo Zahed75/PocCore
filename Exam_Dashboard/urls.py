@@ -19,5 +19,7 @@ urlpatterns = [
     path('api/ans_type_one/', ans_type_one),
     path('api/ans_type_two/', ans_type_two),
     path('api/ans_three/', ans_type_three),
+    path('api/get_student_report/', GetStudentReport),
+    path('api/all_student_exam_report/<str:exam_name>', all_student_exam_report)
 
 ]
