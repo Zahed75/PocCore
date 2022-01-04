@@ -19,6 +19,8 @@ from rest_framework.parsers import FileUploadParser
 from django.views.decorators.csrf import csrf_exempt
 from .models import *
 
+from django.contrib.auth import get_user_model, logout
+
 
 # create view here
 
@@ -158,15 +160,17 @@ def userRegister(request):
         })
 
 
-# class LogOutAPIView(APIView):
-#     def post(self, request, format=None):
-#         try:
-#             refresh_token = request.data.get('refresh_token')
-#             token_obj = RefreshToken(refresh_token)
-#             token_obj.blacklist()
-#             return Response(status=status.HTTP_200_OK)
-#         except Exception as e:
-#             return Response(status=status.HTTP_400_BAD_REQUEST)
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def User_logout(request):
+    request.user.auth_token.delete()
+
+    logout(request)
+
+    return Response('User Logged out successfully')
+
+
+
 
 
 @api_view(['POST'])
