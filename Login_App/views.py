@@ -17,6 +17,7 @@ from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from rest_framework.decorators import parser_classes
 from rest_framework.parsers import FileUploadParser
 from django.views.decorators.csrf import csrf_exempt
+from .models import *
 
 
 # create view here
@@ -170,7 +171,7 @@ def userRegister(request):
 
 @api_view(['POST'])
 @parser_classes([MultiPartParser])
-def StudentProfile(request):
+def Register(request):
     try:
         payload = request.data
         payload['user'] = request.user.id
@@ -178,6 +179,7 @@ def StudentProfile(request):
         data_serializer = StudentProfileSerializer(data=payload)
         if data_serializer.is_valid():
             data_serializer.save()
+            print(data_serializer)
 
             return Response({
                 'code': status.HTTP_200_OK,
@@ -197,12 +199,20 @@ def StudentProfile(request):
 
 @api_view(['PUT'])
 @parser_classes([MultiPartParser])
-
-def Update_Student_Profile(request,id):
+def update_student(request, id):
     try:
-        pass
+        student_object = StudentProfile.objects.get(id=id)
+        print(f'test {student_object}')
+        serializer = StudentProfileSerializer(student_object, data=request.data, partial=True)
+        if not serializer.is_valid(raise_exception=True):
+            return Response({'status': 403, 'errors': serializer.errors, 'message': 'Something wnent wrong'})
+
+        serializer.save()
+
+        return Response({'status': 200, 'payload': serializer.data, 'message': 'data saved'})
 
     except Exception as e:
         return Response({
-
+            'code': status.HTTP_400_BAD_REQUEST,
+            'message': str(e)
         })

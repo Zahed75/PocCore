@@ -7,6 +7,6 @@ urlpatterns = [
     path('api/token/refresh/', tokenRefresh),
     path('api/token/verify/', tokenVerify),
     path('api/register/', userRegister),
-    path('api/student_profile/', StudentProfile),
-
+    path('api/Student_Register/', Register),
+    path('api/update_student/<id>', update_student, name='update')
 ]
