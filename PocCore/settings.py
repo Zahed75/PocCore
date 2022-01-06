@@ -36,8 +36,6 @@ INSTALLED_APPS = [
     'django_cleanup.apps.CleanupConfig',
     'corsheaders',
 
-
-
 ]
 
 MIDDLEWARE = [
@@ -114,9 +112,6 @@ else:
         }
     }
 
-
-
-
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -148,8 +143,6 @@ REST_FRAMEWORK = {
     'DEFAULT_PARSER_CLASSES': [
         'rest_framework.parsers.JSONParser'
     ],
-
-
 
 }
 
@@ -199,10 +192,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOWED_ORIGINS = [
     "https://exam.poc.ac",
     "https://www.examapp.poc.ac",
+    "https://www.examadmin.poc.ac",
+    "http://www.examadmin.poc.ac",
     "http://www.examapp.poc.ac",
     "http://examapp.poc.ac",
     "https://examapp.poc.ac",
     "http://localhost:8080",
     "http://127.0.0.1:8080",
+    "http://127.0.0.1:8081",
+    "http://localhost:8081",
 
 ]
