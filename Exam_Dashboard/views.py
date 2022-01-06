@@ -430,12 +430,11 @@ def QuestionOneDelete(request, id):
         })
 
 
-
 @api_view(['DELETE'])
 @parser_classes([MultiPartParser])
 def QuestionTwoDelete(request, id):
     try:
-        q_one_obj =QuestionModel_Two.objects.get(id=id)
+        q_one_obj = QuestionModel_Two.objects.get(id=id)
         print(q_one_obj)
         q_one_obj.delete()
 
@@ -446,15 +445,13 @@ def QuestionTwoDelete(request, id):
             'code': status.HTTP_400_BAD_REQUEST,
             'message': str(e)
         })
-
-
 
 
 @api_view(['DELETE'])
 @parser_classes([MultiPartParser])
 def QuestionThreeDelete(request, id):
     try:
-        q_one_obj =QuestionModel_Two.objects.get(id=id)
+        q_one_obj = QuestionModel_Two.objects.get(id=id)
         print(q_one_obj)
         q_one_obj.delete()
 
@@ -467,12 +464,12 @@ def QuestionThreeDelete(request, id):
         })
 
 
-@api_view(['POST','GET'])
+@api_view(['POST', 'GET'])
 @parser_classes([MultiPartParser])
 def batch_settings(request):
     try:
-        payload=request.data
-        data_serializer=CreateBatchSettings(data=payload)
+        payload = request.data
+        data_serializer = CreateBatchSettings(data=payload)
         if data_serializer.is_valid():
             data_serializer.save()
             return Response({
@@ -480,6 +477,26 @@ def batch_settings(request):
                 'message': 'Batch data Saved!',
                 'data': data_serializer.data
             })
+
+
+    except Exception as e:
+        return Response({
+            'code': status.HTTP_400_BAD_REQUEST,
+            'message': str(e)
+        })
+
+
+@api_view(['GET'])
+@parser_classes([MultiPartParser])
+def batch_settingsGet(request):
+    try:
+        batch_info = BatchSettings.objects.all()
+        data_serializer = CreateBatchSettings(batch_info, many=True)
+        return Response({
+            'code': status.HTTP_200_OK,
+            'message': 'All Batch Data Get!!!!',
+            'data': data_serializer.data
+        })
 
 
     except Exception as e:

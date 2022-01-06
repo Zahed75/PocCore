@@ -23,13 +23,14 @@ urlpatterns = [
     path('api/get_admin_student_report/', GetStudentReport),
     path('api/all_admin_student_exam_report/<str:exam_name>', all_student_exam_report),
 
-    path('api/batch_settings/', batch_settings),
-
     path('api/get_student_report/', GetStudentReport),
     path('api/all_student_exam_report/<str:exam_name>', all_student_exam_report),
     # =====================Question delete API
     path('api/question_one_delete/<id>', QuestionOneDelete),
     path('api/question_two_delete/<id>', QuestionTwoDelete),
     path('api/question_three_delete/<id>', QuestionThreeDelete),
+    path('api/batch_settings/', batch_settings),
+    path('api/batch_data_get/',batch_settingsGet),
+
 
 ]
