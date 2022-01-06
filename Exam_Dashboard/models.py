@@ -130,4 +130,4 @@ class BatchSettings(models.Model):
     board=models.CharField(max_length=500,blank=True,null=True)
 
     def __str__(self):
-        return self.batch
+        return str(self.batch)
