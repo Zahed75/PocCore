@@ -39,7 +39,8 @@ from datetime import datetime, date, timedelta
 def generate_exam_id():
     s = 6
     global exam_id
-    exam_id = ''.join(random.choices(string.ascii_uppercase + string.digits, k=s))
+    exam_id = ''.join(random.choices(
+        string.ascii_uppercase + string.digits, k=s))
     exam_id = "#POC" + str(exam_id)
     # print(exam_id)
     return exam_id
@@ -71,7 +72,6 @@ def add_exam_pack(request):
                 'data': data_serializer.data
             })
 
-
         else:
             return Response(data_serializer.errors)
     except Exception as e:
@@ -87,7 +87,8 @@ def add_exam_pack(request):
 def Update_ExamPack(request, id):
     try:
         exam_obj = ExamPack.objects.get(id=id)
-        Serializer = ExamPackSerializer(exam_obj, data=request.data, partial=True)
+        Serializer = ExamPackSerializer(
+            exam_obj, data=request.data, partial=True)
         if not Serializer.is_valid():
             print(Serializer.errors)
             return Response({'status': 200, 'payload': Serializer.data, 'message': 'Something Went Wrong'})
@@ -112,7 +113,6 @@ def delete_exampack(request, id):
             'message': 'Exam Pack Deleted Successfully!',
             'data': Serializer.data
         })
-
 
     except Exception as e:
         print(e)
@@ -168,7 +168,8 @@ def Create_Exam(request):
 def Update_CreateExam(request, id):
     try:
         Exam_obj = CreateExam.objects.get(id=id)
-        Serializer = CreatExamSerializer(Exam_obj, data=request.data, partial=True)
+        Serializer = CreatExamSerializer(
+            Exam_obj, data=request.data, partial=True)
         if not Serializer.is_valid():
             return Response({
                 'status': 200, 'payload': Serializer.data, 'message': 'Something Went Wrong'
@@ -396,7 +397,8 @@ def GetStudentReport(request):
 @parser_classes([MultiPartParser])
 def all_student_exam_report(request, exam_name):
     try:
-        report = AllStudentResult.objects.filter(exam_name__Exam_name=exam_name)
+        report = AllStudentResult.objects.filter(
+            exam_name__Exam_name=exam_name)
         data_serializer = AllStudentResultSerializer(report, many=True)
         return Response({
             'code': status.HTTP_200_OK,
@@ -404,6 +406,59 @@ def all_student_exam_report(request, exam_name):
             'data': data_serializer.data
         })
 
+    except Exception as e:
+        return Response({
+            'code': status.HTTP_400_BAD_REQUEST,
+            'message': str(e)
+        })
+
+
+@api_view(['DELETE'])
+@parser_classes([MultiPartParser])
+def QuestionOneDelete(request, id):
+    try:
+        q_one_obj = QuestionModel_One.objects.get(id=id)
+        print(q_one_obj)
+        q_one_obj.delete()
+
+        return Response({'status': 202, 'mesaage': 'deleted'})
+
+    except Exception as e:
+        return Response({
+            'code': status.HTTP_400_BAD_REQUEST,
+            'message': str(e)
+        })
+
+
+
+@api_view(['DELETE'])
+@parser_classes([MultiPartParser])
+def QuestionTwoDelete(request, id):
+    try:
+        q_one_obj =QuestionModel_Two.objects.get(id=id)
+        print(q_one_obj)
+        q_one_obj.delete()
+
+        return Response({'status': 202, 'mesaage': 'deleted'})
+
+    except Exception as e:
+        return Response({
+            'code': status.HTTP_400_BAD_REQUEST,
+            'message': str(e)
+        })
+
+
+
+
+@api_view(['DELETE'])
+@parser_classes([MultiPartParser])
+def QuestionThreeDelete(request, id):
+    try:
+        q_one_obj =QuestionModel_Two.objects.get(id=id)
+        print(q_one_obj)
+        q_one_obj.delete()
+
+        return Response({'status': 202, 'mesaage': 'deleted'})
 
     except Exception as e:
         return Response({
