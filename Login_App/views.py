@@ -142,31 +142,17 @@ def userRegister(request):
                 username=data_serializer.data.get('phone_number')
             )
             user_instance.set_password(data_serializer.data.get('password'))
-            # user_instance.is_superuser = True
-
-            # if request.data['admin']:
-            #     # if request.data['admin'] == True:
-            #     # group = Group.objects.get(name="Admin")
-            #     # group.user_set.add(user_instance)
-            #     user_instance.is_superuser = True
-            #     user_instance.is_staff = True
-            #     print("Admin created")
 
             if request.data['staff']:
                 group = Group.objects.get(name="Staff")
                 group.user_set.add(user_instance)
                 user_instance.is_staff = True
-                # user_instance.groups.add(group)
-                # user_instance.is_superuser = True
-                print("Staff created")
 
             user_instance.save()
-
             UserInfo.objects.create(
                 user=user_instance,
                 phone_number=data_serializer.data.get('phone_number')
             )
-
             return Response({
                 'code': status.HTTP_200_OK,
                 'message': 'User created successfully!',
@@ -174,6 +160,8 @@ def userRegister(request):
             })
         else:
             return Response(data_serializer.errors)
+
+
 
     except Exception as e:
         return Response({

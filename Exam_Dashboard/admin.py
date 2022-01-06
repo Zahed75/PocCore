@@ -75,3 +75,6 @@ admin.site.register(QuestionModel_Three, QuestionAdmin)
 admin.site.register(AnsModel_Three)
 
 # ============End
+
+
+admin.site.register(BatchSettings)

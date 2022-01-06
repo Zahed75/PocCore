@@ -32,8 +32,9 @@ import random
 import string
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.permissions import IsAdminUser,DjangoModelPermissionsOrAnonReadOnly
-from rest_framework.permissions import SAFE_METHODS, IsAuthenticated, IsAuthenticatedOrReadOnly, BasePermission, IsAdminUser, DjangoModelPermissions
+from rest_framework.permissions import IsAdminUser, DjangoModelPermissionsOrAnonReadOnly
+from rest_framework.permissions import SAFE_METHODS, IsAuthenticated, IsAuthenticatedOrReadOnly, BasePermission, \
+    IsAdminUser, DjangoModelPermissions
 
 
 # Create your views here.
@@ -307,3 +308,5 @@ def all_student_result(request, exam_name):
                 'code': status.HTTP_400_BAD_REQUEST,
                 'message': str(e)
             })
+
+

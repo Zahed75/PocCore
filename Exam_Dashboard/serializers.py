@@ -76,3 +76,9 @@ class AllStudentResultSerializer(FriendlyErrorMessagesMixin, serializers.ModelSe
     class Meta:
         model = AllStudentResult
         fields = '__all__'
+
+
+class CreateBatchSettings(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
+    class Meta:
+        model = BatchSettings
+        fields = '__all__'

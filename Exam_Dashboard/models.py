@@ -122,3 +122,12 @@ class AnsModel_Three(models.Model):
 
     def __str__(self):
         return self.ans
+
+
+class BatchSettings(models.Model):
+    batch=models.CharField(max_length=599,blank=True,null=True)
+    level=models.CharField(max_length=500,blank=True,null=True)
+    board=models.CharField(max_length=500,blank=True,null=True)
+
+    def __str__(self):
+        return self.batch
