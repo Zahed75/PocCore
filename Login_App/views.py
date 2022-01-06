@@ -18,8 +18,11 @@ from rest_framework.decorators import parser_classes
 from rest_framework.parsers import FileUploadParser
 from django.views.decorators.csrf import csrf_exempt
 from .models import *
-
+from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import get_user_model, logout
+from rest_framework.response import Response
+from rest_framework import permissions
+from rest_framework.permissions import IsAdminUser
 
 
 # create view here
@@ -139,6 +142,24 @@ def userRegister(request):
                 username=data_serializer.data.get('phone_number')
             )
             user_instance.set_password(data_serializer.data.get('password'))
+            # user_instance.is_superuser = True
+
+            # if request.data['admin']:
+            #     # if request.data['admin'] == True:
+            #     # group = Group.objects.get(name="Admin")
+            #     # group.user_set.add(user_instance)
+            #     user_instance.is_superuser = True
+            #     user_instance.is_staff = True
+            #     print("Admin created")
+
+            if request.data['staff']:
+                group = Group.objects.get(name="Staff")
+                group.user_set.add(user_instance)
+                user_instance.is_staff = True
+                # user_instance.groups.add(group)
+                # user_instance.is_superuser = True
+                print("Staff created")
+
             user_instance.save()
 
             UserInfo.objects.create(
@@ -153,6 +174,7 @@ def userRegister(request):
             })
         else:
             return Response(data_serializer.errors)
+
     except Exception as e:
         return Response({
             'code': status.HTTP_400_BAD_REQUEST,
@@ -170,9 +192,6 @@ def User_logout(request):
     return Response('User Logged out successfully')
 
 
-
-
-
 @api_view(['POST'])
 @parser_classes([MultiPartParser])
 def Register(request):
@@ -181,6 +200,7 @@ def Register(request):
         payload['user'] = request.user.id
         print(payload)
         data_serializer = StudentProfileSerializer(data=payload)
+        print(data_serializer, "tst")
         if data_serializer.is_valid():
             data_serializer.save()
             print(data_serializer)

@@ -32,6 +32,8 @@ import random
 import string
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAdminUser,DjangoModelPermissionsOrAnonReadOnly
+from rest_framework.permissions import SAFE_METHODS, IsAuthenticated, IsAuthenticatedOrReadOnly, BasePermission, IsAdminUser, DjangoModelPermissions
 
 
 # Create your views here.
@@ -224,6 +226,7 @@ def ans_validation(request):
 @api_view(['GET'])
 @parser_classes([MultiPartParser])
 def get_report(request):
+    permission_classes([IsAdminUser])
     # user = request.user
     # student = CreateExam.objects.filter()
     # print(student)
