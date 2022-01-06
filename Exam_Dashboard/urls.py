@@ -20,6 +20,13 @@ urlpatterns = [
     path('api/ans_type_two/', ans_type_two),
     path('api/ans_three/', ans_type_three),
     path('api/get_student_report/', GetStudentReport),
-    path('api/all_student_exam_report/<str:exam_name>', all_student_exam_report)
+    path('api/all_student_exam_report/<str:exam_name>', all_student_exam_report),
+    #=====================Question delete API
+    path('api/question_one_delete/<id>',QuestionOneDelete),
+    path('api/question_two_delete/<id>',QuestionTwoDelete),
+    path('api/question_three_delete/<id>',QuestionThreeDelete),
+
+
+    
 
 ]
