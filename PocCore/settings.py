@@ -36,7 +36,6 @@ INSTALLED_APPS = [
     'django_cleanup.apps.CleanupConfig',
     'corsheaders',
     'django_filters',
-    'user'
 
 
 ]
