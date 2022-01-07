@@ -25,11 +25,13 @@ from rest_framework import permissions
 from rest_framework.permissions import IsAdminUser
 import h5py
 
+
 # create view here
 
 @api_view(['POST'])
-# @authentication_classes([])
-# @permission_classes([])
+@parser_classes([MultiPartParser])
+@authentication_classes([])
+@permission_classes([])
 def tokenObtainPair(request):
     try:
         payload = request.data
@@ -50,6 +52,7 @@ def tokenObtainPair(request):
                     'token_type': str(refresh.payload['token_type']),
                     'expiry': refresh.payload['exp'],
                     'user_id': refresh.payload['user_id']
+                    .decode('utf-8')
                 })
             else:
                 return Response({
