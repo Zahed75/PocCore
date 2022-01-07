@@ -24,12 +24,12 @@ from rest_framework.response import Response
 from rest_framework import permissions
 from rest_framework.permissions import IsAdminUser
 import h5py
+import numpy as np
 
 
 # create view here
 
 @api_view(['POST'])
-@parser_classes([MultiPartParser])
 @authentication_classes([])
 @permission_classes([])
 def tokenObtainPair(request):
@@ -52,7 +52,7 @@ def tokenObtainPair(request):
                     'token_type': str(refresh.payload['token_type']),
                     'expiry': refresh.payload['exp'],
                     'user_id': refresh.payload['user_id']
-                    .decode('utf-8')
+
                 })
             else:
                 return Response({
@@ -146,10 +146,10 @@ def userRegister(request):
             )
             user_instance.set_password(data_serializer.data.get('password'))
 
-            if request.data['staff']:
-                group = Group.objects.get(name="Staff")
-                group.user_set.add(user_instance)
-                user_instance.is_staff = True
+            # if request.data['staff']:
+            #     group = Group.objects.get(name="Staff")
+            #     group.user_set.add(user_instance)
+            #     user_instance.is_staff = True
 
             user_instance.save()
             UserInfo.objects.create(
