@@ -23,13 +23,13 @@ from django.contrib.auth import get_user_model, logout
 from rest_framework.response import Response
 from rest_framework import permissions
 from rest_framework.permissions import IsAdminUser
-
+import h5py
 
 # create view here
 
 @api_view(['POST'])
-@authentication_classes([])
-@permission_classes([])
+# @authentication_classes([])
+# @permission_classes([])
 def tokenObtainPair(request):
     try:
         payload = request.data
