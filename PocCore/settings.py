@@ -191,15 +191,24 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS = [
     "https://exam.poc.ac",
-    "https://www.examapp.poc.ac",
+    "https://www.exam.poc.ac",
+    # =======================
+    # "https://www.examapp.poc.ac",
+    # "https://examapp.poc.ac",
+    # =============================
+    # =============Admin=============
     "https://www.examadmin.poc.ac",
-    "http://www.examadmin.poc.ac",
-    "http://www.examapp.poc.ac",
-    "http://examapp.poc.ac",
-    "https://examapp.poc.ac",
+    "https://examadmin.poc.ac",
+    # =======================
+
     "http://localhost:8080",
     "http://127.0.0.1:8080",
+    # ===========================
     "http://127.0.0.1:8081",
     "http://localhost:8081",
 
+    # =======Student App Server
+    # ===========================
+    "https://www.examappstudent.poc.ac",
+    "https://examappstudent.poc.ac",
 ]
