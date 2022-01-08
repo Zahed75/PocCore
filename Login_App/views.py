@@ -47,9 +47,9 @@ def tokenObtainPair(request):
                 refresh = RefreshToken.for_user(user_instance)
 
                 return Response({
-                    'access_token': str(refresh.access_token).encode().decode(),
-                    'refresh_token': str(refresh).encode().decode(),
-                    'token_type': str(refresh.payload['token_type']).encode().decode(),
+                    'access_token': (refresh.access_token).encode().decode(),
+                    'refresh_token': (refresh).encode().decode(),
+                    'token_type': (refresh.payload['token_type']).encode().decode(),
                     'expiry': refresh.payload['exp'],
                     'user_id': refresh.payload['user_id']
 
