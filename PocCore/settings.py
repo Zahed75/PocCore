@@ -209,6 +209,6 @@ CORS_ALLOWED_ORIGINS = [
 
     # =======Student App Server
     # ===========================
-    "http://www.portal.poc.ac/",
+    "https://www.portal.poc.ac/",
     "https://portal.poc.ac/",
 ]
