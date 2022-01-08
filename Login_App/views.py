@@ -47,13 +47,14 @@ def tokenObtainPair(request):
                 refresh = RefreshToken.for_user(user_instance)
 
                 return Response({
-                    'access_token': (refresh.access_token).encode().decode(),
-                    'refresh_token': (refresh).encode().decode(),
-                    'token_type': (refresh.payload['token_type']).encode().decode(),
+                    'access_token': str(refresh.access_token),
+                    'refresh_token': str(refresh),
+                    'token_type': str(refresh.payload['token_type']),
                     'expiry': refresh.payload['exp'],
                     'user_id': refresh.payload['user_id']
 
                 })
+
             else:
                 return Response({
                     "code": status.HTTP_401_UNAUTHORIZED,
