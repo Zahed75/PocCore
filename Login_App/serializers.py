@@ -32,3 +32,13 @@ class StudentProfileSerializer(FriendlyErrorMessagesMixin, serializers.ModelSeri
     class Meta:
         model = StudentProfile
         fields = '__all__'
+
+#
+class ChangePasswordSerializer(serializers.Serializer):
+    model = UserInfo
+
+    """
+    Serializer for password change endpoint.
+    """
+    old_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True)

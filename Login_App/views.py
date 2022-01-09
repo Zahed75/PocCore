@@ -22,9 +22,7 @@ from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import get_user_model, logout
 from rest_framework.response import Response
 from rest_framework import permissions
-from rest_framework.permissions import IsAdminUser
-import h5py
-import numpy as np
+from rest_framework import generics
 
 
 # create view here
@@ -188,7 +186,7 @@ def User_logout(request):
 @parser_classes([MultiPartParser])
 def Register(request):
     try:
-        payload = request.data
+        payload = request.data.copy()
         payload['user'] = request.user.id
         print(payload)
         data_serializer = StudentProfileSerializer(data=payload)
@@ -217,11 +215,12 @@ def Register(request):
 @parser_classes([MultiPartParser])
 def update_student(request, id):
     try:
+
         student_object = StudentProfile.objects.get(id=id)
         print(f'test {student_object}')
         serializer = StudentProfileSerializer(student_object, data=request.data, partial=True)
-        if not serializer.is_valid(raise_exception=True):
-            return Response({'status': 403, 'errors': serializer.errors, 'message': 'Something wnent wrong'})
+        if not serializer.is_valid():
+            return Response({'status': 403, 'errors': serializer.errors, 'message': 'Something went wrong'})
 
         serializer.save()
 
@@ -232,3 +231,110 @@ def update_student(request, id):
             'code': status.HTTP_400_BAD_REQUEST,
             'message': str(e)
         })
+
+
+# @api_view(['PUT'])
+# @parser_classes([MultiPartParser])
+# def update_student(request, pk):
+#     """
+#     Retrieve, update or delete a code snippet.
+#     """
+#     try:
+#         sinppet = ""
+#         snippet = StudentProfile.objects.get(pk=pk)
+#     except snippet.DoesNotExist:
+#         return Response(status=status.HTTP_404_NOT_FOUND)
+#
+#     if request.method == 'PUT':
+#         serializer = StudentProfileSerializer(snippet, data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ChangePasswordView(generics.UpdateAPIView):
+    """
+    An endpoint for changing password.
+    """
+    serializer_class = ChangePasswordSerializer
+    model = UserInfo
+    permission_classes = (IsAuthenticated,)
+
+    def get_object(self, queryset=None):
+        obj = self.request.user
+        return obj
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        serializer = self.get_serializer(data=request.data)
+
+        if serializer.is_valid():
+            # Check old password
+            if not self.object.check_password(serializer.data.get("old_password")):
+                return Response({"old_password": ["Wrong password."]}, status=status.HTTP_400_BAD_REQUEST)
+            # set_password also hashes the password that the user will get
+            self.object.set_password(serializer.data.get("new_password"))
+            self.object.save()
+            response = {
+                'status': 'success',
+                'code': status.HTTP_200_OK,
+                'message': 'Password updated successfully',
+                'data': []
+            }
+
+            return Response(response)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+# @api_view(['PUT'])
+# def change_pass(request):
+#     # obj = request.user
+#     try:
+#         User_obj = UserInfo.objects.get(id=id)
+#         serializer = ChangePasswordSerializer(User_obj, data=request.data)
+#
+#         if serializer.is_valid():
+#             # Check old password
+#             if not object.check_password(serializer.data.get("old_password")):
+#                 return Response({"old_password": ["Wrong password."]}, status=status.HTTP_400_BAD_REQUEST)
+#             # set_password also hashes the password that the user will get
+#             object.set_password(serializer.data.get("new_password"))
+#             object.save()
+#             response = {
+#                 'status': 'success',
+#                 'code': status.HTTP_200_OK,
+#                 'message': 'Password updated successfully',
+#                 'data': []
+#             }
+#
+#         else:
+#             return Response(serializer.errors)
+#
+#     except Exception as e:
+#         return Response({
+#             'code': status.HTTP_400_BAD_REQUEST,
+#             'message': str(e)
+#         })
+
+
+# @api_view(['GET', 'POST'])
+# def change_pass(request, user_phone):
+#     try:
+#
+#         usr_info = UserInfo.objects.get(phone_number=user_phone)
+#         print(usr_info)
+#         new_pass = request.data['new_pass']
+#         pass_change = usr_info.user.check_password(new_pass)
+#         # pass_change.save()
+#         return Response({
+#             'code': status.HTTP_200_OK,
+#             'message': 'Password has been changed successfully!',
+#             # 'data': data_serializer.data
+#         })
+#     except Exception as e:
+#         return Response({
+#             'code': status.HTTP_400_BAD_REQUEST,
+#             'message': str(e)
+#         })

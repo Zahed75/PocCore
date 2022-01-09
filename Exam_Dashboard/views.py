@@ -504,5 +504,3 @@ def batch_settingsGet(request):
             'code': status.HTTP_400_BAD_REQUEST,
             'message': str(e)
         })
-
-
