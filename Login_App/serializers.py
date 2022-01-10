@@ -3,6 +3,8 @@ from rest_framework import serializers
 from rest_framework_friendly_errors.mixins import FriendlyErrorMessagesMixin
 from django.contrib.auth.hashers import make_password
 from .models import *
+
+
 # from drf_extra_fields.fields import Base64ImageField
 
 
@@ -30,7 +32,8 @@ class RegistrationDataSerializer(FriendlyErrorMessagesMixin, serializers.ModelSe
 #         payload['user'] = request.user.id
 
 class StudentProfileSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
-    # image=Base64ImageField(max_length=None, use_url=True, )
+    image = serializers.FileField(max_length=3000)
+
     class Meta:
         model = StudentProfile
         fields = '__all__'
