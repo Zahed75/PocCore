@@ -182,14 +182,14 @@ def User_logout(request):
     return Response('User Logged out successfully')
 
 
-@api_view(['POST'])
+@api_view(['POST', 'GET'])
 @parser_classes([MultiPartParser])
 def Register(request):
     try:
         payload = request.data.copy()
         payload['user'] = request.user.id
         print(payload)
-        data_serializer = StudentProfileSerializer(data=payload)
+        data_serializer = StudentProfileSerializer(data=payload, context={'request': request})
         print(data_serializer, "tst")
         if data_serializer.is_valid():
             data_serializer.save()
@@ -286,7 +286,6 @@ class ChangePasswordView(generics.UpdateAPIView):
             return Response(response)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
 # @api_view(['PUT'])
 # def change_pass(request):

@@ -289,7 +289,7 @@ def all_student_result(request, exam_name):
             # )
 
             payload = request.data
-            data_serializer = AllStudentResultSerializer(data=payload)
+            data_serializer = AllStudentResultSerializer(data=payload,context={'request': request})
             if data_serializer.is_valid():
                 data_serializer.save()
                 return Response({

@@ -63,7 +63,7 @@ def home(request):
 def add_exam_pack(request):
     try:
         payload = request.data
-        data_serializer = ExamPackSerializer(data=payload)
+        data_serializer = ExamPackSerializer(data=payload, context={'request': request})
         if data_serializer.is_valid():
             data_serializer.save()
             return Response({
@@ -87,8 +87,7 @@ def add_exam_pack(request):
 def Update_ExamPack(request, id):
     try:
         exam_obj = ExamPack.objects.get(id=id)
-        Serializer = ExamPackSerializer(
-            exam_obj, data=request.data, partial=True)
+        Serializer = ExamPackSerializer(exam_obj, data=request.data, partial=True)
         if not Serializer.is_valid():
             print(Serializer.errors)
             return Response({'status': 200, 'payload': Serializer.data, 'message': 'Something Went Wrong'})
@@ -146,7 +145,7 @@ def Create_Exam(request):
         id_exam = generate_exam_id()
         request.data['exam_id'] = id_exam
         payload = request.data
-        data_serializer = CreatExamSerializer(data=payload)
+        data_serializer = CreatExamSerializer(data=payload,context={'request': request})
         if data_serializer.is_valid():
             data_serializer.save()
             # print(payload)
@@ -251,7 +250,7 @@ def create_q_one(request):
 def create_q_two(request):
     try:
         payload = request.data
-        data_serializer = CreateQuestionModelTwoSerializer(data=payload)
+        data_serializer = CreateQuestionModelTwoSerializer(data=payload,context={'request': request})
         if data_serializer.is_valid():
             data_serializer.save()
             return Response({
@@ -275,7 +274,7 @@ def create_q_two(request):
 def create_q_three(request):
     try:
         payload = request.data
-        data_serializer = CreateQuestionModelThreeSerializer(data=payload)
+        data_serializer = CreateQuestionModelThreeSerializer(data=payload,context={'request': request})
         if data_serializer.is_valid():
             data_serializer.save()
             return Response({
