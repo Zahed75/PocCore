@@ -188,6 +188,7 @@ def Register(request):
     try:
         payload = request.data.copy()
         payload['user'] = request.user.id
+        payload = request.FILES["file"]
         print(payload)
         data_serializer = StudentProfileSerializer(data=payload, context={'request': request})
         print(data_serializer, "tst")
