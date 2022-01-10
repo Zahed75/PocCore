@@ -182,7 +182,7 @@ def User_logout(request):
     return Response('User Logged out successfully')
 
 
-@api_view(['POST', 'GET'])
+@api_view(['POST'])
 @parser_classes([MultiPartParser])
 def Register(request):
     try:

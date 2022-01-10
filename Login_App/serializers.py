@@ -32,12 +32,9 @@ class RegistrationDataSerializer(FriendlyErrorMessagesMixin, serializers.ModelSe
 #         payload['user'] = request.user.id
 
 class StudentProfileSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
-    image = serializers.FileField(max_length=3000)
-
     class Meta:
         model = StudentProfile
         fields = '__all__'
-        # image = Base64ImageField(required=False)
 
 
 #

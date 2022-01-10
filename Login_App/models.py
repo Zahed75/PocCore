@@ -17,7 +17,6 @@ class UserInfo(models.Model):
 class StudentProfile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     image=models.ImageField(upload_to='Student_Profile')
-    # image=models.FileField(upload_to='Student_Profile')
     name = models.CharField(max_length=120)
     email = models.EmailField(max_length=40, blank=True, null=True)
     level = models.CharField(max_length=60, blank=False, verbose_name='Student level')
