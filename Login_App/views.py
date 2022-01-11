@@ -183,7 +183,7 @@ def User_logout(request):
 
 
 @api_view(['POST'])
-@parser_classes([MultiPartParser, FormParser])
+@parser_classes([MultiPartParser])
 def Register(request):
     try:
         payload = request.data.copy()
