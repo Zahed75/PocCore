@@ -25,9 +25,9 @@ class CreateExam(models.Model):
     exam_id = models.CharField(max_length=40, blank=True)
     Exam_name = models.CharField(max_length=1000)
     details = models.TextField()
-    Exam_start_time = models.TimeField()
+    Exam_start_time = models.CharField(max_length=60)
     Exam_start_date = models.DateField()
-    Exam_end_time = models.TimeField()
+    Exam_end_time = models.CharField(max_length=60)
     Exam_end_date = models.DateField()
     exam_total_time = models.IntegerField(default=10)
 
@@ -125,9 +125,9 @@ class AnsModel_Three(models.Model):
 
 
 class BatchSettings(models.Model):
-    batch=models.CharField(max_length=599,blank=True,null=True)
-    level=models.CharField(max_length=500,blank=True,null=True)
-    board=models.CharField(max_length=500,blank=True,null=True)
+    batch = models.CharField(max_length=599, blank=True, null=True)
+    level = models.CharField(max_length=500, blank=True, null=True)
+    board = models.CharField(max_length=500, blank=True, null=True)
 
     def __str__(self):
         return str(self.batch)
