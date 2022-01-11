@@ -31,6 +31,10 @@ import random
 import string
 from Student_ExamDashboard.models import *
 from datetime import datetime, date, timedelta
+from rest_framework.renderers import TemplateHTMLRenderer
+from rest_framework import generics
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 
 # create view here
@@ -52,9 +56,18 @@ generate_exam_id()
 # print(generate_exam_id(), "zahed")
 
 
-@api_view()
-def home(request):
-    return Response({'status': 200, 'message': "WELCOME TO POCEXAM TOOLS API HE HA HA..."})
+# @api_view()
+# def home(request):
+#     return Response({'status': 200, 'message': "WELCOME TO POCEXAM TOOLS API HE HA HA..."})
+
+
+class home(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'Exam_Dashboard/index.html'
+
+    def get(self, request):
+        queryset = {}
+        return Response(queryset)
 
 
 # add an exam
@@ -145,7 +158,7 @@ def Create_Exam(request):
         id_exam = generate_exam_id()
         request.data['exam_id'] = id_exam
         payload = request.data
-        data_serializer = CreatExamSerializer(data=payload,context={'request': request})
+        data_serializer = CreatExamSerializer(data=payload, context={'request': request})
         if data_serializer.is_valid():
             data_serializer.save()
             # print(payload)
@@ -250,7 +263,7 @@ def create_q_one(request):
 def create_q_two(request):
     try:
         payload = request.data
-        data_serializer = CreateQuestionModelTwoSerializer(data=payload,context={'request': request})
+        data_serializer = CreateQuestionModelTwoSerializer(data=payload, context={'request': request})
         if data_serializer.is_valid():
             data_serializer.save()
             return Response({
@@ -274,7 +287,7 @@ def create_q_two(request):
 def create_q_three(request):
     try:
         payload = request.data
-        data_serializer = CreateQuestionModelThreeSerializer(data=payload,context={'request': request})
+        data_serializer = CreateQuestionModelThreeSerializer(data=payload, context={'request': request})
         if data_serializer.is_valid():
             data_serializer.save()
             return Response({
@@ -502,4 +515,64 @@ def batch_settingsGet(request):
         return Response({
             'code': status.HTTP_400_BAD_REQUEST,
             'message': str(e)
+        })
+
+
+@api_view(['GET'])
+def get_ans_one(request):
+    try:
+        ans_model_one = AnswerModel_One.objects.all()
+        data_serializer = Anstype_oneSerializer(ans_model_one, many=True)
+        return Response({
+            'code': status.HTTP_200_OK,
+            'message': 'All Ans Shown from Ans Model One!!!!',
+            'data': data_serializer.data
+        })
+
+
+    except Exception as e:
+        return Response({
+            'code': status.HTTP_400_BAD_REQUEST,
+            'message': str(e)
+
+        })
+
+
+@api_view(['GET'])
+def get_ans_two(request):
+    try:
+        ans_model_one = AnswerModel_One.objects.all()
+        data_serializer = CreateAnsTypeTwoSerializer(ans_model_one, many=True)
+        return Response({
+            'code': status.HTTP_200_OK,
+            'message': 'All Ans Shown from Ans Model Two!!!!',
+            'data': data_serializer.data
+        })
+
+
+    except Exception as e:
+        return Response({
+            'code': status.HTTP_400_BAD_REQUEST,
+            'message': str(e)
+
+        })
+
+
+@api_view(['GET'])
+def get_ans_three(request):
+    try:
+        ans_model_one = AnswerModel_One.objects.all()
+        data_serializer = CreateAnsThreeSerializer(ans_model_one, many=True)
+        return Response({
+            'code': status.HTTP_200_OK,
+            'message': 'All Ans Shown from Ans Model Three!!!!',
+            'data': data_serializer.data
+        })
+
+
+    except Exception as e:
+        return Response({
+            'code': status.HTTP_400_BAD_REQUEST,
+            'message': str(e)
+
         })

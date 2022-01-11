@@ -1,0 +1,129 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <title>POC ACADEMY</title>
+</head>
+
+<body>
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">POC ACADEMY EXAM APP <kbd>API</kbd></h1>
+        <p class="lead">This is an Private JSON API for Poc Academy Exam Management System Tools which is
+            associated with the Django Rest Framework And Docker Based (super light-weight
+            Virtual machine which has all necessery
+            programs and dependencies in order to run
+            the program. we setup big application
+            which has UI, database, and lots of
+            microservices we need to do a setup and
+            each of this services need some kind of program)
+            constructed language <a href="http://portal.poc.ac/login-register">POC Academy Student Interface</a>, a
+            constructed language <a href="http://www.examadmin.poc.ac/">POC Academy Admin Interface</a>, a
+            language
+            designed to
+            be as simple and as easy to learn as possible.</p>
+    </div>
+</div>
+
+<div class="endpoints-container">
+    <div class="row">
+        <div class="col">
+            <div class="card" style="">
+                <div class="card-body">
+                    <h5 class="card-title">Endpoint #1: <kbd>/word/&lt;string:word&gt;</kbd></h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Look up information associated to a word.</h6>
+                    <p class="card-text">This endpoint allows you to find information associated with the word supplied.
+                        It returns an JSON list containing a set of objects, each object representing a word that could
+                        possibly be linked to the word given.</p>
+                    <pre><code class="json" id="endpointExample1"></code></pre>
+                    <h6>Example requests</h6>
+
+                    <a href="/word/a">
+                        <pre>/word/a</pre>
+                    </a>
+                    <a href="/word/ijo">
+                        <pre>/word/ijo</pre>
+                    </a>
+                    <a href="/word/pakala">
+                        <pre>/word/pakala</pre>
+                    </a>
+                    <a href="/word/xyz">
+                        <pre>/word/xyz</pre>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card" style="">
+                <div class="card-body">
+                    <h3 class="card-title">Initiative By</h3>
+                    <h6 class="card-subtitle mb-2 text-muted"><a href="https://www.urgentfuel.tech/">Urgent Fuel Dev
+                        Team</a></h6>
+                    <p class="card-text">Developed and Team Lead by:</p>
+                    <p class="card-text">
+                        <a href="https://www.linkedin.com/in/zahedhasan/"><b>Zahed Hasan</b></a>
+                    </p>
+                    <p class="card-text"><h6>Production Lead:</h6></p>
+                    <p class="card-text">
+                    <h6><a href="https://www.linkedin.com/in/iamrakibullah/">Md.Rakib Ullah</a> & <br>
+                        <a href="https://www.linkedin.com/in/thauhidfahad/">Thauhid Hussain Chowdhury</a></h6>
+                    </p>
+                    <p class="card-text">It is written in Python using <kbd>Django Rest Framework</kbd> and <kbd>Rq
+                        broker</kbd>.
+                    </p>
+                </div>
+            </div>
+
+            <div class="card" style="">
+                <div class="card-body">
+                    <h5 class="card-title">Endpoint #2: <kbd>/data</kbd></h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Get the raw data of the API.</h6>
+                    <p class="card-text">The endpoint allows you to get the raw data from the API, a json object of word
+                        objects.</p>
+
+                    <h6>Example requests</h6>
+                    <a href="/data">
+                        <pre>/data</pre>
+                    </a>
+                </div>
+            </div>
+            <div class="card" style="">
+                <div class="card-body">
+                    <h5 class="card-title">Endpoint #3: <kbd>/random</kbd></h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Get a random word.</h6>
+                    <p class="card-text">This endpoint allows you to fetch a random word from the API.</p>
+
+                    <h6>Example requests</h6>
+                    <a href="/random">
+                        <pre>/random</pre>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+<script src="{% static 'js/main.js' %}">
+
+</script>
+</body>
+</html>

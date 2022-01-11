@@ -3,7 +3,7 @@ from django.urls import path
 from Exam_Dashboard.views import *
 
 urlpatterns = [
-    path('', home),
+    path('', home.as_view(), name='home'),
     path('api/add_exampack/', add_exam_pack),
     path('api/edit-exampack/<id>', Update_ExamPack, name='change'),
     path('api/delete-exampack/<id>', delete_exampack, name='delete'),
@@ -30,7 +30,10 @@ urlpatterns = [
     path('api/question_two_delete/<id>', QuestionTwoDelete),
     path('api/question_three_delete/<id>', QuestionThreeDelete),
     path('api/batch_settings/', batch_settings),
-    path('api/batch_data_get/',batch_settingsGet),
-
-
+    path('api/batch_data_get/', batch_settingsGet),
+    # =============================================ss
+    #ans get all question=========Start
+    path('api/get_ans_type_one/',get_ans_one),
+    path('api/get_ans_type_two/',get_ans_two),
+    path('api/get_ans_type_three/',get_ans_three),
 ]
