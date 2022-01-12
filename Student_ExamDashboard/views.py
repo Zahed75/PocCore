@@ -259,7 +259,8 @@ def all_student_result(request, exam_name):
             return Response({
                 'code': status.HTTP_200_OK,
                 'message': 'All Student Subject Wise Report!',
-                'data': data_serializer.data
+                'data': data_serializer.data,
+                'user_id': User
             })
 
         except Exception as e:
@@ -289,13 +290,14 @@ def all_student_result(request, exam_name):
             # )
 
             payload = request.data
-            data_serializer = AllStudentResultSerializer(data=payload,context={'request': request})
+            data_serializer = AllStudentResultSerializer(data=payload, context={'request': request})
             if data_serializer.is_valid():
                 data_serializer.save()
                 return Response({
                     'code': status.HTTP_200_OK,
                     'message': 'Data Saved!!!!!!!!',
-                    'data': data_serializer.data
+                    'data': data_serializer.data,
+                    'user_id': User
 
                 })
             return Response({
@@ -308,5 +310,3 @@ def all_student_result(request, exam_name):
                 'code': status.HTTP_400_BAD_REQUEST,
                 'message': str(e)
             })
-
-
