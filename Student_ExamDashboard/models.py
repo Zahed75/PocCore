@@ -21,6 +21,7 @@ class AllStudentResult(models.Model):
     exam_name=models.ForeignKey(CreateExam,on_delete=models.CASCADE)
     rank = models.CharField(max_length=400, null=True, blank=True)
     name = models.CharField(max_length=550, null=True, blank=True)
+    profile_image=models.ImageField(StudentProfile)
     board = models.CharField(max_length=550, null=True, blank=True)
     timestamp = models.CharField(max_length=550, null=True, blank=True)
     score = models.CharField(max_length=550, null=True, blank=True)

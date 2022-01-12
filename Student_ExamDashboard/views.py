@@ -36,6 +36,8 @@ from rest_framework.permissions import IsAdminUser, DjangoModelPermissionsOrAnon
 from rest_framework.permissions import SAFE_METHODS, IsAuthenticated, IsAuthenticatedOrReadOnly, BasePermission, \
     IsAdminUser, DjangoModelPermissions
 
+from Login_App.serializers import *
+
 
 # Create your views here.
 
@@ -79,7 +81,7 @@ def ExamList(request):
     try:
         exam_list = ExamPack.objects.filter(level=student.level)
         queryset = CreateExam.objects.filter(exam_pack__in=exam_list)
-        data_serializer = CreatExamSerializer(queryset, many=True)
+        data_serializer = CreatExamSerializer(queryset, many=True,context={'request': request})
 
         return Response({
             'code': status.HTTP_200_OK,
@@ -254,13 +256,14 @@ def get_report(request):
 def all_student_result(request, exam_name):
     if request.method == 'GET':
         try:
+
             report = AllStudentResult.objects.filter(exam_name__Exam_name=exam_name)
             data_serializer = AllStudentResultSerializer(report, many=True)
             return Response({
                 'code': status.HTTP_200_OK,
                 'message': 'All Student Subject Wise Report!',
                 'data': data_serializer.data,
-                'user_id': User
+
             })
 
         except Exception as e:
@@ -297,7 +300,6 @@ def all_student_result(request, exam_name):
                     'code': status.HTTP_200_OK,
                     'message': 'Data Saved!!!!!!!!',
                     'data': data_serializer.data,
-                    'user_id': User
 
                 })
             return Response({
