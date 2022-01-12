@@ -541,7 +541,7 @@ def get_ans_one(request):
 @api_view(['GET'])
 def get_ans_two(request):
     try:
-        ans_model_one = AnswerModel_One.objects.all()
+        ans_model_one = AnsModel_Two.objects.all()
         data_serializer = CreateAnsTypeTwoSerializer(ans_model_one, many=True)
         return Response({
             'code': status.HTTP_200_OK,
@@ -561,7 +561,7 @@ def get_ans_two(request):
 @api_view(['GET'])
 def get_ans_three(request):
     try:
-        ans_model_one = AnswerModel_One.objects.all()
+        ans_model_one = AnsModel_Three.objects.all()
         data_serializer = CreateAnsThreeSerializer(ans_model_one, many=True)
         return Response({
             'code': status.HTTP_200_OK,
