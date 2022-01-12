@@ -262,7 +262,7 @@ def all_student_result(request, exam_name):
             # prfl = StudentProfile.objects.all()
             # print(prfl)
             # stu_serializer = StudentProfileSerializer(prfl, many=True)
-            data_serializer = AllStudentResultSerializer(report, many=True)
+            data_serializer = AllStudentResultSerializer(report, many=True, context={'request': request})
             return Response({
                 'code': status.HTTP_200_OK,
                 'message': 'All Student Subject Wise Report!',
