@@ -81,7 +81,7 @@ def ExamList(request):
     try:
         exam_list = ExamPack.objects.filter(level=student.level)
         queryset = CreateExam.objects.filter(exam_pack__in=exam_list)
-        data_serializer = CreatExamSerializer(queryset, many=True,context={'request': request})
+        data_serializer = CreatExamSerializer(queryset, many=True, context={'request': request})
 
         return Response({
             'code': status.HTTP_200_OK,
@@ -258,11 +258,16 @@ def all_student_result(request, exam_name):
         try:
 
             report = AllStudentResult.objects.filter(exam_name__Exam_name=exam_name)
+            # prfl = StudentProfile.objects.filter(user__studentprofile=request.user)
+            # prfl = StudentProfile.objects.all()
+            # print(prfl)
+            # stu_serializer = StudentProfileSerializer(prfl, many=True)
             data_serializer = AllStudentResultSerializer(report, many=True)
             return Response({
                 'code': status.HTTP_200_OK,
                 'message': 'All Student Subject Wise Report!',
                 'data': data_serializer.data,
+                # 'prfl': stu_serializer.data
 
             })
 
