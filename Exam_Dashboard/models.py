@@ -79,7 +79,7 @@ class QuestionModel_Two(models.Model):
     exam_name = models.ForeignKey(CreateExam, on_delete=models.CASCADE, related_name='name_of_examTwo')
     description = models.TextField(max_length=4000, blank=True, null=True)
     question_name = models.TextField(max_length=4000, blank=True, null=True)
-    Q_image = models.ImageField(upload_to='Question_img')
+    Q_image = models.ImageField(upload_to='Question_img',blank=True, null=True)
     data_one = models.CharField(max_length=3000, null=True, blank=True)
     data_two = models.CharField(max_length=3000, null=True, blank=True)
     data_three = models.CharField(max_length=3000, null=True, blank=True)
@@ -105,6 +105,7 @@ class QuestionModel_Three(models.Model):
     question_name = models.TextField(max_length=5000, null=True, blank=True)
     Q_image = models.ImageField(upload_to='Question_img', null=True, blank=True)
     # =========part_two======
+
     sample_one = models.CharField(max_length=400, null=True, blank=True)
     sample_two = models.CharField(max_length=400, null=True, blank=True)
     sample_three = models.CharField(max_length=400, null=True, blank=True)
