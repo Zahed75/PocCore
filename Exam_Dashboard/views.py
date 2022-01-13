@@ -592,12 +592,13 @@ def get_all_options(request, question_name):
         option_dict = {
             "option_one": ans_one.data,
             "option_two": ans_two.data,
-            "option_three": ans_three.data
+            "option_three": ans_three.data,
+
         }
         return Response({
             'code': status.HTTP_200_OK,
-            'message': 'All Ans Shown from Ans Model Three!!!!',
-            'option_data': option_dict
+            'message': 'List of all ExamPack of level Wise',
+            'option_data': option_dict,
         })
 
         ans_model_array = [ans_one, ans_two, ans_three]
@@ -611,6 +612,8 @@ def get_all_options(request, question_name):
                 pass
 
         # print(answer)
+
+
 
 
     except Exception as e:
