@@ -32,8 +32,9 @@ urlpatterns = [
     path('api/batch_settings/', batch_settings),
     path('api/batch_data_get/', batch_settingsGet),
     # =============================================ss
-    #ans get all question=========Start
-    path('api/get_ans_type_one/',get_ans_one),
-    path('api/get_ans_type_two/',get_ans_two),
-    path('api/get_ans_type_three/',get_ans_three),
+    # ans get all question=========Start
+    path('api/get_ans_type_one/', get_ans_one),
+    path('api/get_ans_type_two/', get_ans_two),
+    path('api/get_ans_type_three/', get_ans_three),
+    path('api/get_all_option/<str:question_name>/', get_all_options)
 ]

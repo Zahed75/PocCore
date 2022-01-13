@@ -21,8 +21,8 @@ class ExamPack(models.Model):
 
 
 class CreateExam(models.Model):
-    exam_pack = models.ForeignKey(ExamPack, on_delete=models.CASCADE, related_name='exam_pack')
     exam_id = models.CharField(max_length=40, blank=True)
+    exam_pack = models.ForeignKey(ExamPack, on_delete=models.CASCADE, related_name='exam_pack')
     Exam_name = models.CharField(max_length=1000)
     details = models.TextField()
     Exam_start_time = models.CharField(max_length=60)

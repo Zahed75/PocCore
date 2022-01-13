@@ -576,3 +576,45 @@ def get_ans_three(request):
             'message': str(e)
 
         })
+
+
+@api_view(['GET'])
+# @parser_classes(MultiPartParser)
+def get_all_options(request, question_name):
+    try:
+        from django.core import serializers
+        ans_one = Anstype_oneSerializer(AnswerModel_One.objects.filter(Question__question_name=question_name),
+                                        many=True)
+        ans_two = CreateAnsTypeTwoSerializer(AnsModel_Two.objects.filter(Question__question_name=question_name),
+                                             many=True)
+        ans_three = CreateAnsThreeSerializer(AnsModel_Three.objects.filter(Question__question_name=question_name),
+                                             many=True)
+        option_dict = {
+            "option_one": ans_one.data,
+            "option_two": ans_two.data,
+            "option_three": ans_three.data
+        }
+        return Response({
+            'code': status.HTTP_200_OK,
+            'message': 'All Ans Shown from Ans Model Three!!!!',
+            'option_data': option_dict
+        })
+
+        ans_model_array = [ans_one, ans_two, ans_three]
+
+        answer = None
+
+        for item in ans_model_array:
+            if len(item) > 0:
+                answer = item
+            else:
+                pass
+
+        # print(answer)
+
+
+    except Exception as e:
+        return Response({
+            'code': status.HTTP_400_BAD_REQUEST,
+            'message': str(e)
+        })
