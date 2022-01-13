@@ -239,7 +239,7 @@ def student_info(request):
 def create_q_one(request):
     try:
         payload = request.data
-        data_serializer = CreateQuestionModelOneSerializer(data=payload)
+        data_serializer = CreateQuestionModelOneSerializer(data=payload, context={'request': request})
         if data_serializer.is_valid():
             data_serializer.save()
             return Response({
