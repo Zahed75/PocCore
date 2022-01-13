@@ -83,6 +83,7 @@ class QuestionModel_Two(models.Model):
     data_one = models.CharField(max_length=3000, null=True, blank=True)
     data_two = models.CharField(max_length=3000, null=True, blank=True)
     data_three = models.CharField(max_length=3000, null=True, blank=True)
+    data_four = models.CharField(max_length=3000, null=True, blank=True)
     marks = models.IntegerField(default=4)
 
     def __str__(self):
