@@ -11,7 +11,7 @@ class ExamResult(models.Model):
     exam_name = models.ForeignKey(CreateExam, on_delete=models.CASCADE, related_name='exam_result')
     score = models.IntegerField(default=0)
     negative_marking = models.IntegerField(default=0)
-    timestamp = models.TimeField(auto_now_add=True)
+    timestamp = models.CharField(max_length=50,blank=True, null=True)
 
     def __str__(self):
         return self.student.username
