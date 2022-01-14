@@ -198,7 +198,7 @@ def ans_validation(request):
         })
 
 
-@api_view(['GET'])
+@api_view(['GET', 'POST'])
 @parser_classes([MultiPartParser])
 def get_report(request):
     permission_classes([IsAdminUser])
@@ -289,65 +289,6 @@ def all_student_result(request, exam_name):
                 'code': status.HTTP_400_BAD_REQUEST,
                 'message': str(e)
             })
-
-
-# @api_view(['GET', 'POST'])
-# @parser_classes(MultiPartParser)
-# def get_all_options(request):
-#     try:
-#         question_name = request.data['question_name']
-#         # from django.core import serializers
-#         # ans_one = Anstype_oneSerializer(AnswerModel_One.objects.filter(Question__question_name=question_name),
-#         #                                 many=True)
-#         # print(ans_one)
-#         # ans_two = CreateAnsTypeTwoSerializer(AnsModel_Two.objects.filter(Question__question_name=question_name),
-#         #                                      many=True)
-#         # print(ans_two)
-#         # ans_three = CreateAnsThreeSerializer(AnsModel_Three.objects.filter(Question__question_name=question_name),
-#         #                                      many=True)
-#         # print(ans_three)
-#
-#         ans_one = AnswerModel_One.objects.filter(Question__question_name=question_name)
-#         print(ans_one)
-#         ans_two = AnsModel_Two.objects.filter(Question__question_name=question_name)
-#         print(ans_two)
-#         ans_three = AnsModel_Three.objects.filter(Question__question_name=question_name)
-#         print(ans_three)
-#
-#         # option_dict = {
-#         #     "option_one": ans_one.data,
-#         #     "option_two": ans_two.data,
-#         #     "option_three": ans_three.data,
-#         #
-#         # }
-#
-#         ans_model_array = [ans_one, ans_two, ans_three]
-#         print(ans_model_array)
-#
-#         answer = None
-#
-#         for item in ans_model_array:
-#             if len(item) > 0:
-#                 answer = item
-#             else:
-#                 pass
-#
-#         return Response({
-#             'code': status.HTTP_200_OK,
-#             'message': 'List of all ExamPack of level Wise',
-#             # 'option_data': option_dict,
-#         })
-#
-#         # print(answer)
-#
-#
-#
-#
-#     except Exception as e:
-#         return Response({
-#             'code': status.HTTP_400_BAD_REQUEST,
-#             'message': str(e)
-#         })
 
 
 @api_view(['GET', 'POST'])
