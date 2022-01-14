@@ -200,35 +200,10 @@ def ans_validation(request):
 
 @api_view(['POST', 'GET'])
 @parser_classes([MultiPartParser])
-def get_student_report(request):
+def show_all_report(request):
     # user = request.user
     # student = CreateExam.objects.filter()
     # print(student)
-
-    if request.method == 'POST':
-        try:
-            payload = request.data
-
-            data_serializer = ExamResultSerializer(data=payload, context={'request': request})
-            if data_serializer.is_valid():
-                data_serializer.save()
-                return Response({
-                    'code': status.HTTP_200_OK,
-                    'message': 'Data  Shown!!!!!!!!',
-                    'data': data_serializer.data,
-
-                })
-            return Response({
-                'code': status.HTTP_200_OK,
-                'message': 'Data Pass!!',
-            })
-
-        except Exception as e:
-            return Response({
-                'code': status.HTTP_400_BAD_REQUEST,
-                'message': str(e)
-            })
-
     if request.method == 'GET':
         try:
             report_info = ExamResult.objects.filter(student=request.user)
@@ -239,6 +214,30 @@ def get_student_report(request):
                 'message': 'All Student Report!',
                 'data': data_serializer.data
             })
+
+        except Exception as e:
+            return Response({
+                'code': status.HTTP_400_BAD_REQUEST,
+                'message': str(e)
+            })
+
+    if request.method == 'POST':
+        try:
+            payload = request.data.copy()
+            payload['user'] = request.user.id
+            print(payload)
+
+            data_serializer = ExamResultSerializer(data=payload, context={'request': request})
+            if data_serializer.is_valid():
+                data_serializer.save()
+                return Response({
+                    'code': status.HTTP_200_OK,
+                    'message': 'data sent successfully!',
+                    'data': data_serializer.data
+                })
+            else:
+                return Response(data_serializer.errors)
+
 
         except Exception as e:
             return Response({
