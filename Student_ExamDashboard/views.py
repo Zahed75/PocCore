@@ -1,42 +1,14 @@
-from django.shortcuts import render
-from django.http import JsonResponse
-from django.contrib.auth import login
-from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 from rest_framework import status
-from rest_framework.serializers import Serializer
-from .models import *
-from Login_App.models import *
-from rest_framework.response import Response
-from rest_framework.decorators import api_view, authentication_classes, permission_classes
-from django.contrib.auth.models import User
-from django.contrib.auth.hashers import check_password
-from rest_framework.utils import json
-from rest_framework_simplejwt.tokens import RefreshToken, AccessToken, UntypedToken, Token
-from rest_framework_simplejwt.authentication import JWTAuthentication, JWTTokenUserAuthentication
-from rest_framework.permissions import IsAuthenticated, AllowAny
-from json import dumps, loads, JSONEncoder, JSONDecoder
-from Exam_Dashboard.models import *
-from .serializers import *
-from rest_framework.parsers import JSONParser
-from rest_framework.views import APIView
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.generics import ListAPIView
-from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
-from rest_framework.decorators import parser_classes
-from rest_framework.parsers import FileUploadParser
-from django.views.decorators.csrf import csrf_exempt
-import random
-import string
+from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.permissions import IsAdminUser, DjangoModelPermissionsOrAnonReadOnly
-from rest_framework.permissions import SAFE_METHODS, IsAuthenticated, IsAuthenticatedOrReadOnly, BasePermission, \
-    IsAdminUser, DjangoModelPermissions
+from rest_framework.decorators import parser_classes
+from rest_framework.parsers import MultiPartParser
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.response import Response
 
 from Login_App.serializers import *
+from .serializers import *
+from Exam_Dashboard.serializers import *
 
 
 # Create your views here.
@@ -317,3 +289,105 @@ def all_student_result(request, exam_name):
                 'code': status.HTTP_400_BAD_REQUEST,
                 'message': str(e)
             })
+
+
+# @api_view(['GET', 'POST'])
+# @parser_classes(MultiPartParser)
+# def get_all_options(request):
+#     try:
+#         question_name = request.data['question_name']
+#         # from django.core import serializers
+#         # ans_one = Anstype_oneSerializer(AnswerModel_One.objects.filter(Question__question_name=question_name),
+#         #                                 many=True)
+#         # print(ans_one)
+#         # ans_two = CreateAnsTypeTwoSerializer(AnsModel_Two.objects.filter(Question__question_name=question_name),
+#         #                                      many=True)
+#         # print(ans_two)
+#         # ans_three = CreateAnsThreeSerializer(AnsModel_Three.objects.filter(Question__question_name=question_name),
+#         #                                      many=True)
+#         # print(ans_three)
+#
+#         ans_one = AnswerModel_One.objects.filter(Question__question_name=question_name)
+#         print(ans_one)
+#         ans_two = AnsModel_Two.objects.filter(Question__question_name=question_name)
+#         print(ans_two)
+#         ans_three = AnsModel_Three.objects.filter(Question__question_name=question_name)
+#         print(ans_three)
+#
+#         # option_dict = {
+#         #     "option_one": ans_one.data,
+#         #     "option_two": ans_two.data,
+#         #     "option_three": ans_three.data,
+#         #
+#         # }
+#
+#         ans_model_array = [ans_one, ans_two, ans_three]
+#         print(ans_model_array)
+#
+#         answer = None
+#
+#         for item in ans_model_array:
+#             if len(item) > 0:
+#                 answer = item
+#             else:
+#                 pass
+#
+#         return Response({
+#             'code': status.HTTP_200_OK,
+#             'message': 'List of all ExamPack of level Wise',
+#             # 'option_data': option_dict,
+#         })
+#
+#         # print(answer)
+#
+#
+#
+#
+#     except Exception as e:
+#         return Response({
+#             'code': status.HTTP_400_BAD_REQUEST,
+#             'message': str(e)
+#         })
+
+
+@api_view(['GET', 'POST'])
+@parser_classes([MultiPartParser])
+def option_all_get(request):
+    try:
+        question_name = request.data['question_name']
+        ans_one = Anstype_oneSerializer(AnswerModel_One.objects.filter(Question__question_name=question_name),
+                                        many=True)
+        print(f'1, {ans_one}')
+        print(len(ans_one.data))
+        ans_two = CreateAnsTypeTwoSerializer(AnsModel_Two.objects.filter(Question__question_name=question_name),
+                                             many=True)
+        print(f'2, {ans_two}')
+        ans_three = CreateAnsThreeSerializer(AnsModel_Three.objects.filter(Question__question_name=question_name),
+                                             many=True)
+        print(f'3, {ans_three}')
+
+        ans_model_array = [ans_one.data, ans_two.data, ans_three.data]
+        # print(ans_model_array)
+
+        answer = None
+
+        for item in ans_model_array:
+            if len(item) > 0:
+                answer = item
+            else:
+                pass
+
+        print(answer)
+
+        return Response({
+            'code': status.HTTP_200_OK,
+            'message': 'Data Saved!!!!!!!!',
+            'data': answer,
+
+        })
+
+    except Exception as e:
+        return Response({
+            'code': status.HTTP_400_BAD_REQUEST,
+            'message': str(e)
+        })

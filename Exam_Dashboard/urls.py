@@ -36,5 +36,5 @@ urlpatterns = [
     path('api/get_ans_type_one/', get_ans_one),
     path('api/get_ans_type_two/', get_ans_two),
     path('api/get_ans_type_three/', get_ans_three),
-    path('api/get_all_option/<str:question_name>/', get_all_options)
+
 ]
