@@ -198,34 +198,82 @@ def ans_validation(request):
         })
 
 
-@api_view(['GET', 'POST'])
+@api_view(['POST', 'GET'])
 @parser_classes([MultiPartParser])
-def get_report(request):
-    permission_classes([IsAdminUser])
+def get_student_report(request):
     # user = request.user
     # student = CreateExam.objects.filter()
     # print(student)
-    try:
-        report_info = ExamResult.objects.filter(student=request.user)
-        data_serializer = ExamResultSerializer(report_info, many=True)
-        print(data_serializer)
-        return Response({
-            'code': status.HTTP_200_OK,
-            'message': 'All Student Report!',
-            'data': data_serializer.data
-        })
 
+    if request.method == 'POST':
+        try:
+            payload = request.data
 
-    except Exception as e:
-        return Response({
-            'code': status.HTTP_400_BAD_REQUEST,
-            'message': str(e)
-        })
+            data_serializer = ExamResultSerializer(data=payload, context={'request': request})
+            if data_serializer.is_valid():
+                data_serializer.save()
+                return Response({
+                    'code': status.HTTP_200_OK,
+                    'message': 'Data  Shown!!!!!!!!',
+                    'data': data_serializer.data,
+
+                })
+            return Response({
+                'code': status.HTTP_200_OK,
+                'message': 'Data Pass!!',
+            })
+
+        except Exception as e:
+            return Response({
+                'code': status.HTTP_400_BAD_REQUEST,
+                'message': str(e)
+            })
+
+    if request.method == 'GET':
+        try:
+            report_info = ExamResult.objects.filter(student=request.user)
+            data_serializer = ExamResultSerializer(report_info, many=True)
+            print(data_serializer)
+            return Response({
+                'code': status.HTTP_200_OK,
+                'message': 'All Student Report!',
+                'data': data_serializer.data
+            })
+
+        except Exception as e:
+            return Response({
+                'code': status.HTTP_400_BAD_REQUEST,
+                'message': str(e)
+            })
 
 
 @api_view(['GET', 'POST'])
 @parser_classes([MultiPartParser])
 def all_student_result(request, exam_name):
+    if request.method == 'POST':
+        try:
+
+            payload = request.data
+            data_serializer = ExamResultSerializer(data=payload, context={'request': request})
+            if data_serializer.is_valid():
+                data_serializer.save()
+                return Response({
+                    'code': status.HTTP_200_OK,
+                    'message': 'Data  pass!!!!!!!!',
+                    'data': data_serializer.data,
+
+                })
+            return Response({
+                'code': status.HTTP_200_OK,
+                'message': 'Report Shown!!',
+            })
+
+        except Exception as e:
+            return Response({
+                'code': status.HTTP_400_BAD_REQUEST,
+                'message': str(e)
+            })
+
     if request.method == 'GET':
         try:
 
