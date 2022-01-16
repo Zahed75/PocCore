@@ -212,8 +212,6 @@ CORS_ALLOWED_ORIGINS = [
     "https://www.portal.poc.ac",
     "https://portal.poc.ac",
 
-    "http://www.portal.poc.ac",
-    "http://portal.poc.ac",
 ]
 
 CORS_ALLOW_METHODS = [

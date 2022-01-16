@@ -5,8 +5,6 @@ from django.contrib.auth.hashers import make_password
 from .models import *
 
 
-
-
 class LoginSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
     phone_number = serializers.CharField(max_length=14)
     password = serializers.CharField(max_length=200)
@@ -43,6 +41,9 @@ class ChangePasswordSerializer(serializers.Serializer):
     """
     Serializer for password change endpoint.
     """
-    old_password = serializers.CharField(required=True)
+    phone_number = serializers.CharField(required=True)
     new_password = serializers.CharField(required=True)
+
+
+
 
