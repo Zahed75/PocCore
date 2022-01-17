@@ -83,13 +83,13 @@ def get_question(request, exam_id):
         print(question_type_one)
         question_type_two = CreateQuestionModelTwoSerializer(QuestionModel_Two.objects.filter(exam_name=exam_id),
                                                              many=True)
-        question_type_three = CreateQuestionModelThreeSerializer(QuestionModel_Three.objects.filter(exam_name=exam_id),
-                                                                 many=True)
+        # question_type_three = CreateQuestionModelThreeSerializer(QuestionModel_Three.objects.filter(exam_name=exam_id),
+        #                                                          many=True)
 
         data_dict = {
             "data_one": question_type_one.data,
             "data_two": question_type_two.data,
-            "data_three": question_type_three.data
+        #     "data_three": question_type_three.data
         }
 
         return Response({

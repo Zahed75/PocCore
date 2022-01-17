@@ -50,9 +50,6 @@ def generate_exam_id():
     return exam_id
 
 
-generate_exam_id()
-
-
 # print(generate_exam_id(), "zahed")
 
 
@@ -389,12 +386,13 @@ def ans_type_three(request):
 @api_view(['GET'])
 @parser_classes([MultiPartParser])
 def GetStudentReport(request):
+    print(request.user)
     try:
-        report_info = ExamResult.objects.all()
+        report_info = ExamResult.objects.filter(student=request.user)
         data_serializer = ExamResultSerializer(report_info, many=True)
         return Response({
             'code': status.HTTP_200_OK,
-            'message': 'All Student Report!',
+            'message': 'Student Report!',
             'data': data_serializer.data
         })
 
@@ -576,5 +574,3 @@ def get_ans_three(request):
             'message': str(e)
 
         })
-
-

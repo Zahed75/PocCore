@@ -104,9 +104,11 @@ class QuestionModel_Three(models.Model):
     exam_name = models.ForeignKey(CreateExam, on_delete=models.CASCADE, related_name='name_of_examThree')
     Q_Description = models.TextField(max_length=5000)
     question_name = models.TextField(max_length=5000, null=True, blank=True)
+    one_option_one=models.CharField(max_length=599,blank=True,null=True)
+
     Q_image = models.ImageField(upload_to='Question_img', null=True, blank=True)
     # =========part_two======
-
+    question_name_two=models.TextField(max_length=5000,null=True,blank=True)
     sample_one = models.CharField(max_length=400, null=True, blank=True)
     sample_two = models.CharField(max_length=400, null=True, blank=True)
     sample_three = models.CharField(max_length=400, null=True, blank=True)
@@ -124,6 +126,9 @@ class AnsModel_Three(models.Model):
 
     def __str__(self):
         return self.ans
+
+
+
 
 
 class BatchSettings(models.Model):
