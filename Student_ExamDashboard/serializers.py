@@ -36,10 +36,10 @@ class CreateQuestionModelTwoSerializer(FriendlyErrorMessagesMixin, serializers.M
         fields = '__all__'
 
 
-class CreateQuestionModelThreeSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
-    class Meta:
-        model = QuestionModel_Three
-        fields = '__all__'
+# class CreateQuestionModelThreeSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
+#     class Meta:
+#         model = QuestionModel_Three
+#         fields = '__all__'
 
 
 # class CreateQuestionModelOneSerializer(serializers.Serializer):

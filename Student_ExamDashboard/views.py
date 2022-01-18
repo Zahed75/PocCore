@@ -83,13 +83,15 @@ def get_question(request, exam_id):
         print(question_type_one)
         question_type_two = CreateQuestionModelTwoSerializer(QuestionModel_Two.objects.filter(exam_name=exam_id),
                                                              many=True)
-        # question_type_three = CreateQuestionModelThreeSerializer(QuestionModel_Three.objects.filter(exam_name=exam_id),
-        #                                                          many=True)
+        question_type_three = CreateQuestionModelThreeSerializer(QuestionModel_Three.objects.filter(exam_name=exam_id),
+                                                                 many=True)
+        question_type_three_sub = CreateQuestionModelThreeSerializer_Sub(QuestionModel_Three_Sub.objects.filter(exam_name=exam_id), many=True)
 
         data_dict = {
             "data_one": question_type_one.data,
             "data_two": question_type_two.data,
-        #     "data_three": question_type_three.data
+            "data_three": question_type_three.data,
+            "data_three_sub": question_type_three_sub.data,
         }
 
         return Response({
@@ -118,15 +120,17 @@ def ans_validation(request):
         question_one = QuestionModel_One.objects.filter(question_name=question_name)
         question_two = QuestionModel_Two.objects.filter(question_name=question_name)
         question_three = QuestionModel_Three.objects.filter(question_name=question_name)
+        question_three_sub = QuestionModel_Three_Sub.objects.filter(question_name=question_name)
 
         # print(question_one)
         # print(question_two)
         # print(question_three)
+        # print(question_three_sub)
 
         question = None
         question_id = None
 
-        question_model_array = [question_one, question_two, question_three]
+        question_model_array = [question_one, question_two, question_three, question_three_sub]
 
         for questions in question_model_array:
             if len(questions) == 1:
@@ -146,12 +150,15 @@ def ans_validation(request):
         print(ans_two)
         ans_three = AnsModel_Three.objects.filter(Question__question_name=question_name)
         print(ans_three)
+        ans_three_sub = AnsModel_Three_Sub.objects.filter(Question__question_name=question_name)
+        print(ans_three_sub)
 
         # print(ans_one)
         # print(ans_two)
         # print(ans_three)
+        # print(ans_three_sub)
 
-        ans_model_array = [ans_one, ans_two, ans_three]
+        ans_model_array = [ans_one, ans_two, ans_three, ans_three_sub]
 
         answer = None
 
@@ -353,9 +360,13 @@ def option_all_get(request):
         ans_three = CreateAnsThreeSerializer(AnsModel_Three.objects.filter(Question__question_name=question_name),
                                              many=True)
         print(f'3, {ans_three}')
+        ans_three_sub = CreateAnsThreeSerializer_Sub(AnsModel_Three_Sub.objects.filter(Question__question_name=question_name),
+                                             many=True)
+        print(f'3, {ans_three_sub}')
 
-        ans_model_array = [ans_one.data, ans_two.data, ans_three.data]
-        # print(ans_model_array)
+        ans_model_array = [ans_one.data, ans_two.data, ans_three.data, ans_three_sub.data]
+        # ans_model_array = [ans_one.data, ans_two.data]
+        print(ans_model_array)
 
         answer = None
 
@@ -369,7 +380,7 @@ def option_all_get(request):
 
         return Response({
             'code': status.HTTP_200_OK,
-            'message': 'Data Saved!!!!!!!!',
+            'message': 'all option fetched!!!!!!!!',
             'data': answer,
 
         })

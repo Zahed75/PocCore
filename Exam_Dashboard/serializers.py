@@ -45,6 +45,12 @@ class CreateQuestionModelThreeSerializer(FriendlyErrorMessagesMixin, serializers
         model = QuestionModel_Three
         fields = '__all__'
 
+class CreateQuestionModelThreeSerializer_Sub(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
+    question_one = CreateQuestionModelThreeSerializer(read_only=True, many=True)
+
+    class Meta:
+        model = QuestionModel_Three_Sub
+        fields = '__all__'
 
 class Anstype_oneSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
     class Meta:
@@ -65,6 +71,12 @@ class CreateAnsThreeSerializer(FriendlyErrorMessagesMixin, serializers.ModelSeri
         model = AnsModel_Three
         fields = '__all__'
 
+class CreateAnsThreeSerializer_Sub(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
+    class Meta:
+        model = AnsModel_Three
+        fields = '__all__'
+
+
 
 class ExamResultSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
     class Meta:
@@ -82,3 +94,5 @@ class CreateBatchSettings(FriendlyErrorMessagesMixin, serializers.ModelSerialize
     class Meta:
         model = BatchSettings
         fields = '__all__'
+
+

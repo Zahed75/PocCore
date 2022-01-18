@@ -20,61 +20,66 @@ class CreateExamModelAdmin(admin.ModelAdmin):
                     'level', 'Exam_start_date', 'Exam_end_time', 'Exam_end_date')
 
 
-# ====question and ans model start=========
+# class AnswerAdmin(admin.StackedInline):
+#     model = AnswerModel_One
+#     fk_name = "Question"
+#
+#
+# class QuestionAdmin(admin.ModelAdmin):
+#     inlines = [AnswerAdmin]
+#
+#
+# admin.site.register(QuestionModel_One, QuestionAdmin)
+#
+# admin.site.register(AnswerModel_One)
+#
+#
+# # ==========type 2nd===========start
+#
+# class AnswerAdmin(admin.StackedInline):
+#     model = AnsModel_Two
+#     # fk_name = "Question"
+#
+#
+# class QuestionAdmin(admin.ModelAdmin):
+#     inlines = [AnswerAdmin]
+#
+#
 
+# admin.site.register(QuestionModel_Two, QuestionAdmin)
+#
+# admin.site.register(AnsModel_Two)
+#
+#
+# # ============end==========
+#
+#
+# # ============3rd question and ans model start====
+#
+# # class AnswerAdmin(admin.StackedInline):
+# #     model = AnsModel_Three
+#     # fk_name = "Question_name"
+#
+#
+# class QuestionAdmin(admin.ModelAdmin):
+#     inlines = [AnswerAdmin]
+#
+#
+# # admin.site.register(QuestionModel_Three, QuestionAdmin)
+# admin.site.register(QuestionAdmin)
+#
+# # admin.site.register(AnsModel_Three)
+#
+# # ============End
+#
+#
+# admin.site.register(BatchSettings)
 
-
-
-
-class AnswerAdmin(admin.StackedInline):
-    model = AnswerModel_One
-    fk_name = "Question"
-
-
-class QuestionAdmin(admin.ModelAdmin):
-    inlines = [AnswerAdmin]
-
-
-admin.site.register(QuestionModel_One, QuestionAdmin)
-
+admin.site.register(QuestionModel_One)
+admin.site.register(QuestionModel_Two)
+admin.site.register(QuestionModel_Three)
 admin.site.register(AnswerModel_One)
-
-
-# ==========type 2nd===========start
-
-class AnswerAdmin(admin.StackedInline):
-    model = AnsModel_Two
-    # fk_name = "Question"
-
-
-class QuestionAdmin(admin.ModelAdmin):
-    inlines = [AnswerAdmin]
-
-
-admin.site.register(QuestionModel_Two, QuestionAdmin)
-
 admin.site.register(AnsModel_Two)
-
-
-# ============end==========
-
-
-# ============3rd question and ans model start====
-
-class AnswerAdmin(admin.StackedInline):
-    model = AnsModel_Three
-    # fk_name = "Question_name"
-
-
-class QuestionAdmin(admin.ModelAdmin):
-    inlines = [AnswerAdmin]
-
-
-admin.site.register(QuestionModel_Three, QuestionAdmin)
-
 admin.site.register(AnsModel_Three)
-
-# ============End
-
-
-admin.site.register(BatchSettings)
+admin.site.register(QuestionModel_Three_Sub)
+admin.site.register(AnsModel_Three_Sub)
