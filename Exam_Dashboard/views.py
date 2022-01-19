@@ -388,7 +388,8 @@ def ans_type_three(request):
 def GetStudentReport(request):
     print(request.user)
     try:
-        report_info = ExamResult.objects.filter(student=request.user)
+        # report_info = ExamResult.objects.filter(student=request.user)
+        report_info = ExamResult.objects.all()
         data_serializer = ExamResultSerializer(report_info, many=True)
         return Response({
             'code': status.HTTP_200_OK,

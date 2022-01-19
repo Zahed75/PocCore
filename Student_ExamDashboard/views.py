@@ -24,6 +24,7 @@ def get_exam_pack(request):
     print(student.level)
     try:
         exam_pack = ExamPack.objects.filter(level=student.level)
+
         print(exam_pack)
         data_serializer = ExamPackSerializer(exam_pack, many=True)
 
@@ -207,6 +208,7 @@ def ans_validation(request):
 
 @api_view(['POST', 'GET'])
 @parser_classes([MultiPartParser])
+@permission_classes([IsAuthenticated])
 def show_all_report(request):
     # user = request.user
     # student = CreateExam.objects.filter()
@@ -253,37 +255,41 @@ def show_all_report(request):
             })
 
 
+
+
 @api_view(['GET', 'POST'])
 @parser_classes([MultiPartParser])
+@permission_classes([IsAuthenticated])
 def all_student_result(request, exam_name):
-    if request.method == 'POST':
-        try:
-
-            payload = request.data
-            data_serializer = ExamResultSerializer(data=payload, context={'request': request})
-            if data_serializer.is_valid():
-                data_serializer.save()
-                return Response({
-                    'code': status.HTTP_200_OK,
-                    'message': 'Data  pass!!!!!!!!',
-                    'data': data_serializer.data,
-
-                })
-            return Response({
-                'code': status.HTTP_200_OK,
-                'message': 'Report Shown!!',
-            })
-
-        except Exception as e:
-            return Response({
-                'code': status.HTTP_400_BAD_REQUEST,
-                'message': str(e)
-            })
+    # if request.method == 'POST':
+    #     try:
+    #
+    #         payload = request.data
+    #         data_serializer = ExamResultSerializer(data=payload, context={'request': request})
+    #         if data_serializer.is_valid():
+    #             data_serializer.save()
+    #             return Response({
+    #                 'code': status.HTTP_200_OK,
+    #                 'message': 'Data  pass!!!!!!!!',
+    #                 'data': data_serializer.data,
+    #
+    #             })
+    #         return Response({
+    #             'code': status.HTTP_200_OK,
+    #             'message': 'Report Shown!!',
+    #         })
+    #
+    #     except Exception as e:
+    #         return Response({
+    #             'code': status.HTTP_400_BAD_REQUEST,
+    #             'message': str(e)
+    #         })
 
     if request.method == 'GET':
         try:
 
             report = AllStudentResult.objects.filter(exam_name__Exam_name=exam_name)
+            print(report)
             # prfl = StudentProfile.objects.filter(user__studentprofile=request.user)
             # prfl = StudentProfile.objects.all()
             # print(prfl)
