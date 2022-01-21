@@ -94,10 +94,12 @@ def add_exam_pack(request):
 # edit exam pack
 
 @api_view(['PUT'])
+@parser_classes([MultiPartParser])
 def Update_ExamPack(request, id):
     try:
         exam_obj = ExamPack.objects.get(id=id)
-        Serializer = ExamPackSerializer(exam_obj, data=request.data, partial=True)
+        Serializer = ExamPackSerializer(exam_obj, data=request.data,partial=True)
+        print(Serializer)
         if not Serializer.is_valid():
             print(Serializer.errors)
             return Response({'status': 200, 'payload': Serializer.data, 'message': 'Something Went Wrong'})
@@ -120,7 +122,7 @@ def delete_exampack(request, id):
         return Response({
             'code': status.HTTP_200_OK,
             'message': 'Exam Pack Deleted Successfully!',
-            'data': Serializer.data
+
         })
 
     except Exception as e:
