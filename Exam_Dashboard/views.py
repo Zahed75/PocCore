@@ -577,3 +577,26 @@ def get_ans_three(request):
             'message': str(e)
 
         })
+
+
+
+@api_view(['GET'])
+@parser_classes([MultiPartParser])
+def get_admin_exam_list(request):
+    try:
+        exam_list=CreateExam.objects.all()
+        print(exam_list)
+        data_serializer=CreatExamSerializer(exam_list,many=True)
+        return Response({
+            'code': status.HTTP_200_OK,
+            'message': 'List of all Exam of Admin Section',
+            'data': data_serializer.data
+
+        })
+
+
+    except Exception as e:
+        return Response({
+            'code': status.HTTP_400_BAD_REQUEST,
+            'message': str(e)
+        })

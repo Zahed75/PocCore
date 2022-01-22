@@ -58,7 +58,7 @@ def ExamList(request):
 
         return Response({
             'code': status.HTTP_200_OK,
-            'message': 'List of all ExamPack of level Wise',
+            'message': 'List of all Exam in level Wise',
             'data': data_serializer.data
 
         })

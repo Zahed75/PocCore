@@ -23,7 +23,7 @@ urlpatterns = [
     path('api/get_admin_student_report/', GetStudentReport),
     path('api/all_admin_student_exam_report/<str:exam_name>', all_student_exam_report),
 
-    path('api/get_student_report/', GetStudentReport), #admin report pabe student
+    path('api/get_student_report/', GetStudentReport),  # admin report pabe student
     path('api/all_student_exam_report/<str:exam_name>', all_student_exam_report),
     # =====================Question delete API
     path('api/question_one_delete/<id>', QuestionOneDelete),
@@ -36,5 +36,6 @@ urlpatterns = [
     path('api/get_ans_type_one/', get_ans_one),
     path('api/get_ans_type_two/', get_ans_two),
     path('api/get_ans_type_three/', get_ans_three),
+    path('api/get_admin_exam_list/', get_admin_exam_list),
 
 ]
