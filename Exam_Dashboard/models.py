@@ -38,16 +38,16 @@ class CreateExam(models.Model):
     batch = models.CharField(max_length=100)
 
     # marking
-    total_mark = models.IntegerField(default=0)
-    pass_mark = models.IntegerField(default=0)
-    mark_per_question = models.IntegerField(default=1)
+    total_mark = models.CharField(max_length=400, blank=True, null=True)
+    pass_mark = models.CharField(max_length=400, blank=True, null=True)
+    mark_per_question = models.CharField(max_length=400, blank=True, null=True)
 
     isRandomized = models.BooleanField(default=False, verbose_name='Randomization')
     isSorted = models.BooleanField(default=False, verbose_name='Sorting')
 
     # for negative marking
     isNegativeMarking = models.BooleanField(default=False, verbose_name='Negative Marking')
-    amount_per_mistake = models.CharField(max_length=50, verbose_name='Amount per mistake',blank=True,null=True)
+    amount_per_mistake = models.CharField(max_length=50, verbose_name='Amount per mistake', blank=True, null=True)
 
     def __str__(self):
         return self.Exam_name
