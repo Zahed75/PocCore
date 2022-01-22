@@ -25,6 +25,7 @@ from rest_framework.response import Response
 from rest_framework import permissions
 from rest_framework import generics
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 
 # create view here
@@ -291,20 +292,46 @@ def update_student(request, id):
 #
 
 
+# @api_view(['POST'])
+# def Update_Password(request):
+#     user=request.user
+#     print(user)
+#     try:
+#         serializer = PasswordChangeSerializer(context={'request': request}, data=request.data)
+#         serializer.is_valid(raise_exception=True)
+#         request.user.set_password(serializer.validated_data['new_password'])
+#         request.user.save()
+#
+#         return Response({
+#             'code': status.HTTP_200_OK,
+#             'message': 'Password changed successfully!',
+#             'data': serializer.data,
+#
+#         })
+#
+#     except Exception as e:
+#         return Response({
+#             'code': status.HTTP_400_BAD_REQUEST,
+#             'message': str(e)
+#         })
+#
+#
+
+
 @api_view(['POST'])
 def Update_Password(request):
     try:
-        serializer = PasswordChangeSerializer(context={'request': request}, data=request.data)
-        serializer.is_valid(raise_exception=True)  # Another way to write is as in Line 17
-        request.user.set_password(serializer.validated_data['new_password'])
-        request.user.save()
+        user = request.data['phone_number']
+        new_pass = request.data['password']
+        user_ins = User.objects.get(username=user)
+        user_ins.set_password(new_pass)
+        user_ins.save()
+
         return Response({
             'code': status.HTTP_200_OK,
             'message': 'Password changed successfully!',
-            'data': serializer.data
+            # 'data': serializer.data,
         })
-
-
 
     except Exception as e:
         return Response({

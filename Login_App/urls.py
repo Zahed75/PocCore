@@ -11,5 +11,5 @@ urlpatterns = [
     path('api/update_student/<id>', update_student, name='update'),
     path('api/LogOut/', User_logout),
     # path('api/change-password/', ChangePasswordView.as_view(), name='change-password'),
-    path('api/password_change/',Update_Password),
+    path('api/password_change/', Update_Password),
 ]
