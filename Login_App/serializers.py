@@ -35,15 +35,24 @@ class StudentProfileSerializer(FriendlyErrorMessagesMixin, serializers.ModelSeri
         fields = '__all__'
 
 
-class ChangePasswordSerializer(serializers.Serializer):
-    model = UserInfo
-
-    """
-    Serializer for password change endpoint.
-    """
-    phone_number = serializers.CharField(required=True)
-    new_password = serializers.CharField(required=True)
-
-
+# class ChangePasswordSerializer(serializers.Serializer):
+#     model = UserInfo
+#
+#     """
+#     Serializer for password change endpoint.
+#     """
+#     phone_number = serializers.CharField(required=True)
+#     new_password = serializers.CharField(required=True)
 
 
+
+
+
+class PasswordChangeSerializer(serializers.Serializer):
+    phone_number = serializers.CharField(style={"input_type": "Phone"}, required=True)
+    new_password = serializers.CharField(style={"input_type": "password"}, required=True)
+
+    def validate_current_password(self, value):
+        if not self.context['request'].user.check_password(value):
+            raise serializers.ValidationError({'current_password': 'Does not match'})
+        return value
