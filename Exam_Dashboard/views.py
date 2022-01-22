@@ -176,6 +176,7 @@ def Create_Exam(request):
 
 
 @api_view(['PUT'])
+@parser_classes([MultiPartParser])
 def Update_CreateExam(request, id):
     try:
         Exam_obj = CreateExam.objects.get(id=id)
