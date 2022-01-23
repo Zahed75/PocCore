@@ -319,6 +319,7 @@ def update_student(request, id):
 
 
 @api_view(['POST'])
+@parser_classes([MultiPartParser])
 def Update_Password(request):
     try:
         user = request.data['phone_number']
