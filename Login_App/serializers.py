@@ -30,10 +30,6 @@ class RegistrationDataSerializer(FriendlyErrorMessagesMixin, serializers.ModelSe
 
 
 class StudentProfileSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
-    user = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-
     class Meta:
         model = StudentProfile
-        fields = ('id', 'user', 'email', 'level', 'batch', 'board', 'institution')
-
-
+        fields = '__all__'

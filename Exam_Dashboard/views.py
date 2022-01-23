@@ -98,7 +98,7 @@ def add_exam_pack(request):
 def Update_ExamPack(request, id):
     try:
         exam_obj = ExamPack.objects.get(id=id)
-        Serializer = ExamPackSerializer(exam_obj, data=request.data, partial=True)
+        Serializer = ExamPackSerializer(exam_obj, data=request.data, partial=True,context={'request': request})
         print(Serializer)
         if not Serializer.is_valid():
             print(Serializer.errors)
