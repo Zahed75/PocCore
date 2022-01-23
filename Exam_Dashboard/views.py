@@ -98,7 +98,7 @@ def add_exam_pack(request):
 def Update_ExamPack(request, id):
     try:
         exam_obj = ExamPack.objects.get(id=id)
-        Serializer = ExamPackSerializer(exam_obj, data=request.data,partial=True)
+        Serializer = ExamPackSerializer(exam_obj, data=request.data, partial=True)
         print(Serializer)
         if not Serializer.is_valid():
             print(Serializer.errors)
@@ -214,14 +214,19 @@ def delete_create_exam(request, id):
 
 @api_view(['GET'])
 def student_info(request):
+    # stu_data=StudentProfile.objects.all()
+    # for x in stu_data:
+    #     print(x.user)
     try:
         stu_info = StudentProfile.objects.all()
-        data_serializer = StudentProfileSerializer(stu_info, many=True)
+
+        data_serializer = StudentProfileSerializer(stu_info, many=True,context={'request': request})
         return Response({
 
             'code': status.HTTP_200_OK,
             'message': 'List of all the Student!',
-            'data': data_serializer.data
+            'data': data_serializer.data,
+
         })
 
     except Exception as e:
@@ -580,14 +585,13 @@ def get_ans_three(request):
         })
 
 
-
 @api_view(['GET'])
 @parser_classes([MultiPartParser])
 def get_admin_exam_list(request):
     try:
-        exam_list=CreateExam.objects.all()
+        exam_list = CreateExam.objects.all()
         print(exam_list)
-        data_serializer=CreatExamSerializer(exam_list,many=True)
+        data_serializer = CreatExamSerializer(exam_list, many=True)
         return Response({
             'code': status.HTTP_200_OK,
             'message': 'List of all Exam of Admin Section',
