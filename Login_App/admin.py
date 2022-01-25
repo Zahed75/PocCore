@@ -5,7 +5,7 @@ from .models import *
 # Register your models here.
 @admin.register(UserInfo)
 class UserInfoModelAdmin(admin.ModelAdmin):
-    list_display = ('id', 'phone_number')
+    list_display = ('id', 'phone_number','is_block')
 
 
 @admin.register(StudentProfile)

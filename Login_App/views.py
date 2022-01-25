@@ -43,6 +43,9 @@ def tokenObtainPair(request):
             password = login_serializer.validated_data.get('password')
 
             user_instance = User.objects.get(username=phone_number, is_active=True)
+            print(user_instance.is_superuser)
+            print(user_instance.is_staff)
+            print(user_instance.is_active)
 
             if check_password(password, user_instance.password):
                 refresh = RefreshToken.for_user(user_instance)
@@ -149,17 +152,15 @@ def userRegister(request):
             )
             user_instance.set_password(data_serializer.data.get('password'))
 
-            if request.data['staff']:
-                group = Group.objects.get(name="Staff")
-                group.user_set.add(user_instance)
-                user_instance.is_staff = True
+            # if request.data['staff']:
+            #     group = Group.objects.get(name="Staff")
+            #     group.user_set.add(user_instance)
+            #     user_instance.is_staff = True
 
             # if request.data['admin']:
             #     # group = Group.objects.get(name="Staff")
             #     # group.user_set.add(user_instance)
             #     user_instance.is_superuser=True
-
-
 
             user_instance.save()
             UserInfo.objects.create(
@@ -347,3 +348,74 @@ def Update_Password(request):
             'code': status.HTTP_400_BAD_REQUEST,
             'message': str(e)
         })
+
+
+@api_view(['POST'])
+def admin_login(request):
+    try:
+        payload = request.data
+        login_serializer = LoginSerializer(data=payload)
+
+        if login_serializer.is_valid():
+            phone_number = login_serializer.validated_data.get('phone_number')
+            password = login_serializer.validated_data.get('password')
+
+            user_instance = User.objects.get(username=phone_number, is_active=True)
+            print(user_instance.is_superuser)
+            print(user_instance.is_staff)
+            print(user_instance.is_active)
+
+            if check_password(password, user_instance.password):
+                if user_instance.is_superuser:
+                    refresh = RefreshToken.for_user(user_instance)
+                else:
+                    return Response({
+                        "message":"You Dont have an Access!"
+                    })
+
+                return Response({
+                    'access_token': str(refresh.access_token),
+                    'refresh_token': str(refresh),
+                    'token_type': str(refresh.payload['token_type']),
+                    'expiry': refresh.payload['exp'],
+                    'user_id': refresh.payload['user_id']
+
+
+                })
+
+            else:
+                return Response({
+                    "code": status.HTTP_401_UNAUTHORIZED,
+                    "message": "No active account found with the given credentials",
+                    "status_code": 401,
+                    "errors": [
+                        {
+                            "status_code": 401,
+                            "message": "No active account found with the given credentials"
+                        }
+                    ]
+                })
+        else:
+            return Response(login_serializer.errors)
+    except Exception as e:
+        return Response({
+            "code": status.HTTP_401_UNAUTHORIZED,
+            "message": str(e),
+            "status_code": 401,
+            "errors": [
+                {
+                    "status_code": 401,
+                    "message": str(e)
+                }
+            ]
+        })
+
+
+
+    except Exception as e:
+        return Response({
+            'code': status.HTTP_400_BAD_REQUEST,
+            'message': str(e)
+        })
+
+

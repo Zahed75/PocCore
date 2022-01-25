@@ -9,6 +9,7 @@ import base64
 class UserInfo(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user_phone')
     phone_number = models.CharField(max_length=14)
+    is_block=models.BooleanField(default=False)
 
     def __str__(self):
         return self.phone_number
