@@ -13,4 +13,6 @@ urlpatterns = [
     # path('api/change-password/', ChangePasswordView.as_view(), name='change-password'),
     path('api/password_change/', Update_Password),
     path('api/admin_login/',admin_login),
+    path('api/user_block/',block_user),
+    path('api/delete_user/<username>',delete_user)
 ]

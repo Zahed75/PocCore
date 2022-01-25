@@ -41,14 +41,20 @@ def tokenObtainPair(request):
         if login_serializer.is_valid():
             phone_number = login_serializer.validated_data.get('phone_number')
             password = login_serializer.validated_data.get('password')
-
             user_instance = User.objects.get(username=phone_number, is_active=True)
-            print(user_instance.is_superuser)
-            print(user_instance.is_staff)
-            print(user_instance.is_active)
+            user_info = UserInfo.objects.get(user=user_instance)
+            print(user_info.is_block)
+            # print(user_instance.is_superuser)
+            # print(user_instance.is_staff)
+            # print(user_instance.is_active)
 
             if check_password(password, user_instance.password):
-                refresh = RefreshToken.for_user(user_instance)
+                if not user_info.is_block:
+                    refresh = RefreshToken.for_user(user_instance)
+                else:
+                    return Response({
+                        "message": "Sorry You Are Blocked!"
+                    })
 
                 return Response({
                     'access_token': str(refresh.access_token),
@@ -370,7 +376,7 @@ def admin_login(request):
                     refresh = RefreshToken.for_user(user_instance)
                 else:
                     return Response({
-                        "message":"You Dont have an Access!"
+                        "message": "You Dont have an Access!"
                     })
 
                 return Response({
@@ -379,7 +385,6 @@ def admin_login(request):
                     'token_type': str(refresh.payload['token_type']),
                     'expiry': refresh.payload['exp'],
                     'user_id': refresh.payload['user_id']
-
 
                 })
 
@@ -419,3 +424,51 @@ def admin_login(request):
         })
 
 
+@api_view(['POST'])
+@parser_classes([MultiPartParser])
+def block_user(request):
+    try:
+        phone_number = request.data['phone_number']
+        block_status = request.data['block_status']
+        user_instance = User.objects.get(username=phone_number, is_active=True)
+        user_info = UserInfo.objects.get(user=user_instance)
+        if block_status == 'True':
+            user_info.is_block = True
+            user_info.save()
+            return Response({
+                "message": "User Blocked!!"
+            })
+
+        elif block_status == 'False':
+            user_info.is_block = False
+            user_info.save()
+            return Response({
+                "message": "User Unblock"
+            })
+
+    except Exception as e:
+        return Response({
+            'code': status.HTTP_400_BAD_REQUEST,
+            'message': str(e)
+        })
+
+
+@api_view(['DELETE'])
+@parser_classes([MultiPartParser])
+def delete_user(request, username):
+    try:
+        user = User.objects.filter(username=username)
+        user.delete()
+        return Response({
+            'code': status.HTTP_200_OK,
+            'message': 'User Deleted Successfully!',
+
+        })
+
+
+
+    except Exception as e:
+        return Response({
+            'code': status.HTTP_400_BAD_REQUEST,
+            'message': str(e)
+        })
