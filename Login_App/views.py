@@ -154,10 +154,10 @@ def userRegister(request):
                 group.user_set.add(user_instance)
                 user_instance.is_staff = True
 
-            if request.data['admin']:
-                # group = Group.objects.get(name="Staff")
-                # group.user_set.add(user_instance)
-                user_instance.is_superuser=True
+            # if request.data['admin']:
+            #     # group = Group.objects.get(name="Staff")
+            #     # group.user_set.add(user_instance)
+            #     user_instance.is_superuser=True
 
 
 
