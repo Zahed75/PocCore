@@ -141,6 +141,7 @@ def tokenVerify(request):
 def userRegister(request):
     try:
         payload = request.data
+        print(payload)
         data_serializer = RegistrationDataSerializer(data=payload)
         if data_serializer.is_valid():
             user_instance = User.objects.create(
@@ -148,10 +149,17 @@ def userRegister(request):
             )
             user_instance.set_password(data_serializer.data.get('password'))
 
-            # if request.data['staff']:
-            #     group = Group.objects.get(name="Staff")
-            #     group.user_set.add(user_instance)
-            #     user_instance.is_staff = True
+            if request.data['staff']:
+                group = Group.objects.get(name="Staff")
+                group.user_set.add(user_instance)
+                user_instance.is_staff = True
+
+            if request.data['admin']:
+                # group = Group.objects.get(name="Staff")
+                # group.user_set.add(user_instance)
+                user_instance.is_superuser=True
+
+
 
             user_instance.save()
             UserInfo.objects.create(
