@@ -681,3 +681,27 @@ def delete_question_one(request, id):
             'code': status.HTTP_400_BAD_REQUEST,
             'message': str(e)
         })
+
+
+@api_view(['PUT'])
+@parser_classes([MultiPartParser])
+def edit_ans_model_one(request, id):
+    try:
+        ans_model_obj = AnswerModel_One.objects.get(id=id)
+        Serializer = Anstype_oneSerializer(ans_model_obj, data=request.data, partial=True)
+        if not Serializer.is_valid():
+            return Response({
+                'status': 200, 'payload': Serializer.data, 'message': 'Something Went Wrong'
+
+            })
+        Serializer.save()
+        return Response({
+            'code': status.HTTP_200_OK,
+            'message': 'Ans Model Updated Successfully!',
+            'data': Serializer.data
+        })
+    except Exception as e:
+        return Response({
+            'code': status.HTTP_400_BAD_REQUEST,
+            'message': str(e)
+        })
