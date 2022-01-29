@@ -98,7 +98,7 @@ def add_exam_pack(request):
 def Update_ExamPack(request, id):
     try:
         exam_obj = ExamPack.objects.get(id=id)
-        Serializer = ExamPackSerializer(exam_obj, data=request.data, partial=True,context={'request': request})
+        Serializer = ExamPackSerializer(exam_obj, data=request.data, partial=True, context={'request': request})
         print(Serializer)
         if not Serializer.is_valid():
             print(Serializer.errors)
@@ -195,6 +195,7 @@ def Update_CreateExam(request, id):
 
     except Exception as e:
         return Response({
+
             'code': status.HTTP_400_BAD_REQUEST,
             'message': str(e)
         })
@@ -219,8 +220,9 @@ def student_info(request):
     #     print(x.user)
     try:
         stu_info = StudentProfile.objects.all()
+        user_info = UserInfo.objects.all()
 
-        data_serializer = StudentProfileSerializer(stu_info, many=True,context={'request': request})
+        data_serializer = StudentProfileSerializer(stu_info, many=True, context={'request': request})
         return Response({
 
             'code': status.HTTP_200_OK,
@@ -525,6 +527,22 @@ def batch_settingsGet(request):
         })
 
 
+@api_view(['DELETE'])
+def delete_batch(request, id):
+    try:
+        batch = BatchSettings.objects.get(id=id)
+        batch.delete()
+        return Response({'status': 202,
+                         'mesaage': 'Batch Successfully deleted'})
+
+
+    except Exception as e:
+        return Response({
+            'code': status.HTTP_400_BAD_REQUEST,
+            'message': str(e)
+        })
+
+
 @api_view(['GET'])
 def get_ans_one(request):
     try:
@@ -599,6 +617,64 @@ def get_admin_exam_list(request):
 
         })
 
+
+    except Exception as e:
+        return Response({
+            'code': status.HTTP_400_BAD_REQUEST,
+            'message': str(e)
+        })
+
+
+@api_view(['PUT'])
+@parser_classes([MultiPartParser])
+def edit_question_one(request, id):
+    try:
+        question_obj = QuestionModel_One.objects.get(id=id)
+        Serializer = CreateQuestionModelOneSerializer(question_obj, partial=True, data=request.data,
+                                                      context={'request': request})
+
+        if not Serializer.is_valid():
+            return Response({
+                'status': 200, 'payload': Serializer.data, 'message': 'Something Went Wrong'
+
+            })
+        Serializer.save()
+        return Response({
+            'code': status.HTTP_200_OK,
+            'message': 'Question model One Updated Successfully!',
+            'data': Serializer.data
+        })
+
+
+    except Exception as e:
+        return Response({
+            'code': status.HTTP_400_BAD_REQUEST,
+            'message': str(e)
+        })
+
+
+@api_view(['PUT'])
+def ans_model_one_edit(request):
+    try:
+        pass
+
+    except Exception as e:
+        return Response({
+            'code': status.HTTP_400_BAD_REQUEST,
+            'message': str(e)
+        })
+
+
+@api_view(['DELETE'])
+def delete_question_one(request, id):
+    try:
+        question_obj = QuestionModel_One.objects.get(id=id)
+        question_obj.delete()
+        return Response({
+            'code': status.HTTP_200_OK,
+            'message': 'Question One Model Deleted Successfully!',
+
+        })
 
     except Exception as e:
         return Response({

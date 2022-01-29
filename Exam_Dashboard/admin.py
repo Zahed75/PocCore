@@ -20,6 +20,11 @@ class CreateExamModelAdmin(admin.ModelAdmin):
                     'level', 'Exam_start_date', 'Exam_end_time', 'Exam_end_date')
 
 
+@admin.register(BatchSettings)
+class BatchSettingsModelAdmin(admin.ModelAdmin):
+    list_display = ('id', 'batch', 'level', 'board')
+
+
 # class AnswerAdmin(admin.StackedInline):
 #     model = AnswerModel_One
 #     fk_name = "Question"
@@ -75,10 +80,26 @@ class CreateExamModelAdmin(admin.ModelAdmin):
 #
 # admin.site.register(BatchSettings)
 
-admin.site.register(QuestionModel_One)
-admin.site.register(QuestionModel_Two)
+# admin.site.register(QuestionModel_One)
+
+@admin.register(QuestionModel_One)
+class QuestionModel_OneModelAdmin(admin.ModelAdmin):
+    list_display = ('id', 'exam_pack', 'exam_name', 'question_name', 'marks')
+
+
+@admin.register(QuestionModel_Two)
+class QuestionModel_TwoModelAdmin(admin.ModelAdmin):
+    list_display = ('id', 'exam_pack', 'exam_name',
+                    'question_name', 'description', 'data_one',
+                    'data_two', 'data_three', 'data_four')
+
+
+@admin.register(AnswerModel_One)
+class AnswerModel_OneModelAdmin(admin.ModelAdmin):
+    list_display = ('id', 'Question', 'ans', 'is_correct')
+
+
 admin.site.register(QuestionModel_Three)
-admin.site.register(AnswerModel_One)
 admin.site.register(AnsModel_Two)
 admin.site.register(AnsModel_Three)
 admin.site.register(QuestionModel_Three_Sub)

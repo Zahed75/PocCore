@@ -37,5 +37,10 @@ urlpatterns = [
     path('api/get_ans_type_two/', get_ans_two),
     path('api/get_ans_type_three/', get_ans_three),
     path('api/get_admin_exam_list/', get_admin_exam_list),
+    path('api/delete_batch/<id>', delete_batch),
+    # ================================================Edit Question
+
+    path('api/edit_question_one/<id>', edit_question_one),
+    path('api/delete_question_one/<id>', delete_question_one)
 
 ]
