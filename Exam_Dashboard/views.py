@@ -702,8 +702,8 @@ def edit_ans_model_one(request, id):
 @parser_classes([MultiPartParser])
 def get_student_info(request):
     try:
-        stu_obj=StudentProfile.objects.all()
-        data_serializer=StudentProfileSerializer(stu_obj,many=True,context={'request': request})
+        stu_obj=UserInfo.objects.all()
+        data_serializer=UserInfoSerializer(stu_obj,many=True,context={'request': request})
 
 
         return Response({

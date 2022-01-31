@@ -13,8 +13,10 @@ class LoginSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
         model = User
         fields = [
             'phone_number',
-            'password'
+            'password',
+
         ]
+        depth = 1
 
 
 class RegistrationDataSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
@@ -22,7 +24,8 @@ class RegistrationDataSerializer(FriendlyErrorMessagesMixin, serializers.ModelSe
 
     class Meta:
         model = UserInfo
-        fields = ['phone_number', 'password']
+        fields = ['phone_number', 'password','is_block']
+        depth=1
 
 
 # payload = request.data

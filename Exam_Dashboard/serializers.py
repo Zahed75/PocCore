@@ -104,3 +104,10 @@ class StudentProfileSerializer(FriendlyErrorMessagesMixin, serializers.ModelSeri
         model = StudentProfile
         fields = '__all__'
         depth = 1
+
+
+class UserInfoSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
+    class Meta:
+        model = UserInfo
+        fields = '__all__'
+        depth = 1
