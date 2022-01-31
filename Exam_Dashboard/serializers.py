@@ -6,6 +6,7 @@ from django.contrib.auth.hashers import make_password
 from .models import *
 from Login_App.models import *
 from Student_ExamDashboard.models import *
+from Login_App.models import *
 
 
 class ExamPackSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
@@ -45,12 +46,14 @@ class CreateQuestionModelThreeSerializer(FriendlyErrorMessagesMixin, serializers
         model = QuestionModel_Three
         fields = '__all__'
 
+
 class CreateQuestionModelThreeSerializer_Sub(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
     question_one = CreateQuestionModelThreeSerializer(read_only=True, many=True)
 
     class Meta:
         model = QuestionModel_Three_Sub
         fields = '__all__'
+
 
 class Anstype_oneSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
     class Meta:
@@ -71,11 +74,11 @@ class CreateAnsThreeSerializer(FriendlyErrorMessagesMixin, serializers.ModelSeri
         model = AnsModel_Three
         fields = '__all__'
 
+
 class CreateAnsThreeSerializer_Sub(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
     class Meta:
         model = AnsModel_Three
         fields = '__all__'
-
 
 
 class ExamResultSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
@@ -96,3 +99,8 @@ class CreateBatchSettings(FriendlyErrorMessagesMixin, serializers.ModelSerialize
         fields = '__all__'
 
 
+class StudentProfileSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
+    class Meta:
+        model = StudentProfile
+        fields = '__all__'
+        depth = 1

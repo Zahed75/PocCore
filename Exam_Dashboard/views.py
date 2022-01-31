@@ -344,6 +344,7 @@ def ans_type_one(request):
         })
 
 
+
 @api_view(['POST'])
 @parser_classes([MultiPartParser])
 def ans_type_two(request):
@@ -653,16 +654,6 @@ def edit_question_one(request, id):
         })
 
 
-@api_view(['PUT'])
-def ans_model_one_edit(request):
-    try:
-        pass
-
-    except Exception as e:
-        return Response({
-            'code': status.HTTP_400_BAD_REQUEST,
-            'message': str(e)
-        })
 
 
 @api_view(['DELETE'])
@@ -689,6 +680,104 @@ def edit_ans_model_one(request, id):
     try:
         ans_model_obj = AnswerModel_One.objects.get(id=id)
         Serializer = Anstype_oneSerializer(ans_model_obj, data=request.data, partial=True)
+        if not Serializer.is_valid():
+            return Response({
+                'status': 200, 'payload': Serializer.data, 'message': 'Something Went Wrong'
+
+            })
+        Serializer.save()
+        return Response({
+            'code': status.HTTP_200_OK,
+            'message': 'Ans Model Updated Successfully!',
+            'data': Serializer.data
+        })
+    except Exception as e:
+        return Response({
+            'code': status.HTTP_400_BAD_REQUEST,
+            'message': str(e)
+        })
+
+
+@api_view(['GET'])
+@parser_classes([MultiPartParser])
+def get_student_info(request):
+    try:
+        stu_obj=StudentProfile.objects.all()
+        data_serializer=StudentProfileSerializer(stu_obj,many=True)
+
+
+        return Response({
+            'code': status.HTTP_200_OK,
+            'message': 'Ans Model Updated Successfully!',
+            'data': data_serializer.data
+        })
+
+    except Exception as e:
+
+        return Response({
+            'code': status.HTTP_400_BAD_REQUEST,
+            'message': str(e)
+        })
+
+
+@api_view(['PUT'])
+@parser_classes([MultiPartParser])
+def edit_question_two(request, id):
+    try:
+        question_obj = QuestionModel_Two.objects.get(id=id)
+        Serializer = CreateQuestionModelTwoSerializer(question_obj, partial=True, data=request.data,
+                                                      context={'request': request})
+
+        if not Serializer.is_valid():
+            return Response({
+                'status': 200, 'payload': Serializer.data, 'message': 'Something Went Wrong'
+
+            })
+        Serializer.save()
+        return Response({
+            'code': status.HTTP_200_OK,
+            'message': 'Question model One Updated Successfully!',
+            'data': Serializer.data
+        })
+
+
+    except Exception as e:
+        return Response({
+            'code': status.HTTP_400_BAD_REQUEST,
+            'message': str(e)
+        })
+
+
+
+
+
+@api_view(['DELETE'])
+def delete_question_two(request, id):
+    try:
+        question_obj = QuestionModel_Two.objects.get(id=id)
+        question_obj.delete()
+        return Response({
+            'code': status.HTTP_200_OK,
+            'message': 'Question One Model Deleted Successfully!',
+
+        })
+
+    except Exception as e:
+        return Response({
+            'code': status.HTTP_400_BAD_REQUEST,
+            'message': str(e)
+        })
+
+
+
+
+
+@api_view(['PUT'])
+@parser_classes([MultiPartParser])
+def edit_ans_model_two(request, id):
+    try:
+        ans_model_obj = AnsModel_Two.objects.get(id=id)
+        Serializer = CreateAnsTypeTwoSerializer(ans_model_obj, data=request.data, partial=True)
         if not Serializer.is_valid():
             return Response({
                 'status': 200, 'payload': Serializer.data, 'message': 'Something Went Wrong'

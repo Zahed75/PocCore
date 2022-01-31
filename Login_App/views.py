@@ -472,3 +472,23 @@ def delete_user(request, username):
             'code': status.HTTP_400_BAD_REQUEST,
             'message': str(e)
         })
+
+
+
+#
+# import requests
+#
+# url = "http://developer.muthofun.com/sms.php?username=PocTech&password=JMWpxWV5a@Xb&mobiles=01706758112&sms=test sms&uniccode=1"
+#
+# payload={'username': 'PocTech',
+# 'password': 'JMWpxWV5a@Xb',
+# 'mobiles': '01706758112',
+# 'sms': 'Hello Test sms'}
+# files=[
+#
+# ]
+# headers = {}
+#
+# response = requests.request("GET", url, headers=headers, data=payload, files=files)
+#
+# print(response.text)
