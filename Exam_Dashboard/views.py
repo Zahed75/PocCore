@@ -703,7 +703,7 @@ def edit_ans_model_one(request, id):
 def get_student_info(request):
     try:
         stu_obj=StudentProfile.objects.all()
-        data_serializer=StudentProfileSerializer(stu_obj,many=True)
+        data_serializer=StudentProfileSerializer(stu_obj,many=True,context={'request': request})
 
 
         return Response({
