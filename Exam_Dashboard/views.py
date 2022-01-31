@@ -758,7 +758,7 @@ def delete_question_two(request, id):
         question_obj.delete()
         return Response({
             'code': status.HTTP_200_OK,
-            'message': 'Question One Model Deleted Successfully!',
+            'message': 'Question Two Model Deleted Successfully!',
 
         })
 
