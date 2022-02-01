@@ -103,11 +103,20 @@ class StudentProfileSerializer(FriendlyErrorMessagesMixin, serializers.ModelSeri
     class Meta:
         model = StudentProfile
         fields = '__all__'
-        depth = 1
+        # depth = 1
 
 
 class UserInfoSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
     class Meta:
         model = UserInfo
         fields = '__all__'
-        depth = 1
+        # depth = 1
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        depth = 0
+        try:
+            depth = int(self.request.query_params.get('depth', 0))
+        except ValueError:
+            pass # Ignore non-numeric parameters and keep default 0 depth
+        
+        context['depth'] = depth

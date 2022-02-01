@@ -708,7 +708,7 @@ def get_student_info(request):
 
         return Response({
             'code': status.HTTP_200_OK,
-            'message': 'Ans Model Updated Successfully!',
+            'message': 'Students Information GET Successfully!',
             'data': data_serializer.data
         })
 
