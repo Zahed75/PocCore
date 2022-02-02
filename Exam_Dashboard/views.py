@@ -1,40 +1,17 @@
-from builtins import Exception
-from django.contrib.auth import login
-from django.shortcuts import render, HttpResponse, HttpResponseRedirect
-from rest_framework import status
-from rest_framework.serializers import Serializer
-from .models import *
-from Login_App.models import *
-from rest_framework.response import Response
-from rest_framework.decorators import api_view, authentication_classes, permission_classes
-from django.contrib.auth.models import User
-from django.contrib.auth.hashers import check_password
-from rest_framework.utils import json
-from rest_framework_simplejwt.tokens import RefreshToken, AccessToken, UntypedToken, Token
-from rest_framework_simplejwt.authentication import JWTAuthentication, JWTTokenUserAuthentication
-from rest_framework.permissions import IsAuthenticated, AllowAny
-from json import dumps, loads, JSONEncoder, JSONDecoder
-from .models import CreateExam
-from .serializers import *
-from rest_framework.parsers import JSONParser
-from rest_framework.views import APIView
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.generics import ListAPIView
-from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
-from rest_framework.decorators import parser_classes
-from rest_framework.parsers import FileUploadParser
-from django.views.decorators.csrf import csrf_exempt
 import random
 import string
-from Student_ExamDashboard.models import *
-from datetime import datetime, date, timedelta
+from builtins import Exception
+
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.decorators import parser_classes
+from rest_framework.parsers import MultiPartParser
 from rest_framework.renderers import TemplateHTMLRenderer
-from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
+
+from Student_ExamDashboard.models import *
+from .serializers import *
 
 
 # create view here
@@ -221,7 +198,7 @@ def student_info(request):
     try:
         stu_info = StudentProfile.objects.all()
         data_serializer = StudentProfileSerializer(stu_info, many=True, context={'request': request})
-    
+
         return Response({
 
             'code': status.HTTP_200_OK,
@@ -343,7 +320,6 @@ def ans_type_one(request):
         })
 
 
-
 @api_view(['POST'])
 @parser_classes([MultiPartParser])
 def ans_type_two(request):
@@ -369,28 +345,28 @@ def ans_type_two(request):
         })
 
 
-@api_view(['POST'])
-@parser_classes([MultiPartParser])
-def ans_type_three(request):
-    try:
-        payload = request.data
-        data_seriazlier = CreateAnsThreeSerializer(data=payload)
-        if data_seriazlier.is_valid(raise_exception=True):
-            data_seriazlier.save()
-            return Response({
-                'code': status.HTTP_200_OK,
-                'message': 'Ans Has Been Set!!',
-                'data': data_seriazlier.data
-            })
-        else:
-            return Response(
-                data_seriazlier.errors
-            )
-    except Exception as e:
-        return Response({
-            'code': status.HTTP_400_BAD_REQUEST,
-            'message': str(e)
-        })
+# @api_view(['POST'])
+# @parser_classes([MultiPartParser])
+# def ans_type_three(request):
+#     try:
+#         payload = request.data
+#         data_seriazlier = CreateAnsThreeSerializer(data=payload)
+#         if data_seriazlier.is_valid(raise_exception=True):
+#             data_seriazlier.save()
+#             return Response({
+#                 'code': status.HTTP_200_OK,
+#                 'message': 'Ans Has Been Set!!',
+#                 'data': data_seriazlier.data
+#             })
+#         else:
+#             return Response(
+#                 data_seriazlier.errors
+#             )
+#     except Exception as e:
+#         return Response({
+#             'code': status.HTTP_400_BAD_REQUEST,
+#             'message': str(e)
+#         })
 
 
 @api_view(['GET'])
@@ -583,24 +559,24 @@ def get_ans_two(request):
         })
 
 
-@api_view(['GET'])
-def get_ans_three(request):
-    try:
-        ans_model_one = AnsModel_Three.objects.all()
-        data_serializer = CreateAnsThreeSerializer(ans_model_one, many=True)
-        return Response({
-            'code': status.HTTP_200_OK,
-            'message': 'All Ans Shown from Ans Model Three!!!!',
-            'data': data_serializer.data
-        })
-
-
-    except Exception as e:
-        return Response({
-            'code': status.HTTP_400_BAD_REQUEST,
-            'message': str(e)
-
-        })
+# @api_view(['GET'])
+# def get_ans_three(request):
+#     try:
+#         ans_model_one = AnsModel_Three.objects.all()
+#         data_serializer = CreateAnsThreeSerializer(ans_model_one, many=True)
+#         return Response({
+#             'code': status.HTTP_200_OK,
+#             'message': 'All Ans Shown from Ans Model Three!!!!',
+#             'data': data_serializer.data
+#         })
+#
+#
+#     except Exception as e:
+#         return Response({
+#             'code': status.HTTP_400_BAD_REQUEST,
+#             'message': str(e)
+#
+#         })
 
 
 @api_view(['GET'])
@@ -653,8 +629,6 @@ def edit_question_one(request, id):
         })
 
 
-
-
 @api_view(['DELETE'])
 def delete_question_one(request, id):
     try:
@@ -701,9 +675,8 @@ def edit_ans_model_one(request, id):
 @parser_classes([MultiPartParser])
 def get_student_info(request):
     try:
-        stu_obj=UserInfo.objects.all()
-        data_serializer=UserInfoSerializer(stu_obj,many=True,context={'request': request})
-
+        stu_obj = UserInfo.objects.all()
+        data_serializer = UserInfoSerializer(stu_obj, many=True, context={'request': request})
 
         return Response({
             'code': status.HTTP_200_OK,
@@ -747,9 +720,6 @@ def edit_question_two(request, id):
         })
 
 
-
-
-
 @api_view(['DELETE'])
 def delete_question_two(request, id):
     try:
@@ -766,9 +736,6 @@ def delete_question_two(request, id):
             'code': status.HTTP_400_BAD_REQUEST,
             'message': str(e)
         })
-
-
-
 
 
 @api_view(['PUT'])
@@ -788,6 +755,33 @@ def edit_ans_model_two(request, id):
             'message': 'Ans Model Updated Successfully!',
             'data': Serializer.data
         })
+    except Exception as e:
+        return Response({
+            'code': status.HTTP_400_BAD_REQUEST,
+            'message': str(e)
+        })
+
+
+@api_view(['PUT'])
+@parser_classes([MultiPartParser])
+def edit_question_three(request, id):
+    try:
+        question_obj = QuestionModel_Two.objects.get(id=id)
+        Serializer = CreateQuestionModelThreeSerializer(question_obj, partial=True, data=request.data,
+                                                      context={'request': request})
+
+        if not Serializer.is_valid():
+            return Response({
+                'status': 200, 'payload': Serializer.data, 'message': 'Something Went Wrong'
+
+            })
+        Serializer.save()
+        return Response({
+            'code': status.HTTP_200_OK,
+            'message': 'Question model One Updated Successfully!',
+            'data': Serializer.data
+        })
+
     except Exception as e:
         return Response({
             'code': status.HTTP_400_BAD_REQUEST,

@@ -19,7 +19,7 @@ urlpatterns = [
     # ============Ans API
     path('api/ans_type_one/', ans_type_one),
     path('api/ans_type_two/', ans_type_two),
-    path('api/ans_three/', ans_type_three),
+    # path('api/ans_three/', ans_type_three),
     path('api/get_admin_student_report/', GetStudentReport),
     path('api/all_admin_student_exam_report/<str:exam_name>', all_student_exam_report),
 
@@ -35,7 +35,7 @@ urlpatterns = [
     # ans get all question=========Start
     path('api/get_ans_type_one/', get_ans_one),
     path('api/get_ans_type_two/', get_ans_two),
-    path('api/get_ans_type_three/', get_ans_three),
+    # path('api/get_ans_type_three/', get_ans_three),
     path('api/get_admin_exam_list/', get_admin_exam_list),
     path('api/delete_batch/<id>', delete_batch),
     # ================================================Edit Question
@@ -48,6 +48,8 @@ urlpatterns = [
     path('api/edit_question_two/<id>',edit_question_two),
     path('api/delete_question_two/<id>',delete_question_two),
     path('api/edit_ans_two/<id>',edit_ans_model_two),
+    #=====================================================
+
 
 
 ]

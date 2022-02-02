@@ -363,14 +363,14 @@ def option_all_get(request):
         ans_two = CreateAnsTypeTwoSerializer(AnsModel_Two.objects.filter(Question__question_name=question_name),
                                              many=True)
         print(f'2, {ans_two}')
-        ans_three = CreateAnsThreeSerializer(AnsModel_Three.objects.filter(Question__question_name=question_name),
-                                             many=True)
-        print(f'3, {ans_three}')
-        ans_three_sub = CreateAnsThreeSerializer_Sub(AnsModel_Three_Sub.objects.filter(Question__question_name=question_name),
-                                             many=True)
-        print(f'3, {ans_three_sub}')
+        # ans_three = CreateAnsThreeSerializer(AnsModel_Three.objects.filter(Question__question_name=question_name),
+        #                                      many=True)
+        # print(f'3, {ans_three}')
+        # ans_three_sub = CreateAnsThreeSerializer_Sub(AnsModel_Three_Sub.objects.filter(Question__question_name=question_name),
+        #                                      many=True)
+        # print(f'3, {ans_three_sub}')
 
-        ans_model_array = [ans_one.data, ans_two.data, ans_three.data, ans_three_sub.data]
+        ans_model_array = [ans_one.data, ans_two.data]
         # ans_model_array = [ans_one.data, ans_two.data]
         print(ans_model_array)
 
