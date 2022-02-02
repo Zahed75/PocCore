@@ -48,10 +48,8 @@ class CreateQuestionModelThreeSerializer(FriendlyErrorMessagesMixin, serializers
 
 
 class CreateQuestionModelThreeSerializer_Sub(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
-    question_one = CreateQuestionModelThreeSerializer(read_only=True, many=True)
-
     class Meta:
-        model = QuestionModel_Three_Sub
+        model = QuestionModel_Three
         fields = '__all__'
 
 
@@ -69,16 +67,16 @@ class CreateAnsTypeTwoSerializer(FriendlyErrorMessagesMixin, serializers.ModelSe
         fields = '__all__'
 
 
-class CreateAnsThreeSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
-    class Meta:
-        model = AnsModel_Three
-        fields = '__all__'
-
-
-class CreateAnsThreeSerializer_Sub(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
-    class Meta:
-        model = AnsModel_Three
-        fields = '__all__'
+# class CreateAnsThreeSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
+#     class Meta:
+#         model = AnsModel_Three
+#         fields = '__all__'
+#
+#
+# class CreateAnsThreeSerializer_Sub(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
+#     class Meta:
+#         model = AnsModel_Three
+#         fields = '__all__'
 
 
 class ExamResultSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
@@ -100,6 +98,8 @@ class CreateBatchSettings(FriendlyErrorMessagesMixin, serializers.ModelSerialize
 
 
 class StudentProfileSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
+    user = serializers.PrimaryKeyRelatedField(read_only=True)
+
     class Meta:
         model = StudentProfile
         fields = '__all__'
@@ -111,12 +111,3 @@ class UserInfoSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer
         model = UserInfo
         fields = '__all__'
         # depth = 1
-    # def get_serializer_context(self):
-    #     context = super().get_serializer_context()
-    #     depth = 0
-    #     try:
-    #         depth = int(self.request.query_params.get('depth', 0))
-    #     except ValueError:
-    #         pass # Ignore non-numeric parameters and keep default 0 depth
-        
-    #     context['depth'] = depth

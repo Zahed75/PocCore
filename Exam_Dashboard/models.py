@@ -136,47 +136,47 @@ class AnsModel_Two(models.Model):
 #         return str(self.question_name)
 
 
-class QuestionModel_Three(models.Model):
-    exam_pack = models.ForeignKey(ExamPack, on_delete=models.CASCADE)
-    exam_name = models.ForeignKey(CreateExam, on_delete=models.CASCADE, related_name='name_of_examThree')
-    Q_Description = models.TextField(max_length=5000)
-    question_name = models.TextField(max_length=5000, null=True, blank=True)
-    Q_image = models.ImageField(upload_to='Question_img', null=True, blank=True)
-
-    def __str__(self):
-        return str(self.question_name)
-
-
+# class QuestionModel_Three(models.Model):
+#     exam_pack = models.ForeignKey(ExamPack, on_delete=models.CASCADE)
+#     exam_name = models.ForeignKey(CreateExam, on_delete=models.CASCADE, related_name='name_of_examThree')
+#     Q_Description = models.TextField(max_length=5000)
+#     question_name = models.TextField(max_length=5000, null=True, blank=True)
+#     Q_image = models.ImageField(upload_to='Question_img', null=True, blank=True)
 #
-class QuestionModel_Three_Sub(models.Model):
-    exam_name = models.ForeignKey(CreateExam, on_delete=models.CASCADE, related_name='name_of_examThree_sub')
-    main_question = models.ForeignKey(QuestionModel_Three, on_delete=models.CASCADE, related_name='main_question')
-    question_name = models.TextField(max_length=5000, null=True, blank=True)
-    sample_one = models.CharField(max_length=400, null=True, blank=True)
-    sample_two = models.CharField(max_length=400, null=True, blank=True)
-    sample_three = models.CharField(max_length=400, null=True, blank=True)
-    marks = models.IntegerField(default=4, null=True, blank=True)
-
-    def __str__(self):
-        return str(self.question_name)
-
-
-class AnsModel_Three(models.Model):
-    Question = models.ForeignKey(QuestionModel_Three, on_delete=models.CASCADE, related_name='question_three')
-    ans = models.CharField(max_length=400)
-    is_correct = models.BooleanField(default=False)
-
-    def __str__(self):
-        return self.ans
+#     def __str__(self):
+#         return str(self.question_name)
+#
+#
+# #
+# class QuestionModel_Three_Sub(models.Model):
+#     exam_name = models.ForeignKey(CreateExam, on_delete=models.CASCADE, related_name='name_of_examThree_sub')
+#     main_question = models.ForeignKey(QuestionModel_Three, on_delete=models.CASCADE, related_name='main_question')
+#     question_name = models.TextField(max_length=5000, null=True, blank=True)
+#     sample_one = models.CharField(max_length=400, null=True, blank=True)
+#     sample_two = models.CharField(max_length=400, null=True, blank=True)
+#     sample_three = models.CharField(max_length=400, null=True, blank=True)
+#     marks = models.IntegerField(default=4, null=True, blank=True)
+#
+#     def __str__(self):
+#         return str(self.question_name)
 
 
-class AnsModel_Three_Sub(models.Model):
-    Question = models.ForeignKey(QuestionModel_Three_Sub, on_delete=models.CASCADE, related_name='question_three_sub')
-    ans = models.CharField(max_length=400)
-    is_correct = models.BooleanField(default=False)
-
-    def __str__(self):
-        return self.ans
+# class AnsModel_Three(models.Model):
+#     Question = models.ForeignKey(QuestionModel_Three, on_delete=models.CASCADE, related_name='question_three')
+#     ans = models.CharField(max_length=400)
+#     is_correct = models.BooleanField(default=False)
+#
+#     def __str__(self):
+#         return self.ans
+#
+#
+# class AnsModel_Three_Sub(models.Model):
+#     Question = models.ForeignKey(QuestionModel_Three_Sub, on_delete=models.CASCADE, related_name='question_three_sub')
+#     ans = models.CharField(max_length=400)
+#     is_correct = models.BooleanField(default=False)
+#
+#     def __str__(self):
+#         return self.ans
 
 
 # ==============================
@@ -189,3 +189,35 @@ class BatchSettings(models.Model):
 
     def __str__(self):
         return str(self.batch)
+
+
+class QuestionModel_Three(models.Model):
+    exam_pack = models.ForeignKey(ExamPack, on_delete=models.CASCADE)
+    exam_name = models.ForeignKey(CreateExam, on_delete=models.CASCADE, related_name='name_of_examThree')
+    q_description = models.TextField(max_length=500)
+    question_name = models.TextField(max_length=500, null=True, blank=True)
+    question_one_ans_one = models.TextField(max_length=500, null=True, blank=True)
+    question_one_ans_one_is_correct = models.BooleanField(default=False)
+    question_one_ans_two = models.CharField(max_length=500, null=True, blank=True)
+    question_one_ans_two_is_correct = models.BooleanField(default=False)
+    question_one_ans_three = models.CharField(max_length=500, null=True, blank=True)
+    question_one_ans_three_is_correct = models.BooleanField(default=False)
+    question_one_ans_four = models.CharField(max_length=500, null=True, blank=True)
+    question_one_ans_four_is_correct = models.BooleanField(default=False)
+    q_image = models.ImageField(upload_to='Question_img', null=True, blank=True)
+    question_name_two=models.TextField(max_length=400,blank=True,null=True)
+    sample_one = models.TextField(max_length=400, null=True, blank=True)
+    sample_two = models.TextField(max_length=400, null=True, blank=True)
+    sample_three = models.TextField(max_length=400, null=True, blank=True)
+    question_two_ans_one = models.CharField(max_length=500, null=True, blank=True)
+    question_two_ans_one_is_correct = models.BooleanField(default=False)
+    question_two_ans_two = models.CharField(max_length=500, null=True, blank=True)
+    question_two_ans_two_is_correct = models.BooleanField(default=False)
+    question_two_ans_three = models.CharField(max_length=500, null=True, blank=True)
+    question_two_ans_three_is_correct = models.BooleanField(default=False)
+    question_two_ans_four = models.CharField(max_length=500, null=True, blank=True)
+    question_two_ans_four_is_correct = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.question_name
+

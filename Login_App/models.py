@@ -16,7 +16,7 @@ class UserInfo(models.Model):
 
 
 class StudentProfile(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE,related_name='Student')
     Profile_image = models.ImageField(upload_to='Student_Profile', blank=True, null=True)
     name = models.CharField(max_length=120)
     email = models.EmailField(max_length=40, blank=True, null=True)
@@ -24,6 +24,10 @@ class StudentProfile(models.Model):
     batch = models.CharField(max_length=70, blank=False)
     board = models.CharField(max_length=80, blank=False)
     institution = models.CharField(max_length=100, blank=False)
+
+    class Meta:
+        unique_together = ['user', 'name']
+        ordering = ['name']
 
     def __str__(self):
         return str(self.user)

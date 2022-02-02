@@ -211,6 +211,7 @@ def Register(request):
         print(data_serializer, "tst")
         if data_serializer.is_valid():
             data_serializer.save()
+
             print(data_serializer)
 
             return Response({

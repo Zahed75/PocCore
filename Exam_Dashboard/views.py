@@ -220,9 +220,8 @@ def student_info(request):
     #     print(x.user)
     try:
         stu_info = StudentProfile.objects.all()
-        user_info = UserInfo.objects.all()
-
         data_serializer = StudentProfileSerializer(stu_info, many=True, context={'request': request})
+    
         return Response({
 
             'code': status.HTTP_200_OK,

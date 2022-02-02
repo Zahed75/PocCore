@@ -99,8 +99,15 @@ class AnswerModel_OneModelAdmin(admin.ModelAdmin):
     list_display = ('id', 'Question', 'ans', 'is_correct')
 
 
-admin.site.register(QuestionModel_Three)
+# admin.site.register(QuestionModel_Three)
 admin.site.register(AnsModel_Two)
-admin.site.register(AnsModel_Three)
-admin.site.register(QuestionModel_Three_Sub)
-admin.site.register(AnsModel_Three_Sub)
+# admin.site.register(AnsModel_Three)
+# admin.site.register(QuestionModel_Three_Sub)
+# admin.site.register(AnsModel_Three_Sub)
+
+
+@admin.register(QuestionModel_Three)
+class QuestionModel_ThreeModelAdmin(admin.ModelAdmin):
+    list_display = ('id', 'exam_pack', 'exam_name',
+                    'question_name')
+

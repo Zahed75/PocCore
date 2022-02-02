@@ -21,11 +21,14 @@ class LoginSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
 
 class RegistrationDataSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
     password = serializers.CharField(max_length=256)
+   
 
     class Meta:
         model = UserInfo
         fields = ['phone_number', 'password','is_block']
         depth=1
+        
+   
 
 
 # payload = request.data
@@ -33,6 +36,18 @@ class RegistrationDataSerializer(FriendlyErrorMessagesMixin, serializers.ModelSe
 
 
 class StudentProfileSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
+ 
     class Meta:
         model = StudentProfile
         fields = '__all__'
+
+        # depth=1
+        
+
+
+
+
+
+
+
+  
