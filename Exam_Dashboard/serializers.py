@@ -47,10 +47,7 @@ class CreateQuestionModelThreeSerializer(FriendlyErrorMessagesMixin, serializers
         fields = '__all__'
 
 
-class CreateQuestionModelThreeSerializer_Sub(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
-    class Meta:
-        model = QuestionModel_Three
-        fields = '__all__'
+
 
 
 class Anstype_oneSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):

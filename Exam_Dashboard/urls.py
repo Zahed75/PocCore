@@ -44,12 +44,12 @@ urlpatterns = [
     path('api/delete_question_one/<id>', delete_question_one),
     path('api/edit_ans_model_one/<id>', edit_ans_model_one),
     path('api/admin_student_info/', get_student_info),
-    #=====================================================
-    path('api/edit_question_two/<id>',edit_question_two),
-    path('api/delete_question_two/<id>',delete_question_two),
-    path('api/edit_ans_two/<id>',edit_ans_model_two),
-    #=====================================================
-
-
+    # =====================================================
+    path('api/edit_question_two/<id>', edit_question_two),
+    path('api/delete_question_two/<id>', delete_question_two),
+    path('api/edit_ans_two/<id>', edit_ans_model_two),
+    # =====================================================
+    path('api/edit_question_three/<id>', edit_question_three),
+    path('api/delete_question_three/<id>',delete_question_three)
 
 ]

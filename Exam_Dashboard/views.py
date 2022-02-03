@@ -768,7 +768,7 @@ def edit_question_three(request, id):
     try:
         question_obj = QuestionModel_Two.objects.get(id=id)
         Serializer = CreateQuestionModelThreeSerializer(question_obj, partial=True, data=request.data,
-                                                      context={'request': request})
+                                                        context={'request': request})
 
         if not Serializer.is_valid():
             return Response({
@@ -780,6 +780,49 @@ def edit_question_three(request, id):
             'code': status.HTTP_200_OK,
             'message': 'Question model One Updated Successfully!',
             'data': Serializer.data
+        })
+
+    except Exception as e:
+        return Response({
+            'code': status.HTTP_400_BAD_REQUEST,
+            'message': str(e)
+        })
+
+
+@api_view(['PUT'])
+@parser_classes([MultiPartParser])
+def edit_question_three(request, id):
+    try:
+        question_three = QuestionModel_Three.objects.get(id=id)
+        Serializer = CreateQuestionModelThreeSerializer(question_three, data=request.data, partial=True)
+        if not Serializer.is_valid():
+            return Response({
+                'status': 200, 'payload': Serializer.data, 'message': 'Something Went Wrong'
+
+            })
+        Serializer.save()
+        return Response({
+            'code': status.HTTP_200_OK,
+            'message': 'Question Model Updated Successfully!',
+            'data': Serializer.data
+        })
+
+    except Exception as e:
+        return Response({
+            'code': status.HTTP_400_BAD_REQUEST,
+            'message': str(e)
+        })
+
+
+@api_view(['DELETE'])
+def delete_question_three(request, id):
+    try:
+        question_obj = QuestionModel_Three.objects.get(id=id)
+        question_obj.delete()
+        return Response({
+            'code': status.HTTP_200_OK,
+            'message': 'Question Three Model Deleted Successfully!',
+
         })
 
     except Exception as e:
