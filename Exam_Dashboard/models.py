@@ -30,6 +30,8 @@ class CreateExam(models.Model):
     Exam_end_time = models.CharField(max_length=60)
     Exam_end_date = models.DateField()
     exam_total_time = models.IntegerField(default=10)
+    question_amount=models.CharField(max_length=300,blank=True,null=True)
+
 
     cover_photo = models.ImageField(upload_to='exam_cover_photos', blank=True, null=True)
 
