@@ -35,7 +35,6 @@ INSTALLED_APPS = [
     'Student_ExamDashboard',
     'django_cleanup.apps.CleanupConfig',
     'corsheaders',
-    'rest_framework_swagger'
 
 ]
 
