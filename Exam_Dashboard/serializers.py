@@ -47,9 +47,6 @@ class CreateQuestionModelThreeSerializer(FriendlyErrorMessagesMixin, serializers
         fields = '__all__'
 
 
-
-
-
 class Anstype_oneSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
     class Meta:
         model = AnswerModel_One
@@ -108,3 +105,9 @@ class UserInfoSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer
         model = UserInfo
         fields = '__all__'
         # depth = 1
+
+
+class ViewAnsSheetSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
+    class Meta:
+        model = ViewAnsSheet
+        fields = '__all__'

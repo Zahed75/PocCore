@@ -30,8 +30,7 @@ class CreateExam(models.Model):
     Exam_end_time = models.CharField(max_length=60)
     Exam_end_date = models.DateField()
     exam_total_time = models.IntegerField(default=10)
-    question_amount=models.CharField(max_length=300,blank=True,null=True)
-
+    question_amount = models.CharField(max_length=300, blank=True, null=True)
 
     cover_photo = models.ImageField(upload_to='exam_cover_photos', blank=True, null=True)
 
@@ -207,7 +206,7 @@ class QuestionModel_Three(models.Model):
     question_one_ans_four = models.CharField(max_length=500, null=True, blank=True)
     question_one_ans_four_is_correct = models.BooleanField(default=False)
     q_image = models.ImageField(upload_to='Question_img', null=True, blank=True)
-    question_name_two=models.TextField(max_length=400,blank=True,null=True)
+    question_name_two = models.TextField(max_length=400, blank=True, null=True)
     sample_one = models.TextField(max_length=400, null=True, blank=True)
     sample_two = models.TextField(max_length=400, null=True, blank=True)
     sample_three = models.TextField(max_length=400, null=True, blank=True)
@@ -223,3 +222,11 @@ class QuestionModel_Three(models.Model):
     def __str__(self):
         return self.question_name
 
+
+class ViewAnsSheet(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    exam_id = models.ForeignKey(CreateExam, on_delete=models.CASCADE)
+    all_question = models.TextField(max_length=200000, blank=True, null=True)
+
+    def __str__(self):
+        return str(self.user)

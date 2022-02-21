@@ -474,8 +474,6 @@ def delete_user(request, username):
             'message': str(e)
         })
 
-
-
 #
 # import requests
 #

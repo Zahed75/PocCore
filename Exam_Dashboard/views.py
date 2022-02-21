@@ -830,3 +830,48 @@ def delete_question_three(request, id):
             'code': status.HTTP_400_BAD_REQUEST,
             'message': str(e)
         })
+
+
+@api_view(['POST'])
+@parser_classes([MultiPartParser])
+def ans_sheet(request):
+    try:
+        payload = request.data.copy()
+        payload['user'] = request.user.id
+        print(payload)
+        data_serializer = ViewAnsSheetSerializer(data=payload, context={'request': request})
+        if data_serializer.is_valid():
+            data_serializer.save()
+            return Response({
+                'code': status.HTTP_200_OK,
+                'message': 'All Question AnsSheet Get Down Successfully!',
+                'data': data_serializer.data
+            })
+        else:
+            return Response(data_serializer.errors)
+
+    except Exception as e:
+        return Response({
+            'code': status.HTTP_400_BAD_REQUEST,
+            'message': str(e)
+        })
+
+
+@api_view(['GET'])
+@parser_classes([MultiPartParser])
+def get_ans_sheet(request, exam_id):
+    try:
+        ans_sheet = ViewAnsSheet.objects.filter(user=request.user, exam_id=exam_id)
+        print(ans_sheet)
+        data_serializer = ViewAnsSheetSerializer(ans_sheet, many=True)
+        return Response({
+            'code': status.HTTP_200_OK,
+            'message': 'Ans Sheet Get Down!',
+            'data': data_serializer.data
+        })
+
+    except Exception as e:
+        return Response({
+            'code': status.HTTP_400_BAD_REQUEST,
+            'message': str(e)
+        })

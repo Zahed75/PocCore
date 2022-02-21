@@ -50,6 +50,10 @@ urlpatterns = [
     path('api/edit_ans_two/<id>', edit_ans_model_two),
     # =====================================================
     path('api/edit_question_three/<id>', edit_question_three),
-    path('api/delete_question_three/<id>',delete_question_three)
+    path('api/delete_question_three/<id>', delete_question_three),
+    # ===========================================================
+    # =========view ansheet============
+    path('api/post_ans_sheet/', ans_sheet),
+    path('api/get_ans_sheet/<int:exam_id>/', get_ans_sheet),
 
 ]
