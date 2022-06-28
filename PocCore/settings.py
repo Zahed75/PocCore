@@ -16,7 +16,7 @@ SECRET_KEY = 'django-insecure-xrk!zofeiw22-n1&$519$j75z57v&3qrmy=02^95@57q2snwsq
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-PRODUCTION = True
+PRODUCTION = False
 ALLOWED_HOSTS = ['*']
 
 # Application definition
@@ -88,29 +88,32 @@ WSGI_APPLICATION = 'PocCore.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 if PRODUCTION:
-    DATABASES = {
-        # Production configuration
+    # Production database
+     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'pocapp',
-            'USER': 'pocapp',
-            'PASSWORD': 'nCLf33Y8sbmjrGh3',
-            'HOST': '127.0.0.1',
-            'PORT': '3306',
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'poc_database',
+            'USER': 'postgres',
+            'PASSWORD': 'zahed75',
+            'HOST': 'localhost',
+            'PORT': '5432',
         }
     }
+
 else:
-    DATABASES = {
-        # Local configuration
+    # Local configuration
+     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'pocapp',
-            'USER': 'root',
-            'PASSWORD': '',
-            'HOST': '127.0.0.1',
-            'PORT': '3306',
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'poc_database',
+            'USER': 'postgres',
+            'PASSWORD': 'zahed75',
+            'HOST': 'localhost',
+            'PORT': '5432',
         }
     }
+
+# c
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -135,8 +138,7 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
     'EXCEPTION_HANDLER':
-        'rest_framework_friendly_errors.handlers.friendly_exception_handler'
-    ,
+        'rest_framework_friendly_errors.handlers.friendly_exception_handler',
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
     ],
