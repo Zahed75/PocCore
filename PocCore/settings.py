@@ -96,7 +96,7 @@ if PRODUCTION:
             'USER': 'postgres',
             'PASSWORD': 'zahed75',
             'HOST': 'localhost',
-            'PORT': '5432',
+            'PORT': '',
         }
     }
 
