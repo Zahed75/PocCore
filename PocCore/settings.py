@@ -92,11 +92,11 @@ if PRODUCTION:
      DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'poc_database',
-            'USER': 'postgres',
-            'PASSWORD': 'zahed75',
+            'NAME': 'PocExamApp',
+            'USER': 'poc_web_app',
+            'PASSWORD': '6!317SXx',
             'HOST': 'localhost',
-            'PORT': '',
+            'PORT': '5432',
         }
     }
 
@@ -235,3 +235,5 @@ CORS_ALLOW_HEADERS = [
     'x-csrftoken',
     'x-requested-with',
 ]
+
+
