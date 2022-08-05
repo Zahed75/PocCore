@@ -108,7 +108,7 @@ else:
             'NAME': 'poc_database',
             'USER': 'postgres',
             'PASSWORD': 'zahed75',
-            'HOST': 'localhost',
+            'HOST': 'django-aws.cfqby2rwhvd9.ap-southeast-1.rds.amazonaws.com',
             'PORT': '5432',
         }
     }
