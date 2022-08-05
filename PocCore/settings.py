@@ -95,7 +95,7 @@ if PRODUCTION:
             'NAME': 'PocExamApp',
             'USER': 'poc_web_app',
             'PASSWORD': '6!317SXx',
-            'HOST': 'localhost',
+            'HOST': 'django-aws.cfqby2rwhvd9.ap-southeast-1.rds.amazonaws.com',
             'PORT': '5432',
         }
     }
@@ -108,7 +108,7 @@ else:
             'NAME': 'poc_database',
             'USER': 'postgres',
             'PASSWORD': 'zahed75',
-            'HOST': 'django-aws.cfqby2rwhvd9.ap-southeast-1.rds.amazonaws.com',
+            'HOST': 'localhost',
             'PORT': '5432',
         }
     }
